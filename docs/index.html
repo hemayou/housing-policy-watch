@@ -13,65 +13,65 @@ try {
 </script>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Noto+Serif+SC:wght@400;500;600;700;900&family=Noto+Sans+SC:wght@300;400;500;700&family=Spectral:ital,wght@0,400;0,500;1,400&family=JetBrains+Mono:wght@400;500&display=swap">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Noto+Serif+SC:wght@400;500;600;700;900&family=Noto+Sans+SC:wght@300;400;500;700&family=Spectral:ital,wght@0,400;0,500;1,400&family=JetBrains+Mono:wght@400;500&family=ZCOOL+QingKe+HuangYou&display=swap">
 <style>
 /* ============ 设计系统：档案纸 × 杂志特稿 ============ */
 :root {
-  --paper: #f7f4ee;          /* 微暖档案纸 */
-  --paper-deep: #efe9de;     /* 深一档纸色，篇章页 */
-  --paper-panel: #f1ede4;    /* 面板 */
-  --ink: #23201a;            /* 近黑墨 */
-  --ink-2: #4a453b;          /* 次级墨 */
-  --ink-3: #7d766a;          /* 弱墨 */
-  --hairline: #d8d1c2;       /* 发丝线 */
-  --hairline-2: #c5bca8;
-  --seal: #a03123;           /* 印章红——唯一强调色 */
-  --seal-soft: #b8514419;    /* 印章红 10% */
-  --tag-blue: #2c5f7c;       /* 档案蓝，数据/图表用 */
-  --tag-blue-2: #6d98ad;
-  --tag-gold: #9a7b2d;       /* 档案金，第二数据色 */
-  --good: #3a7d5c;
-  --chart-grid: #dcd5c6;
+  --paper: #fcfcf9;          /* 微暖档案纸 */
+  --paper-deep: #f2f2ea;     /* 深一档纸色，篇章页 */
+  --paper-panel: #f6f5ee;    /* 面板 */
+  --ink: #1d1f26;            /* 近黑墨 */
+  --ink-2: #494c58;          /* 次级墨 */
+  --ink-3: #7b7e8c;          /* 弱墨 */
+  --hairline: #e2e1d7;       /* 发丝线 */
+  --hairline-2: #c8c7ba;
+  --seal: #e8432d;           /* 印章红——唯一强调色 */
+  --seal-soft: #e8432d1f;    /* 印章红 10% */
+  --tag-blue: #2b5cd9;       /* 档案蓝，数据/图表用 */
+  --tag-blue-2: #86a3e8;
+  --tag-gold: #d9910c;       /* 档案金，第二数据色 */
+  --good: #159f68;
+  --chart-grid: #e7e6db;
   --mono: 'JetBrains Mono', 'SF Mono', monospace;
   --serif: 'Noto Serif SC', 'Songti SC', serif;
   --sans: 'Noto Sans SC', 'PingFang SC', sans-serif;
-  --num: 'Spectral', 'Noto Serif SC', serif;
+  --num: 'ZCOOL QingKe HuangYou', 'Spectral', 'Noto Serif SC', serif;
 }
 @media (prefers-color-scheme: dark) {
   :root:not([data-theme="light"]) {
-    --paper: #201e19;
-    --paper-deep: #262420;
-    --paper-panel: #2a2722;
-    --ink: #e6e0d2;
-    --ink-2: #b5ac99;
-    --ink-3: #857c6b;
-    --hairline: #3d382f;
-    --hairline-2: #4d463a;
-    --seal: #c9564a;
-    --seal-soft: #c9564a1f;
-    --tag-blue: #7aa9c0;
-    --tag-blue-2: #4a7d96;
-    --tag-gold: #c0a054;
-    --good: #5b9c7c;
-    --chart-grid: #38342b;
+    --paper: #15171e;
+    --paper-deep: #1b1e26;
+    --paper-panel: #20232d;
+    --ink: #e9eae4;
+    --ink-2: #b3b6bf;
+    --ink-3: #82858f;
+    --hairline: #333640;
+    --hairline-2: #464a56;
+    --seal: #ff6a4d;
+    --seal-soft: #ff6a4d24;
+    --tag-blue: #82a5ff;
+    --tag-blue-2: #4a68b3;
+    --tag-gold: #f0b83d;
+    --good: #43c98b;
+    --chart-grid: #343744;
   }
 }
 :root[data-theme="dark"] {
-  --paper: #201e19;
-  --paper-deep: #262420;
-  --paper-panel: #2a2722;
-  --ink: #e6e0d2;
-  --ink-2: #b5ac99;
-  --ink-3: #857c6b;
-  --hairline: #3d382f;
-  --hairline-2: #4d463a;
-  --seal: #c9564a;
-  --seal-soft: #c9564a1f;
-  --tag-blue: #7aa9c0;
-  --tag-blue-2: #4a7d96;
-  --tag-gold: #c0a054;
-  --good: #5b9c7c;
-  --chart-grid: #38342b;
+  --paper: #15171e;
+  --paper-deep: #1b1e26;
+  --paper-panel: #20232d;
+  --ink: #e9eae4;
+  --ink-2: #b3b6bf;
+  --ink-3: #82858f;
+  --hairline: #333640;
+  --hairline-2: #464a56;
+  --seal: #ff6a4d;
+  --seal-soft: #ff6a4d24;
+  --tag-blue: #82a5ff;
+  --tag-blue-2: #4a68b3;
+  --tag-gold: #f0b83d;
+  --good: #43c98b;
+  --chart-grid: #343744;
 }
 
 * { margin: 0; padding: 0; box-sizing: border-box; }
@@ -98,8 +98,38 @@ body {
   justify-content: center;
   position: relative;
   border-bottom: 1px solid var(--hairline-2);
-  background: linear-gradient(180deg, var(--paper-deep), var(--paper));
+  background:
+    radial-gradient(ellipse 60% 45% at 85% 12%, var(--seal-soft), transparent 70%),
+    radial-gradient(ellipse 50% 40% at 8% 88%, color-mix(in srgb, var(--tag-blue) 9%, transparent), transparent 70%),
+    linear-gradient(180deg, var(--paper-deep), var(--paper));
+  overflow: hidden;
 }
+/* 封面数字雨背景 */
+.cover-figures {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  font-family: var(--num);
+  color: var(--ink);
+  opacity: .05;
+  font-size: clamp(80px, 16vw, 190px);
+  line-height: 1;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  padding: 2vh 3vw;
+  user-select: none;
+}
+.cover-figures span:nth-child(2) { align-self: flex-end; }
+.cover-figures span:nth-child(3) { align-self: center; }
+/* 渐入动画 */
+@keyframes riseIn { from { opacity: 0; transform: translateY(22px); } to { opacity: 1; transform: none; } }
+.cover-inner > * { animation: riseIn .7s cubic-bezier(.2,.7,.3,1) both; }
+.cover-inner > *:nth-child(2) { animation-delay: .12s; }
+.cover-inner > *:nth-child(3) { animation-delay: .24s; }
+.cover-inner > *:nth-child(4) { animation-delay: .36s; }
+.cover-inner > *:nth-child(5) { animation-delay: .48s; }
+@media (prefers-reduced-motion: reduce) { .cover-inner > * { animation: none; } }
 .cover-inner { max-width: 760px; margin: 0 auto; padding: 96px 24px; width: 100%; }
 .cover-kicker {
   font-family: var(--mono);
@@ -192,7 +222,8 @@ body {
   color: var(--ink);
   transition: color .15s;
 }
-.toc-item:hover { color: var(--seal); }
+.toc-item { transition: color .15s, transform .18s, padding-left .18s; }
+.toc-item:hover { color: var(--seal); padding-left: 8px; }
 .toc-item .no {
   font-family: var(--num);
   font-size: 15px;
@@ -212,10 +243,20 @@ body {
 }
 .chapter-label {
   font-family: var(--num);
-  font-style: italic;
-  font-size: 17px;
+  font-style: normal;
+  font-size: 15px;
+  letter-spacing: 2px;
   color: var(--seal);
-  margin-bottom: 10px;
+  margin-bottom: 12px;
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+}
+.chapter-label::before {
+  content: '';
+  width: 30px; height: 3px;
+  border-radius: 2px;
+  background: linear-gradient(90deg, var(--seal), var(--tag-gold));
 }
 .chapter h2 {
   font-family: var(--serif);
@@ -277,11 +318,22 @@ strong { font-weight: 700; color: var(--ink); }
   font-weight: 500;
   line-height: 1.85;
   color: var(--ink);
-  border-top: 2px solid var(--ink);
-  border-bottom: 1px solid var(--hairline-2);
-  padding: 30px 4px;
+  position: relative;
+  background: linear-gradient(135deg, var(--seal-soft), color-mix(in srgb, var(--tag-blue) 7%, transparent));
+  border-radius: 14px;
+  padding: 34px 30px 30px 34px;
   margin: 48px 0;
   text-wrap: balance;
+}
+.pull::before {
+  content: '\201C';
+  position: absolute;
+  top: -12px; left: 14px;
+  font-family: var(--num);
+  font-size: 78px;
+  line-height: 1;
+  color: var(--seal);
+  opacity: .55;
 }
 .pull .attr {
   display: block;
@@ -327,7 +379,8 @@ blockquote.doc .src {
 .repealed-vault {
   background: var(--paper-panel);
   border: 1px solid var(--hairline-2);
-  border-radius: 4px;
+  border-radius: 14px;
+  box-shadow: 0 1px 3px rgba(20,22,30,.04), 0 8px 28px rgba(20,22,30,.05);
   padding: 30px 30px 24px;
   margin: 40px 0;
   position: relative;
@@ -414,8 +467,9 @@ figure.chart {
   margin: 44px 0;
   background: var(--paper-panel);
   border: 1px solid var(--hairline);
-  border-radius: 4px;
+  border-radius: 14px;
   padding: 26px 26px 18px;
+  box-shadow: 0 1px 3px rgba(20,22,30,.04), 0 8px 28px rgba(20,22,30,.05);
 }
 figure.chart figcaption {
   font-family: var(--serif);
@@ -448,7 +502,7 @@ figure.chart svg { width: 100%; height: auto; display: block; overflow: visible;
   gap: 1px;
   background: var(--hairline);
   border: 1px solid var(--hairline);
-  border-radius: 4px;
+  border-radius: 14px;
   overflow: hidden;
   margin: 40px 0;
 }
@@ -458,7 +512,7 @@ figure.chart svg { width: 100%; height: auto; display: block; overflow: visible;
 }
 .stat .v {
   font-family: var(--num);
-  font-size: 32px;
+  font-size: 40px;
   font-weight: 500;
   line-height: 1.1;
   color: var(--ink);
@@ -472,8 +526,8 @@ figure.chart svg { width: 100%; height: auto; display: block; overflow: visible;
 .actor-table { width: 100%; border-collapse: collapse; margin: 36px 0; font-size: 14px; }
 .actor-table th {
   font-family: var(--serif);
-  background: var(--ink);
-  color: var(--paper);
+  background: linear-gradient(135deg, var(--tag-blue), color-mix(in srgb, var(--tag-blue) 70%, var(--ink)));
+  color: #fff;
   text-align: left;
   padding: 11px 15px;
   font-weight: 500;
@@ -495,9 +549,10 @@ figure.chart svg { width: 100%; height: auto; display: block; overflow: visible;
 /* 落差卡 */
 .gap-card {
   border: 1px solid var(--hairline-2);
-  border-radius: 4px;
+  border-radius: 14px;
   margin: 34px 0;
   overflow: hidden;
+  box-shadow: 0 1px 3px rgba(20,22,30,.04), 0 8px 28px rgba(20,22,30,.05);
 }
 .gap-card .gc-head {
   background: var(--paper-deep);
@@ -713,8 +768,9 @@ figure.chart svg { width: 100%; height: auto; display: block; overflow: visible;
 .chart-tip {
   position: fixed;
   z-index: 120;
-  background: var(--ink);
+  background: color-mix(in srgb, var(--ink) 94%, var(--tag-blue));
   color: var(--paper);
+  border-radius: 10px;
   font-family: var(--mono);
   font-size: 12px;
   line-height: 1.7;
@@ -732,13 +788,17 @@ figure.chart [data-tip] { cursor: crosshair; }
 figure.chart .bar { transition: opacity .15s; }
 figure.chart .bar:hover { opacity: .8; }
 
+.reveal { opacity: 0; transform: translateY(18px); transition: opacity .6s cubic-bezier(.2,.7,.3,1), transform .6s cubic-bezier(.2,.7,.3,1); }
+.reveal.in { opacity: 1; transform: none; }
+@media (prefers-reduced-motion: reduce) { .reveal { opacity: 1; transform: none; transition: none; } }
+
 /* 阅读进度条 */
 .progress-bar {
   position: fixed;
   top: 0; left: 0;
-  height: 2.5px;
+  height: 3px;
   width: 0;
-  background: var(--seal);
+  background: linear-gradient(90deg, var(--seal), var(--tag-gold));
   z-index: 110;
 }
 
@@ -777,6 +837,7 @@ figure.chart .bar:hover { opacity: .8; }
 
 <!-- ================= 封面 ================= -->
 <header class="cover">
+  <div class="cover-figures" aria-hidden="true"><span>18.2万亿</span><span>−52%</span><span>40年</span></div>
   <div class="file-stamp">HPW-ARCHIVE<br>No. 2026-0828</div>
   <div class="cover-inner">
     <div class="cover-kicker">住房政策观察 · 深度研究</div>
@@ -1484,6 +1545,17 @@ figure.chart .bar:hover { opacity: .8; }
     else hideTip();
   });
   window.addEventListener('scroll', hideTip, { passive: true });
+
+  /* ---- 滚动淡入 ---- */
+  var revealTargets = document.querySelectorAll('figure.chart, .gap-card, .repealed-vault, .stat-row, .pull, .verdict, .debate, .compare-grid, .scenario-grid, .timeline');
+  if ('IntersectionObserver' in window) {
+    var io = new IntersectionObserver(function (entries) {
+      entries.forEach(function (en) {
+        if (en.isIntersecting) { en.target.classList.add('in'); io.unobserve(en.target); }
+      });
+    }, { rootMargin: '0px 0px -8% 0px' });
+    revealTargets.forEach(function (el) { el.classList.add('reveal'); io.observe(el); });
+  }
 })();
 </script>
 
