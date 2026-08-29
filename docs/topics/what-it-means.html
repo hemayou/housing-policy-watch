@@ -1,0 +1,270 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>828新政与我有什么关系</title>
+<script>
+try {
+  var t = localStorage.getItem('hpw-theme');
+  if (t === 'dark' || t === 'light') document.documentElement.setAttribute('data-theme', t);
+} catch (e) {}
+</script>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Noto+Serif+SC:wght@400;700;900&family=Noto+Sans+SC:wght@300;400;500;700&family=Spectral:ital,wght@0,500;1,400&family=JetBrains+Mono:wght@400;500&display=swap">
+<style>
+:root {
+  --paper: #f7f4ee; --paper-deep: #efe9de; --paper-panel: #f1ede4;
+  --ink: #23201a; --ink-2: #4a453b; --ink-3: #7d766a;
+  --hairline: #d8d1c2; --hairline-2: #c5bca8;
+  --seal: #a03123; --seal-soft: #b8514419;
+  --tag-blue: #2c5f7c; --tag-gold: #9a7b2d; --good: #3a7d5c;
+  --mono: 'JetBrains Mono', monospace;
+  --serif: 'Noto Serif SC', serif;
+  --sans: 'Noto Sans SC', sans-serif;
+  --num: 'Spectral', 'Noto Serif SC', serif;
+}
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) {
+    --paper: #201e19; --paper-deep: #262420; --paper-panel: #2a2722;
+    --ink: #e6e0d2; --ink-2: #b5ac99; --ink-3: #857c6b;
+    --hairline: #3d382f; --hairline-2: #4d463a;
+    --seal: #c9564a; --seal-soft: #c9564a1f;
+    --tag-blue: #7aa9c0; --tag-gold: #c0a054; --good: #5b9c7c;
+  }
+}
+:root[data-theme="dark"] {
+  --paper: #201e19; --paper-deep: #262420; --paper-panel: #2a2722;
+  --ink: #e6e0d2; --ink-2: #b5ac99; --ink-3: #857c6b;
+  --hairline: #3d382f; --hairline-2: #4d463a;
+  --seal: #c9564a; --seal-soft: #c9564a1f;
+  --tag-blue: #7aa9c0; --tag-gold: #c0a054; --good: #5b9c7c;
+}
+* { margin: 0; padding: 0; box-sizing: border-box; }
+[hidden] { display: none !important; }
+body { font-family: var(--sans); background: var(--paper); color: var(--ink); font-size: 16px; line-height: 1.9; -webkit-font-smoothing: antialiased; }
+.shell { max-width: 680px; margin: 0 auto; padding: 0 clamp(24px, 6vw, 40px); }
+.top-nav { display: flex; align-items: center; justify-content: space-between; padding: 18px clamp(24px, 6vw, 40px); border-bottom: 1px solid var(--hairline); background: var(--paper-deep); }
+.top-nav a { font-size: 13.5px; color: var(--ink-2); text-decoration: none; font-weight: 500; }
+.top-nav a:hover { color: var(--seal); }
+.top-nav .brand { font-family: var(--serif); font-weight: 700; letter-spacing: 1px; }
+.theme-toggle { background: none; border: 1px solid var(--hairline-2); border-radius: 50%; width: 34px; height: 34px; cursor: pointer; color: var(--ink-2); display: flex; align-items: center; justify-content: center; }
+.theme-toggle svg { width: 17px; height: 17px; }
+header.hero { padding: 60px 0 28px; }
+.kicker { font-family: var(--mono); font-size: 11.5px; letter-spacing: 3px; color: var(--seal); margin-bottom: 14px; }
+h1 { font-family: var(--serif); font-size: clamp(28px, 6vw, 40px); font-weight: 900; line-height: 1.35; margin-bottom: 14px; text-wrap: balance; }
+.dek { font-size: 15.5px; color: var(--ink-2); max-width: 540px; }
+
+/* 身份选择器 */
+.persona-picker { display: flex; flex-wrap: wrap; gap: 10px; margin: 30px 0 8px; }
+.persona-btn {
+  border: 1.5px solid var(--hairline-2); background: var(--paper-panel); color: var(--ink-2);
+  font-family: var(--sans); font-size: 14px; font-weight: 500;
+  border-radius: 22px; padding: 9px 18px; cursor: pointer; transition: all .15s;
+}
+.persona-btn:hover { border-color: var(--seal); color: var(--seal); }
+.persona-btn.active { background: var(--seal); border-color: var(--seal); color: #fff; }
+
+.persona-panel { display: none; padding: 26px 0 8px; }
+.persona-panel.show { display: block; animation: fadein .25s; }
+@keyframes fadein { from { opacity: 0; transform: translateY(6px); } to { opacity: 1; transform: none; } }
+.pp-head { font-family: var(--serif); font-size: 20px; font-weight: 700; margin-bottom: 6px; }
+.pp-sub { font-size: 13.5px; color: var(--ink-3); margin-bottom: 20px; }
+
+.item { border: 1px solid var(--hairline); border-radius: 6px; margin-bottom: 14px; overflow: hidden; }
+.item-head {
+  display: flex; align-items: center; gap: 12px; padding: 14px 18px; cursor: pointer;
+  background: var(--paper-panel); font-weight: 500; font-size: 15px; user-select: none;
+}
+.item-head:hover { color: var(--seal); }
+.item-head .sign { margin-left: auto; font-family: var(--mono); font-size: 16px; color: var(--ink-3); transition: transform .2s; flex-shrink: 0; }
+.item.open .item-head .sign { transform: rotate(45deg); }
+.badge { font-size: 11px; font-weight: 700; letter-spacing: 1px; border-radius: 3px; padding: 2px 8px; flex-shrink: 0; }
+.badge.good { background: var(--good); color: #fff; }
+.badge.warn { background: var(--tag-gold); color: #fff; }
+.badge.risk { background: var(--seal); color: #fff; }
+.badge.info { background: var(--tag-blue); color: #fff; }
+.item-body { display: none; padding: 16px 18px 18px; font-size: 14.5px; color: var(--ink-2); border-top: 1px solid var(--hairline); }
+.item.open .item-body { display: block; }
+.item-body b { color: var(--ink); }
+.item-body .src { display: block; font-family: var(--mono); font-size: 11px; color: var(--ink-3); margin-top: 10px; }
+.calc-link { display: inline-block; margin-top: 8px; font-size: 13.5px; color: var(--tag-blue); text-decoration: none; border-bottom: 1px solid var(--tag-blue); }
+
+footer { border-top: 1px solid var(--hairline); margin-top: 46px; padding: 26px 0 60px; font-size: 12.5px; color: var(--ink-3); line-height: 1.8; }
+footer a { color: var(--tag-blue); text-decoration: none; }
+</style>
+</head>
+<body>
+
+<nav class="top-nav">
+  <a href="../" class="brand">住房政策观察</a>
+  <div style="display:flex; align-items:center; gap:16px;">
+    <a href="../">← 返回主报告</a>
+    <button class="theme-toggle" id="themeBtn" aria-label="切换明暗主题">
+      <svg id="iconSun" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="12" cy="12" r="4.5"/><line x1="12" y1="2" x2="12" y2="4.5"/><line x1="12" y1="19.5" x2="12" y2="22"/><line x1="2" y1="12" x2="4.5" y2="12"/><line x1="19.5" y1="12" x2="22" y2="12"/><line x1="4.8" y1="4.8" x2="6.5" y2="6.5"/><line x1="17.5" y1="17.5" x2="19.2" y2="19.2"/><line x1="4.8" y1="19.2" x2="6.5" y2="17.5"/><line x1="17.5" y1="6.5" x2="19.2" y2="4.8"/></svg>
+      <svg id="iconMoon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" hidden><path d="M21 12.8A8.5 8.5 0 1 1 11.2 3a6.6 6.6 0 0 0 9.8 9.8z"/></svg>
+    </button>
+  </div>
+</nav>
+
+<div class="shell">
+
+<header class="hero">
+  <div class="kicker">小专题 · 828 新政</div>
+  <h1>828 新政与我有什么关系</h1>
+  <p class="dek">九份文件、几万字条文，跟你直接相关的可能只有四五条。选一个最接近你的身份，一分钟看完属于你的部分。</p>
+</header>
+
+<div class="persona-picker" id="picker">
+  <button class="persona-btn active" data-p="p1">我正打算买房</button>
+  <button class="persona-btn" data-p="p2">我已经背着房贷</button>
+  <button class="persona-btn" data-p="p3">我买的房还没交付</button>
+  <button class="persona-btn" data-p="p4">我在租房</button>
+  <button class="persona-btn" data-p="p5">我有多套房</button>
+</div>
+
+<!-- 打算买房 -->
+<section class="persona-panel show" id="p1">
+  <div class="pp-head">正打算买房的人</div>
+  <div class="pp-sub">这轮新政的最大受益者——保护是制度性的，但决定还是你自己的。</div>
+  <div class="item open">
+    <div class="item-head"><span class="badge good">利好</span>烂尾风险被制度性拆除<span class="sign">+</span></div>
+    <div class="item-body">新出让土地的项目优先<b>现房销售</b>——看到实楼再掏钱；即便买期房，你的房贷也要等项目<b>竣工备案后</b>银行才放款，等于「房子盖好了才开始还月供」。首付款和贷款全部进监管账户，开发商挪不走。<span class="src">依据：建房规〔2026〕3号；金规〔2026〕5号第22条</span></div>
+  </div>
+  <div class="item">
+    <div class="item-head"><span class="badge good">利好</span>月供门槛降到历史最低<span class="sign">+</span></div>
+    <div class="item-body">贷款期限最长从 30 年延到 <b>40 年</b>，月供比 30 年方案再低 12% 左右；月收入偿债比上限从 55% 放宽到 60%，可贷额度更大。当前新发放房贷利率约 3.06%，是有统计以来最低。<b>但期限是选择权不是义务</b>——可以贷 40 年、按自己的节奏提前还。<a class="calc-link" href="mortgage-40.html">→ 用计算器算算你的账</a><span class="src">依据：金规〔2026〕5号第10、13条</span></div>
+  </div>
+  <div class="item">
+    <div class="item-head"><span class="badge warn">注意</span>期房折扣可能变少，现房可能更贵<span class="sign">+</span></div>
+    <div class="item-body">开发商建房的资金成本上升了（不能再用你的预售款周转），长期看会计入房价；期房「早买早便宜」的折扣逻辑也随现售普及而收窄。短期内因为市场供大于求，开发商「不太敢随意加价」——但选房时可以多比较存量期房项目（仍按旧规则卖）与新现房项目的价差。<span class="src">市场研判，见主报告第六章</span></div>
+  </div>
+  <div class="item">
+    <div class="item-head"><span class="badge info">提醒</span>「交房即交证」写进了制度<span class="sign">+</span></div>
+    <div class="item-body">现房销售前一般应完成首次登记，交付时同步拿不动产权证——过去「住了几年拿不到证、孩子上学被卡」的坑被制度填了。签约时留意合同是否明确交证时点。<span class="src">依据：建房规〔2026〕3号第三条（四）</span></div>
+  </div>
+</section>
+
+<!-- 已有房贷 -->
+<section class="persona-panel" id="p2">
+  <div class="pp-head">已经背着房贷的人</div>
+  <div class="pp-sub">新政管新贷款，但有三条与你的存量贷款直接相关。</div>
+  <div class="item open">
+    <div class="item-head"><span class="badge good">利好</span>存量利率偏高可以「协商降息」了<span class="sign">+</span></div>
+    <div class="item-body">当你的利率与全国新发放房贷利率<b>偏离达到一定幅度</b>时，可以跟银行协商调低，或者申请新贷款置换旧贷款——方式由你选。2024 年那次批量下调是一次性的，这次写成了<b>常态机制</b>。利率敏感的话，留意央行后续公布的偏离幅度细则。<span class="src">依据：银发〔2026〕171号第24条</span></div>
+  </div>
+  <div class="item">
+    <div class="item-head"><span class="badge good">利好</span>失业断供前，有制度化的缓冲带<span class="sign">+</span></div>
+    <div class="item-body">阶段性失去收入来源导致还款困难的，可以跟银行协商<b>延后还款时间、贷款展期、延迟还本</b>。这不是银行施舍，是写进 171 号文的安排——真遇到困难，主动找银行谈，别硬扛到逾期上征信。<span class="src">依据：银发〔2026〕171号第26条</span></div>
+  </div>
+  <div class="item">
+    <div class="item-head"><span class="badge info">提醒</span>想换房，「带押过户」更顺了<span class="sign">+</span></div>
+    <div class="item-body">卖掉还有贷款的房子，不用先凑钱解押——银行可为「带押过户」提供贷款服务，登记、放款、还旧贷一条龙衔接。置换链条的时间和过桥成本都会降。<span class="src">依据：金规〔2026〕5号第20条</span></div>
+  </div>
+</section>
+
+<!-- 等交付 -->
+<section class="persona-panel" id="p3">
+  <div class="pp-head">买了房还没交付的人</div>
+  <div class="pp-sub">直说：新政管的是「从今往后」，你的项目适用的还是老规则。</div>
+  <div class="item open">
+    <div class="item-head"><span class="badge risk">直说</span>新政的保护不溯及你的项目<span class="sign">+</span></div>
+    <div class="item-body">828 前已取得建设工程规划许可证的项目，预售条件、资金监管都<b>按原有政策执行</b>；你的房贷也已经放出去了，「竣工才放款」帮不到你。你的保障仍来自「保交楼」体系：白名单项目贷款（累计审批超 7 万亿）+ 地方政府逐项目协调。<span class="src">依据：建房规〔2026〕3号「老人老办法」条款</span></div>
+  </div>
+  <div class="item">
+    <div class="item-head"><span class="badge info">行动</span>三件值得做的事<span class="sign">+</span></div>
+    <div class="item-body"><b>一，查项目是否进了「白名单」</b>——进了名单意味着有主办银行接管资金、续建资金有着落，可向当地住建部门或售楼处核实。<b>二，盯预售资金监管账户</b>——留存你付款进的账户信息，若发现与合同载明的监管账户不符，向住建部门投诉（2022 年停贷潮中近六成维权业主发现账户不符）。<b>三，逾期交付即主张权利</b>——按合同追违约金；新规则下开发商违约不能按期交房的，购房人有权解除合同并要求退款。<span class="src">操作建议，综合主报告第六章</span></div>
+  </div>
+  <div class="item">
+    <div class="item-head"><span class="badge warn">背景</span>为什么说你们是「被留在旧制度里的人」<span class="sign">+</span></div>
+    <div class="item-body">白名单贷款 2026 年初获准展期五年——意思是烂尾风险的化解被拉长到以年计。官方口径「保交楼」阶段性收官（累计交付 750 多万套），但个案的兑现节奏差异极大。主报告对这个群体的处境有整章分析，你不是一个人。<span class="src">见主报告第三、六章</span></div>
+  </div>
+</section>
+
+<!-- 租房 -->
+<section class="persona-panel" id="p4">
+  <div class="pp-head">在租房的人</div>
+  <div class="pp-sub">新政给「租赁住房」修了金融高速路——但路是给机构修的，你的变化是间接的。</div>
+  <div class="item open">
+    <div class="item-head"><span class="badge good">利好</span>长租房供给会变多、变规范<span class="sign">+</span></div>
+    <div class="item-body">银行现在可以给机构发放<b>最长 30 年</b>的贷款去批量收购空置房源做长租房，租赁企业的建设、运营贷款也全线打通。更多卖不掉的新房会转成租赁房源——供给增加，对租金是压制因素；机构化公寓的品质和合同规范度普遍高于个人房东。<span class="src">依据：银发〔2026〕171号第17、28、30条</span></div>
+  </div>
+  <div class="item">
+    <div class="item-head"><span class="badge warn">注意</span>城中村改造提速，可能动到你的房租<span class="sign">+</span></div>
+    <div class="item-body">政策鼓励把工厂、商办、城中村改造成租赁住房，改造贷款靠<b>未来租金</b>还——制度里内嵌了「改造后租金上涨」的逻辑。住在城中村、老旧片区低价房源里的朋友，改造来临时大概率面临租金上移或搬迁，提前留意所在片区的更新计划。<span class="src">依据：银发〔2026〕171号第30条；主报告第七章</span></div>
+  </div>
+  <div class="item">
+    <div class="item-head"><span class="badge risk">直说</span>租客的「权利」这轮没有新东西<span class="sign">+</span></div>
+    <div class="item-body">九份文件全部在讲租赁住房怎么<b>融资</b>，没有一条讲租期保护、租金规制、租房者的落户与子女入学。「租购并举」的金融侧完备了，权利侧还是空的——这是下一步真正值得盯的立法方向。另外八成以上的租赁供给来自个人房东，新政与他们完全无关，你大概率感受不到直接变化。<span class="src">分析见主报告第七章</span></div>
+  </div>
+</section>
+
+<!-- 多套房 -->
+<section class="persona-panel" id="p5">
+  <div class="pp-head">持有多套房的人</div>
+  <div class="pp-sub">政策没有打击你，但也彻底不再需要你。</div>
+  <div class="item open">
+    <div class="item-head"><span class="badge risk">直说</span>「房产提款机」的路被焊死了<span class="sign">+</span></div>
+    <div class="item-body">明文禁止两类操作：贷款金额随房产评估价浮动、不指明用途的住房抵押贷款；已抵押房产在贷款结清前，<b>不得以再评估净值追加购房贷款</b>。用房产净值滚动加杠杆的玩法正式终结。<span class="src">依据：银发〔2026〕171号第24条</span></div>
+  </div>
+  <div class="item">
+    <div class="item-head"><span class="badge warn">注意</span>流动性是你最大的敌人，新政没改变这一点<span class="sign">+</span></div>
+    <div class="item-body">百城二手房价同比仍在下跌（2026 年 7 月 −7.4%，一百个城市无一上涨），挂牌量高、成交慢。新政收缩新房供给对二手房价有间接支撑，但也让「卖旧买新」链条的上游更拥挤。<b>想减持的，与其等右侧不如认真定价</b>；核心地段与远郊、老房的分化只会更极端。<span class="src">数据：中指百城指数 2026-07；研判见主报告第六章</span></div>
+  </div>
+  <div class="item">
+    <div class="item-head"><span class="badge info">机会</span>批量出租、出售给机构的通道开了<span class="sign">+</span></div>
+    <div class="item-body">机构现在能拿 30 年期贷款<b>批量收购</b>已竣工商品住房做长租运营——如果你在核心城市持有可整租的房源，机构收购、包租的市场会逐步成型，多了一个非散售的退出选项。留意本地国企租赁平台的收储动向。<span class="src">依据：银发〔2026〕171号第28条</span></div>
+  </div>
+</section>
+
+<footer>
+  本页内容基于 2026-08-28 发布的九份政策文件与《风险重估》研究报告整理，为一般性信息，不构成置业或投资建议；个案以当地细则与合同为准。<br>
+  <a href="../">← 返回《风险重估：828 房地产新政研究》</a> · <a href="mortgage-40.html">40 年房贷计算器</a> · <a href="https://github.com/hemayou/housing-policy-watch">GitHub 仓库</a>
+</footer>
+
+</div>
+
+<script>
+(function () {
+  var root = document.documentElement;
+  var themeBtn = document.getElementById('themeBtn');
+  var iconSun = document.getElementById('iconSun');
+  var iconMoon = document.getElementById('iconMoon');
+  function currentTheme() {
+    var a = root.getAttribute('data-theme');
+    if (a) return a;
+    return matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light';
+  }
+  function renderIcon() {
+    var dark = currentTheme() === 'dark';
+    iconSun.hidden = !dark; iconMoon.hidden = dark;
+  }
+  themeBtn.addEventListener('click', function () {
+    var next = currentTheme() === 'dark' ? 'light' : 'dark';
+    root.setAttribute('data-theme', next);
+    try { localStorage.setItem('hpw-theme', next); } catch (e) {}
+    renderIcon();
+  });
+  renderIcon();
+
+  var btns = document.querySelectorAll('.persona-btn');
+  var panels = document.querySelectorAll('.persona-panel');
+  btns.forEach(function (b) {
+    b.addEventListener('click', function () {
+      btns.forEach(function (x) { x.classList.remove('active'); });
+      panels.forEach(function (x) { x.classList.remove('show'); });
+      b.classList.add('active');
+      document.getElementById(b.getAttribute('data-p')).classList.add('show');
+    });
+  });
+  document.querySelectorAll('.item-head').forEach(function (h) {
+    h.addEventListener('click', function () {
+      h.parentElement.classList.toggle('open');
+    });
+  });
+})();
+</script>
+
+</body>
+</html>

@@ -709,6 +709,29 @@ figure.chart svg { width: 100%; height: auto; display: block; overflow: visible;
 }
 .toc-mask.show { opacity: 1; pointer-events: auto; }
 
+/* 图表悬停提示 */
+.chart-tip {
+  position: fixed;
+  z-index: 120;
+  background: var(--ink);
+  color: var(--paper);
+  font-family: var(--mono);
+  font-size: 12px;
+  line-height: 1.7;
+  padding: 8px 12px;
+  border-radius: 5px;
+  pointer-events: none;
+  opacity: 0;
+  transition: opacity .12s;
+  max-width: 240px;
+  box-shadow: 0 4px 16px rgba(0,0,0,.25);
+  white-space: pre-line;
+}
+.chart-tip.show { opacity: 1; }
+figure.chart [data-tip] { cursor: crosshair; }
+figure.chart .bar { transition: opacity .15s; }
+figure.chart .bar:hover { opacity: .8; }
+
 /* 阅读进度条 */
 .progress-bar {
   position: fixed;
@@ -784,6 +807,8 @@ figure.chart svg { width: 100%; height: auto; display: block; overflow: visible;
     <a class="toc-item" href="#c8"><span class="no">Ⅷ</span><span class="tt">银行：最后的承接者</span><span class="pg">主体</span></a>
     <a class="toc-item" href="#c9"><span class="no">Ⅸ</span><span class="tt">向何处去：三种情景与两个没碰的根子</span><span class="pg">研判</span></a>
     <a class="toc-item" href="#sources"><span class="no">＊</span><span class="tt">数据与观点来源</span><span class="pg">索引</span></a>
+    <a class="toc-item" href="topics/mortgage-40.html"><span class="no">▸</span><span class="tt">40 年房贷计算器</span><span class="pg">工具</span></a>
+    <a class="toc-item" href="topics/what-it-means.html"><span class="no">▸</span><span class="tt">新政与我：按身份速查</span><span class="pg">速查</span></a>
   </div>
 </nav>
 
@@ -868,6 +893,19 @@ figure.chart svg { width: 100%; height: auto; display: block; overflow: visible;
           <circle cx="370" cy="154.1" r="4"/>
           <circle cx="680" cy="40.7" r="5" fill="var(--seal)"/>
         </g>
+        <g fill="transparent">
+          <circle cx="60" cy="96.5" r="14" data-tip="2015 年：约 23%&#10;上一个现房高点（库存高企期）"/>
+          <circle cx="122" cy="123.5" r="14" data-tip="2016 年：约 17%&#10;去库存启动，期房占比回升"/>
+          <circle cx="184" cy="137" r="14" data-tip="2017 年：约 14%"/>
+          <circle cx="246" cy="146" r="14" data-tip="2018 年：约 12%&#10;高周转模式极盛期"/>
+          <circle cx="308" cy="150.5" r="14" data-tip="2019 年：约 11%"/>
+          <circle cx="370" cy="154.1" r="14" data-tip="2020 年：10.2%&#10;历史低点——预售制的顶峰"/>
+          <circle cx="432" cy="153.2" r="14" data-tip="2021 年：10.4%&#10;房企爆雷元年"/>
+          <circle cx="494" cy="137.5" r="14" data-tip="2022 年：13.9%&#10;停贷潮后信任转折点"/>
+          <circle cx="556" cy="110" r="14" data-tip="2023 年：约 20%&#10;住建部首提现房销售试点"/>
+          <circle cx="618" cy="61.4" r="14" data-tip="2024 年：30.8%&#10;五年翻两番"/>
+          <circle cx="680" cy="40.7" r="14" data-tip="2025 年 1—9 月：35.4%&#10;828 前市场已自发过渡"/>
+        </g>
         <g font-family="JetBrains Mono, monospace" font-size="11.5" fill="var(--ink-2)">
           <text x="60" y="86" text-anchor="middle">23%</text>
           <text x="370" y="174" text-anchor="middle">10.2%</text>
@@ -909,6 +947,18 @@ figure.chart svg { width: 100%; height: auto; display: block; overflow: visible;
           points="60,182.5 122,177.5 184,162.9 246,149.9 308,142.4 370,130.9 432,127.9 494,148.1 556,157 618,166.3 680,173.5"/>
         <circle cx="432" cy="33.1" r="5" fill="var(--seal)"/>
         <circle cx="432" cy="127.9" r="5" fill="var(--seal)"/>
+        <g fill="transparent">
+          <circle cx="60" cy="127.7" r="13" data-tip="2015 销售额：8.73 万亿"/>
+          <circle cx="184" cy="81.3" r="13" data-tip="2017 销售额：13.37 万亿"/>
+          <circle cx="308" cy="55.3" r="13" data-tip="2019 销售额：15.97 万亿"/>
+          <circle cx="432" cy="33.1" r="16" data-tip="2021 双峰值&#10;销售额 18.19 万亿 / 土地出让 8.71 万亿"/>
+          <circle cx="494" cy="81.7" r="13" data-tip="2022 销售额：13.33 万亿（−26.7%）&#10;爆雷后第一年"/>
+          <circle cx="556" cy="98.4" r="13" data-tip="2023 销售额：11.66 万亿"/>
+          <circle cx="618" cy="118.2" r="13" data-tip="2024 销售额：9.68 万亿&#10;土地出让 4.87 万亿"/>
+          <circle cx="680" cy="131.1" r="16" data-tip="2025 销售额：8.39 万亿（回到十年前）&#10;土地出让 4.15 万亿（峰值的 48%）"/>
+          <circle cx="60" cy="182.5" r="12" data-tip="2015 土地出让：3.25 万亿"/>
+          <circle cx="308" cy="142.4" r="12" data-tip="2019 土地出让：7.26 万亿"/>
+        </g>
         <g font-family="JetBrains Mono, monospace" font-size="11.5" fill="var(--ink-2)">
           <text x="432" y="22" text-anchor="middle" fill="var(--seal)" font-weight="700">18.2</text>
           <text x="452" y="122" fill="var(--seal)" font-weight="700">8.7</text>
@@ -1014,6 +1064,33 @@ figure.chart svg { width: 100%; height: auto; display: block; overflow: visible;
     <p>先看这个行业还剩下什么。2026 年上半年，百强房企拿地总额 3,360 亿元，同比再降 33.7%；其中央企与地方国企占 85%，民企只占 13%。开发投资年化约 7.3 万亿，是峰值的一半；新开工面积同比 −24%，意味着两三年后的竣工和投资还要继续收缩。行业的资金内循环——销售回款养开发、开发撑拿地——已经停转，正在运转的是外循环：白名单贷款、重组削债、国资注入。到位资金的分项数据把这个判断钉死：2026 年前 7 月房企国内贷款同比 −32.1%、定金及预收款 −14.4%、个人按揭 −23.5%，没有一个资金渠道在生长。</p>
     <p>名单本身也在讲同一个故事。2026 年 1—7 月权益拿地金额前十——保利、华润、越秀、建发、绿城、招商蛇口、滨江、金茂、中海、保利置业——除滨江外几乎清一色央国企与混合所有制；而拿地榜二十名开外，密密麻麻排着石家庄城发投、徐州硕源、滁州城建投这样的地方城投。销售榜同样：TOP10 里唯一的民企背景企业万科以 417 亿垫底，不足榜首保利（1,500 亿）的三成。<strong>行业的头部已经完成了所有制的置换，828 只是给这个既成事实颁发了制度执照</strong>。</p>
 
+    <figure class="chart">
+      <figcaption>谁还在拿地：百强房企拿地金额的所有制结构</figcaption>
+      <div class="chart-sub">2026 年上半年 · 中指研究院 · 亿元</div>
+      <svg viewBox="0 0 700 190" role="img" aria-label="央企约1599亿占43%，地方国企约773亿占21%，城投等约499亿，民企仅489亿占13%">
+        <!-- bars: max 1599 -> width 520 ; scale = 0.325 -->
+        <g font-family="Noto Sans SC, sans-serif" font-size="13" fill="var(--ink-2)">
+          <text x="92" y="36" text-anchor="end">央企</text>
+          <text x="92" y="76" text-anchor="end">地方国企</text>
+          <text x="92" y="116" text-anchor="end">城投等其他</text>
+          <text x="92" y="156" text-anchor="end">民企</text>
+        </g>
+        <g>
+          <rect class="bar" x="104" y="20" width="520" height="24" rx="3" fill="var(--tag-blue)" data-tip="央企：约 1,599 亿（占 43%）&#10;同比 −48%，但份额仍居首"/>
+          <rect class="bar" x="104" y="60" width="251" height="24" rx="3" fill="var(--tag-blue-2)" data-tip="地方国企：约 773 亿（占 21%）"/>
+          <rect class="bar" x="104" y="100" width="162" height="24" rx="3" fill="var(--tag-gold)" data-tip="城投等主体：约 499 亿&#10;拿地榜 20 名以外密集分布"/>
+          <rect class="bar" x="104" y="140" width="159" height="24" rx="3" fill="var(--seal)" data-tip="民企：仅 489 亿（占 13%）&#10;同比 −48%——作为群体已基本退出土地市场"/>
+        </g>
+        <g font-family="JetBrains Mono, monospace" font-size="12" fill="var(--ink-2)">
+          <text x="632" y="37">1599</text>
+          <text x="363" y="77">773</text>
+          <text x="274" y="117">499</text>
+          <text x="271" y="157" fill="var(--seal)" font-weight="700">489</text>
+        </g>
+      </svg>
+      <div class="chart-note">中指研究院 2026 年上半年百强房企拿地统计；细项与 85.1% 央国企总占比口径略有出入（统计范围差异），以「央国企占八成五、民企一成三」为稳。悬停条形可见明细。</div>
+    </figure>
+
     <div class="stat-row">
       <div class="stat"><div class="v down">13<em>%</em></div><div class="k">民企在百强拿地金额中的占比（2026 上半年，中指）</div></div>
       <div class="stat"><div class="v down">74<em>家</em></div><div class="k">累计出险房企（截至 2025 年末，违约债券超 4,500 亿元）</div></div>
@@ -1109,6 +1186,46 @@ figure.chart svg { width: 100%; height: auto; display: block; overflow: visible;
   </div></div>
   <div class="shell prose">
     <p>先量化银行的起点。2026 年二季度末，房地产贷款余额 50.74 万亿元，同比 −4.9%，为有统计以来最大降幅；其中开发贷余额 12.65 万亿（−8.5%），个人住房贷款余额 36.29 万亿（−3.8%），上半年净减少 7,163 亿——超过 2025 全年的减少额。按揭曾是中国银行业最优质的资产（低违约、低资本占用、长久期），这台资产发动机已经连续四年反转。</p>
+
+    <figure class="chart">
+      <figcaption>按揭发动机反转：个人住房贷款余额的顶与滑落</figcaption>
+      <div class="chart-sub">央行《金融机构贷款投向统计报告》 · 年末余额 · 万亿元</div>
+      <svg viewBox="0 0 700 240" role="img" aria-label="个人住房贷款余额2022年末38.8万亿见顶后连续收缩至2026年中36.29万亿">
+        <g font-family="JetBrains Mono, monospace" font-size="11" fill="var(--ink-3)">
+          <line x1="60" y1="15" x2="60" y2="195" stroke="var(--chart-grid)"/>
+          <line x1="60" y1="195" x2="680" y2="195" stroke="var(--chart-grid)"/>
+          <line x1="60" y1="105" x2="680" y2="105" stroke="var(--chart-grid)" stroke-dasharray="3 4"/>
+          <text x="52" y="199" text-anchor="end">33</text>
+          <text x="52" y="109" text-anchor="end">36.5</text>
+          <text x="52" y="19" text-anchor="end">40</text>
+        </g>
+        <!-- data: 2020:34.44 21:38.32 22:38.80 23:38.17 24:37.68 25:37.01 26H1:36.29 ; x=60+i*103.3; y=195-(v-33)*(180/7) -->
+        <polyline fill="none" stroke="var(--tag-blue)" stroke-width="2.5" stroke-linejoin="round"
+          points="60,158 163.3,58.2 266.7,45.9 370,62.1 473.3,74.7 576.7,91.9 680,110.4"/>
+        <circle cx="266.7" cy="45.9" r="5" fill="var(--seal)"/>
+        <circle cx="680" cy="110.4" r="5" fill="var(--seal)"/>
+        <g fill="transparent">
+          <circle cx="60" cy="158" r="15" data-tip="2020 年末：34.44 万亿（+14.6%）&#10;按揭扩张的最后疯狂"/>
+          <circle cx="163.3" cy="58.2" r="15" data-tip="2021 年末：38.32 万亿（+11.3%）"/>
+          <circle cx="266.7" cy="45.9" r="16" data-tip="2022 年末：38.80 万亿&#10;历史顶点——此后连续四年收缩"/>
+          <circle cx="370" cy="62.1" r="15" data-tip="2023 年末：38.17 万亿（−1.6%）&#10;首次年度负增长"/>
+          <circle cx="473.3" cy="74.7" r="15" data-tip="2024 年末：37.68 万亿（−1.3%）"/>
+          <circle cx="576.7" cy="91.9" r="15" data-tip="2025 年末：37.01 万亿（−1.8%）&#10;全年净减 6,768 亿"/>
+          <circle cx="680" cy="110.4" r="16" data-tip="2026 年 6 月末：36.29 万亿（−3.8%）&#10;仅上半年净减 7,163 亿，超 2025 全年"/>
+        </g>
+        <g font-family="JetBrains Mono, monospace" font-size="11.5" fill="var(--ink-2)">
+          <text x="266.7" y="34" text-anchor="middle" fill="var(--seal)" font-weight="700">38.8 顶</text>
+          <text x="666" y="132" text-anchor="end" fill="var(--seal)" font-weight="700">36.29</text>
+        </g>
+        <g font-family="JetBrains Mono, monospace" font-size="10.5" fill="var(--ink-3)">
+          <text x="60" y="215" text-anchor="middle">2020</text>
+          <text x="266.7" y="215" text-anchor="middle">2022</text>
+          <text x="473.3" y="215" text-anchor="middle">2024</text>
+          <text x="680" y="215" text-anchor="middle">2026H1</text>
+        </g>
+      </svg>
+      <div class="chart-note">2026 为二季度末时点数；2022—2025 年末数经媒体转引央行报告核对。悬停数据点可见各年明细与同比。</div>
+    </figure>
     <p>828 在这个背景下重写了银行与房地产的关系，实质是三笔交易：</p>
     <p><strong>第一笔：时间换安全</strong>。按揭放款从主体封顶推迟到竣工备案，意味着建设期项目失去了按揭资金的提前接力，开发贷必须独自撑完全程——期限从普遍 3 年拉到现售项目最长 7 年，首次还本推到竣工备案后。银行的单笔资产久期拉长一倍以上，换来的是放款时点上抵押物（现房）的完整性。用财新引述的银行人士的话说，「3 年+3 年」的项目周期下拉长期限「有必要」——但「有必要」不等于「有意愿」。</p>
     <p><strong>第二笔：垄断换责任</strong>。主办银行制给了银行单项目的全资金视野——预售资金、定金、销售回款、自有资金全部归集在自家账户，销售回款的活期存款是实打实的揽存利益（银行三项收益：开发贷、按揭、存款）。代价是集中：一个项目一家银行，风险无法再通过多头授信分散；「结清前原则上不得变更」意味着七年绑定，中途项目恶化没有退出机制。白名单时期这套安排是财政隐性背书下的政治任务，常态化之后背书撤了，审查责任全归银行自担——<strong>这正是文件反复强调「市场化、法治化、自主决策」的用意：把否决权真正交给银行，也把责任焊死在银行身上</strong>。</p>
@@ -1258,6 +1375,9 @@ figure.chart svg { width: 100%; height: auto; display: block; overflow: visible;
     <a href="#c8"><span class="no">Ⅷ</span>银行：最后的承接者</a>
     <a href="#c9"><span class="no">Ⅸ</span>向何处去：三种情景与两个根子</a>
     <a href="#sources"><span class="no">＊</span>数据与观点来源</a>
+    <div style="border-top:1px solid var(--hairline); margin:12px 6px 6px; padding-top:12px; font-family:var(--mono); font-size:10.5px; letter-spacing:2px; color:var(--ink-3); padding-left:8px;">小专题</div>
+    <a href="topics/mortgage-40.html"><span class="no">▸</span>40 年房贷计算器</a>
+    <a href="topics/what-it-means.html"><span class="no">▸</span>新政与我：按身份速查</a>
   </div>
 </nav>
 
@@ -1332,6 +1452,32 @@ figure.chart svg { width: 100%; height: auto; display: block; overflow: visible;
   }
   window.addEventListener('scroll', onScroll, { passive: true });
   onScroll();
+
+  /* ---- 图表数据点提示（悬停 / 触屏点按） ---- */
+  var tip = document.createElement('div');
+  tip.className = 'chart-tip';
+  document.body.appendChild(tip);
+  function showTip(el, x, y) {
+    tip.textContent = el.getAttribute('data-tip');
+    tip.classList.add('show');
+    var w = tip.offsetWidth, h = tip.offsetHeight;
+    var left = Math.min(Math.max(8, x - w / 2), window.innerWidth - w - 8);
+    var top = y - h - 14;
+    if (top < 8) top = y + 18;
+    tip.style.left = left + 'px';
+    tip.style.top = top + 'px';
+  }
+  function hideTip() { tip.classList.remove('show'); }
+  document.addEventListener('mousemove', function (e) {
+    var t = e.target.closest && e.target.closest('[data-tip]');
+    if (t) showTip(t, e.clientX, e.clientY); else hideTip();
+  }, { passive: true });
+  document.addEventListener('click', function (e) {
+    var t = e.target.closest && e.target.closest('[data-tip]');
+    if (t) { showTip(t, e.clientX, e.clientY); e.stopPropagation(); }
+    else hideTip();
+  });
+  window.addEventListener('scroll', hideTip, { passive: true });
 })();
 </script>
 

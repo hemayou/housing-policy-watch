@@ -1,0 +1,290 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>40年房贷，我的账怎么算</title>
+<script>
+try {
+  var t = localStorage.getItem('hpw-theme');
+  if (t === 'dark' || t === 'light') document.documentElement.setAttribute('data-theme', t);
+} catch (e) {}
+</script>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Noto+Serif+SC:wght@400;700;900&family=Noto+Sans+SC:wght@300;400;500;700&family=Spectral:ital,wght@0,400;0,500;1,400&family=JetBrains+Mono:wght@400;500&display=swap">
+<style>
+:root {
+  --paper: #f7f4ee; --paper-deep: #efe9de; --paper-panel: #f1ede4;
+  --ink: #23201a; --ink-2: #4a453b; --ink-3: #7d766a;
+  --hairline: #d8d1c2; --hairline-2: #c5bca8;
+  --seal: #a03123; --seal-soft: #b8514419;
+  --tag-blue: #2c5f7c; --tag-blue-2: #6d98ad; --tag-gold: #9a7b2d;
+  --chart-grid: #dcd5c6;
+  --mono: 'JetBrains Mono', monospace;
+  --serif: 'Noto Serif SC', serif;
+  --sans: 'Noto Sans SC', sans-serif;
+  --num: 'Spectral', 'Noto Serif SC', serif;
+}
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) {
+    --paper: #201e19; --paper-deep: #262420; --paper-panel: #2a2722;
+    --ink: #e6e0d2; --ink-2: #b5ac99; --ink-3: #857c6b;
+    --hairline: #3d382f; --hairline-2: #4d463a;
+    --seal: #c9564a; --seal-soft: #c9564a1f;
+    --tag-blue: #7aa9c0; --tag-blue-2: #4a7d96; --tag-gold: #c0a054;
+    --chart-grid: #38342b;
+  }
+}
+:root[data-theme="dark"] {
+  --paper: #201e19; --paper-deep: #262420; --paper-panel: #2a2722;
+  --ink: #e6e0d2; --ink-2: #b5ac99; --ink-3: #857c6b;
+  --hairline: #3d382f; --hairline-2: #4d463a;
+  --seal: #c9564a; --seal-soft: #c9564a1f;
+  --tag-blue: #7aa9c0; --tag-blue-2: #4a7d96; --tag-gold: #c0a054;
+  --chart-grid: #38342b;
+}
+* { margin: 0; padding: 0; box-sizing: border-box; }
+[hidden] { display: none !important; }
+body {
+  font-family: var(--sans); background: var(--paper); color: var(--ink);
+  font-size: 16px; line-height: 1.9; -webkit-font-smoothing: antialiased;
+}
+.shell { max-width: 680px; margin: 0 auto; padding: 0 clamp(24px, 6vw, 40px); }
+.top-nav {
+  display: flex; align-items: center; justify-content: space-between;
+  padding: 18px clamp(24px, 6vw, 40px);
+  border-bottom: 1px solid var(--hairline);
+  background: var(--paper-deep);
+}
+.top-nav a { font-size: 13.5px; color: var(--ink-2); text-decoration: none; font-weight: 500; }
+.top-nav a:hover { color: var(--seal); }
+.top-nav .brand { font-family: var(--serif); font-weight: 700; letter-spacing: 1px; }
+.theme-toggle { background: none; border: 1px solid var(--hairline-2); border-radius: 50%; width: 34px; height: 34px; cursor: pointer; color: var(--ink-2); display: flex; align-items: center; justify-content: center; }
+.theme-toggle svg { width: 17px; height: 17px; }
+header.hero { padding: 60px 0 36px; }
+.kicker { font-family: var(--mono); font-size: 11.5px; letter-spacing: 3px; color: var(--seal); margin-bottom: 14px; }
+h1 { font-family: var(--serif); font-size: clamp(28px, 6vw, 40px); font-weight: 900; line-height: 1.35; margin-bottom: 14px; text-wrap: balance; }
+.dek { font-size: 15.5px; color: var(--ink-2); max-width: 540px; }
+
+.calc {
+  background: var(--paper-panel); border: 1px solid var(--hairline-2);
+  border-radius: 8px; padding: 28px clamp(20px, 4vw, 30px); margin: 36px 0;
+}
+.calc h2 { font-family: var(--serif); font-size: 17px; font-weight: 700; margin-bottom: 22px; }
+.field { margin-bottom: 24px; }
+.field label { display: flex; justify-content: space-between; align-items: baseline; font-size: 14px; font-weight: 500; margin-bottom: 10px; }
+.field label .val { font-family: var(--num); font-size: 19px; color: var(--seal); font-variant-numeric: tabular-nums; }
+input[type=range] {
+  width: 100%; -webkit-appearance: none; appearance: none; height: 4px; border-radius: 2px;
+  background: var(--hairline-2); outline: none;
+}
+input[type=range]::-webkit-slider-thumb {
+  -webkit-appearance: none; appearance: none; width: 22px; height: 22px; border-radius: 50%;
+  background: var(--seal); cursor: pointer; border: 3px solid var(--paper);
+  box-shadow: 0 1px 6px rgba(0,0,0,.25);
+}
+input[type=range]::-moz-range-thumb {
+  width: 22px; height: 22px; border-radius: 50%;
+  background: var(--seal); cursor: pointer; border: 3px solid var(--paper);
+}
+.range-hint { display: flex; justify-content: space-between; font-family: var(--mono); font-size: 10.5px; color: var(--ink-3); margin-top: 6px; }
+
+.result-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 1px; background: var(--hairline); border: 1px solid var(--hairline); border-radius: 6px; overflow: hidden; margin-top: 8px; }
+.result-cell { background: var(--paper); padding: 18px 18px 14px; }
+.result-cell.hl { background: var(--seal-soft); }
+.result-cell .k { font-size: 12px; color: var(--ink-3); margin-bottom: 4px; }
+.result-cell .v { font-family: var(--num); font-size: 26px; font-weight: 500; font-variant-numeric: tabular-nums; line-height: 1.2; }
+.result-cell .v em { font-style: normal; font-size: 14px; color: var(--ink-3); }
+.result-cell .sub { font-size: 12px; color: var(--ink-2); margin-top: 4px; }
+.result-cell .sub.warn { color: var(--seal); font-weight: 500; }
+
+.compare-bars { margin: 26px 0 6px; }
+.cb-row { margin-bottom: 18px; }
+.cb-label { display: flex; justify-content: space-between; font-size: 13px; margin-bottom: 7px; }
+.cb-label b { font-family: var(--num); font-variant-numeric: tabular-nums; }
+.cb-track { height: 26px; border-radius: 4px; overflow: hidden; display: flex; background: var(--paper-deep); border: 1px solid var(--hairline); }
+.cb-principal { background: var(--tag-blue); height: 100%; transition: width .3s; }
+.cb-interest { background: var(--tag-gold); height: 100%; transition: width .3s; }
+.cb-legend { display: flex; gap: 22px; font-size: 12px; color: var(--ink-2); margin-top: 10px; }
+.cb-legend span::before { content: ''; display: inline-block; width: 10px; height: 10px; border-radius: 2px; margin-right: 6px; vertical-align: -1px; }
+.cb-legend .lp::before { background: var(--tag-blue); }
+.cb-legend .li::before { background: var(--tag-gold); }
+
+.note-block { border-left: 3px solid var(--tag-gold); background: var(--paper-panel); padding: 18px 22px; margin: 30px 0; font-size: 14px; color: var(--ink-2); }
+.note-block b { color: var(--ink); }
+.prose-sec { padding: 10px 0 30px; }
+.prose-sec h2 { font-family: var(--serif); font-size: 20px; font-weight: 700; margin: 36px 0 16px; padding-bottom: 10px; border-bottom: 1px solid var(--hairline); }
+.prose-sec p { margin-bottom: 18px; color: var(--ink-2); font-size: 15px; }
+.prose-sec strong { color: var(--ink); }
+.age-flag { font-size: 13.5px; padding: 12px 16px; border-radius: 5px; background: var(--paper-deep); border: 1px dashed var(--hairline-2); margin-top: 14px; color: var(--ink-2); }
+.age-flag.warn { border-color: var(--seal); color: var(--seal); }
+footer { border-top: 1px solid var(--hairline); margin-top: 40px; padding: 26px 0 60px; font-size: 12.5px; color: var(--ink-3); line-height: 1.8; }
+footer a { color: var(--tag-blue); text-decoration: none; }
+@media (max-width: 480px) { .result-grid { grid-template-columns: 1fr; } }
+</style>
+</head>
+<body>
+
+<nav class="top-nav">
+  <a href="../" class="brand">住房政策观察</a>
+  <div style="display:flex; align-items:center; gap:16px;">
+    <a href="../">← 返回主报告</a>
+    <button class="theme-toggle" id="themeBtn" aria-label="切换明暗主题">
+      <svg id="iconSun" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="12" cy="12" r="4.5"/><line x1="12" y1="2" x2="12" y2="4.5"/><line x1="12" y1="19.5" x2="12" y2="22"/><line x1="2" y1="12" x2="4.5" y2="12"/><line x1="19.5" y1="12" x2="22" y2="12"/><line x1="4.8" y1="4.8" x2="6.5" y2="6.5"/><line x1="17.5" y1="17.5" x2="19.2" y2="19.2"/><line x1="4.8" y1="19.2" x2="6.5" y2="17.5"/><line x1="17.5" y1="6.5" x2="19.2" y2="4.8"/></svg>
+      <svg id="iconMoon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" hidden><path d="M21 12.8A8.5 8.5 0 1 1 11.2 3a6.6 6.6 0 0 0 9.8 9.8z"/></svg>
+    </button>
+  </div>
+</nav>
+
+<div class="shell">
+
+<header class="hero">
+  <div class="kicker">小专题 · 828 新政</div>
+  <h1>40 年房贷，我的账怎么算</h1>
+  <p class="dek">2026 年 8 月 28 日起，个人住房贷款最长期限从 30 年延长到 40 年。月供确实变少了，总利息确实变多了——具体到你，各是多少？拖动下面的滑块，一分钟算清楚。</p>
+</header>
+
+<section class="calc" aria-label="房贷计算器">
+  <h2>① 输入你的情况</h2>
+  <div class="field">
+    <label>贷款金额 <span class="val" id="vAmount">200 万</span></label>
+    <input type="range" id="inAmount" min="20" max="1000" step="10" value="200">
+    <div class="range-hint"><span>20 万</span><span>1000 万</span></div>
+  </div>
+  <div class="field">
+    <label>年利率 <span class="val" id="vRate">3.06%</span></label>
+    <input type="range" id="inRate" min="2.0" max="6.0" step="0.01" value="3.06">
+    <div class="range-hint"><span>2%</span><span>6%（2026 年新发放均值 3.06%，历史高点约 5.5%+）</span></div>
+  </div>
+  <div class="field">
+    <label>你的年龄 <span class="val" id="vAge">30 岁</span></label>
+    <input type="range" id="inAge" min="20" max="60" step="1" value="30">
+    <div class="range-hint"><span>20</span><span>60</span></div>
+  </div>
+
+  <h2 style="margin-top:30px;">② 三种期限对比（等额本息）</h2>
+  <div class="compare-bars" id="bars"></div>
+  <div class="cb-legend"><span class="lp">本金</span><span class="li">利息</span></div>
+
+  <h2 style="margin-top:30px;">③ 40 年 vs 30 年，差在哪</h2>
+  <div class="result-grid">
+    <div class="result-cell"><div class="k">月供少还</div><div class="v" id="rMonthSave">—</div><div class="sub">每个月手里多出的现金流</div></div>
+    <div class="result-cell hl"><div class="k">总利息多付</div><div class="v" id="rIntMore">—</div><div class="sub warn">拉长十年的代价</div></div>
+    <div class="result-cell"><div class="k">40 年方案月供</div><div class="v" id="rM40">—</div><div class="sub" id="rM40pct">—</div></div>
+    <div class="result-cell"><div class="k">还清贷款时你</div><div class="v" id="rAgeEnd">—</div><div class="sub" id="rAgeNote">—</div></div>
+  </div>
+  <div class="age-flag" id="ageFlag" hidden></div>
+</section>
+
+<section class="prose-sec">
+  <h2>怎么理解这笔账</h2>
+  <p><strong>月供的减少是真实的，但边际递减。</strong>从 20 年拉到 30 年，月供降幅明显；从 30 年拉到 40 年，月供只再降百分之十几，利息却几乎翻着往上走——期限拉得越长，「多出的年份」里还的几乎全是利息。这就是上面第②栏里金色部分不成比例变长的原因。</p>
+  <p><strong>40 年不是强制，是选择权。</strong>政策原文说期限「由购房人与商业银行协商确定」，你完全可以贷 40 年、按 30 年的节奏提前还——多数银行的提前还款在利率下行期几乎无成本。反过来想：同样的月供预算，40 年期限能让你多贷一些额度，这正是政策放宽「月所有债务支出/收入不超过 60%」上限的配合逻辑。</p>
+  <p><strong>真正该问的不是利息，是收入。</strong>828 新政同时要求银行「加强借款人收入真实性核查」。40 年的贷款合同，本质是对自己未来几十年现金流的一次承诺——利率、月供都是确定的数字，唯一不确定的是分母。这也是为什么同样一笔账，有人算出「减负」，有人算出「负担更久」。</p>
+  <div class="note-block"><b>新政给你的三重保护别忘了：</b>买现房「所见即所得」；买期房的话，房贷要等项目竣工备案后才发放——「能拿房、再还贷」，烂尾楼里还月供的时代结束了；收入阶段性困难时，可以跟银行协商延后还款或展期（写进了 171 号文第二十六条）。</div>
+</section>
+
+<footer>
+  依据：《个人住房贷款管理办法（试行）》（金规〔2026〕5号）、《关于改革完善房地产信贷管理 推动加快构建房地产发展新模式的意见》（银发〔2026〕171号）。计算为等额本息估算，不含公积金组合贷，实际以银行合同为准。<br>
+  <a href="../">← 返回《风险重估：828 房地产新政研究》</a> · <a href="https://github.com/hemayou/housing-policy-watch">GitHub 仓库</a>
+</footer>
+
+</div>
+
+<script>
+(function () {
+  var root = document.documentElement;
+  var themeBtn = document.getElementById('themeBtn');
+  var iconSun = document.getElementById('iconSun');
+  var iconMoon = document.getElementById('iconMoon');
+  function currentTheme() {
+    var a = root.getAttribute('data-theme');
+    if (a) return a;
+    return matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light';
+  }
+  function renderIcon() {
+    var dark = currentTheme() === 'dark';
+    iconSun.hidden = !dark; iconMoon.hidden = dark;
+  }
+  themeBtn.addEventListener('click', function () {
+    var next = currentTheme() === 'dark' ? 'light' : 'dark';
+    root.setAttribute('data-theme', next);
+    try { localStorage.setItem('hpw-theme', next); } catch (e) {}
+    renderIcon();
+  });
+  renderIcon();
+
+  var inAmount = document.getElementById('inAmount');
+  var inRate = document.getElementById('inRate');
+  var inAge = document.getElementById('inAge');
+
+  function annuity(P, annualRate, years) {
+    var r = annualRate / 100 / 12, n = years * 12;
+    if (r === 0) return { monthly: P / n, totalInterest: 0 };
+    var m = P * r * Math.pow(1 + r, n) / (Math.pow(1 + r, n) - 1);
+    return { monthly: m, totalInterest: m * n - P };
+  }
+  function fmtWan(v) { // v in 万
+    return v >= 100 ? (v / 1 >= 1000 ? (v/10000).toFixed(2) + ' 亿' : Math.round(v) + ' 万') : v.toFixed(1) + ' 万';
+  }
+  function fmtYuan(v) {
+    return Math.round(v).toLocaleString('zh-CN');
+  }
+
+  function render() {
+    var P = +inAmount.value; // 万
+    var rate = +inRate.value;
+    var age = +inAge.value;
+    document.getElementById('vAmount').textContent = P + ' 万';
+    document.getElementById('vRate').textContent = rate.toFixed(2) + '%';
+    document.getElementById('vAge').textContent = age + ' 岁';
+
+    var terms = [20, 30, 40];
+    var res = terms.map(function (y) { return { y: y, r: annuity(P * 10000, rate, y) }; });
+    var maxTotal = Math.max.apply(null, res.map(function (o) { return P * 10000 + o.r.totalInterest; }));
+
+    var html = '';
+    res.forEach(function (o) {
+      var total = P * 10000 + o.r.totalInterest;
+      var wPct = total / maxTotal * 100;
+      var pPct = (P * 10000) / total * 100;
+      html += '<div class="cb-row">'
+        + '<div class="cb-label"><span>' + o.y + ' 年 · 月供 <b>' + fmtYuan(o.r.monthly) + '</b> 元</span>'
+        + '<span>利息 <b>' + fmtWan(o.r.totalInterest / 10000) + '</b></span></div>'
+        + '<div class="cb-track" style="width:' + wPct + '%">'
+        + '<div class="cb-principal" style="width:' + pPct + '%"></div>'
+        + '<div class="cb-interest" style="width:' + (100 - pPct) + '%"></div>'
+        + '</div></div>';
+    });
+    document.getElementById('bars').innerHTML = html;
+
+    var m30 = res[1].r, m40 = res[2].r;
+    document.getElementById('rMonthSave').innerHTML = fmtYuan(m30.monthly - m40.monthly) + ' <em>元/月</em>';
+    document.getElementById('rIntMore').innerHTML = fmtWan((m40.totalInterest - m30.totalInterest) / 10000) + ' <em>元</em>';
+    document.getElementById('rM40').innerHTML = fmtYuan(m40.monthly) + ' <em>元</em>';
+    document.getElementById('rM40pct').textContent = '比 30 年方案低 ' + ((1 - m40.monthly / m30.monthly) * 100).toFixed(1) + '%';
+    var endAge = age + 40;
+    document.getElementById('rAgeEnd').innerHTML = endAge + ' <em>岁</em>';
+    document.getElementById('rAgeNote').textContent = '30 年方案则是 ' + (age + 30) + ' 岁还清';
+
+    var flag = document.getElementById('ageFlag');
+    if (endAge > 80) {
+      flag.hidden = false;
+      flag.className = 'age-flag warn';
+      flag.textContent = '提示：40 年期满时你已 ' + endAge + ' 岁。多数银行要求「年龄 + 贷款期限」不超过 75—80，实际可贷期限大概率短于 40 年，以银行审批为准。';
+    } else if (endAge > 65) {
+      flag.hidden = false;
+      flag.className = 'age-flag';
+      flag.textContent = '提示：40 年期满时你 ' + endAge + ' 岁，还款期将覆盖退休阶段——评估月供时建议按退休后收入（养老金）而非当前工资测算后段承受力。';
+    } else {
+      flag.hidden = true;
+    }
+  }
+  [inAmount, inRate, inAge].forEach(function (el) { el.addEventListener('input', render); });
+  render();
+})();
+</script>
+
+</body>
+</html>
