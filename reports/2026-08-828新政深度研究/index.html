@@ -171,7 +171,7 @@ body {
 @media (max-width: 720px) { .file-stamp { position: static; display: inline-block; margin: 0 24px 24px; } }
 
 /* ============ 目录 ============ */
-.toc-wrap { padding: 72px 0 40px; }
+.toc-wrap { padding-top: 72px; padding-bottom: 40px; }
 .toc-head {
   font-family: var(--serif);
   font-size: 15px;
@@ -235,7 +235,7 @@ body {
 }
 
 /* ============ 正文 ============ */
-.prose { padding: 44px 0 8px; }
+.prose { padding-top: 44px; padding-bottom: 8px; }
 .prose p {
   margin-bottom: 26px;
   color: var(--ink);
@@ -589,7 +589,7 @@ figure.chart svg { width: 100%; height: auto; display: block; overflow: visible;
 .sources {
   margin-top: 96px;
   border-top: 2px solid var(--ink);
-  padding: 40px 0 80px;
+  padding-top: 40px; padding-bottom: 80px;
 }
 .sources h3 { font-family: var(--serif); font-size: 18px; font-weight: 700; margin-bottom: 24px; }
 .sources ol { padding-left: 22px; }
@@ -609,7 +609,7 @@ figure.chart svg { width: 100%; height: auto; display: block; overflow: visible;
   color: var(--ink-3);
   line-height: 1.9;
   border-top: 1px solid var(--hairline);
-  padding: 24px 0 60px;
+  padding-top: 24px; padding-bottom: 60px;
 }
 
 /* ============ 浮动工具栏：目录 + 主题切换 ============ */
@@ -727,24 +727,25 @@ figure.chart svg { width: 100%; height: auto; display: block; overflow: visible;
 /* ============ 移动端阅读优化 ============ */
 @media (max-width: 640px) {
   body { font-size: 15.5px; line-height: 1.95; }
-  .shell { padding: 0 22px; }
-  .cover-inner { padding: 72px 22px 56px; }
+  .shell { padding: 0 clamp(28px, 8vw, 44px); }
+  .cover-inner { padding: 72px clamp(28px, 8vw, 44px) 56px; }
   .chapter { margin-top: 64px; padding: 44px 0 28px; }
-  .prose { padding: 32px 0 6px; }
+  .prose { padding-top: 32px; padding-bottom: 6px; }
   .prose p { text-align: left; margin-bottom: 22px; }
   .prose > p:first-of-type::first-letter { font-size: 2.6em; }
   .pull { font-size: 18px; padding: 24px 2px; margin: 38px 0; }
   blockquote.doc { padding: 18px 18px; margin: 26px 0; font-size: 14.5px; }
   .stat .v { font-size: 26px; }
   .stat { padding: 18px 16px 14px; }
-  figure.chart { padding: 18px 14px 14px; margin: 34px 0; }
+  figure.chart { padding: 18px 14px 14px; margin: 34px calc(-1 * clamp(8px, 4vw, 22px)); }
+  .table-scroll, .stat-row { margin-left: calc(-1 * clamp(8px, 4vw, 22px)); margin-right: calc(-1 * clamp(8px, 4vw, 22px)); }
   .gap-card .gc-head { padding: 12px 16px; }
   .gap-card .gc-body { padding: 4px 16px 6px; }
   .repealed-vault { padding: 24px 18px 18px; }
   .repealed-vault::after { font-size: 20px; top: 16px; right: 14px; letter-spacing: 4px; }
   .timeline { padding-left: 22px; }
   .divider { margin: 52px 0; }
-  .sources { padding: 32px 0 60px; }
+  .sources { padding-top: 32px; padding-bottom: 60px; }
   .float-tools { right: 14px; bottom: 18px; }
 }
 </style>
