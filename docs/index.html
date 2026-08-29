@@ -1,0 +1,1085 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>风险重估：828房地产新政研究</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Noto+Serif+SC:wght@400;500;600;700;900&family=Noto+Sans+SC:wght@300;400;500;700&family=Spectral:ital,wght@0,400;0,500;1,400&family=JetBrains+Mono:wght@400;500&display=swap">
+<style>
+/* ============ 设计系统：档案纸 × 杂志特稿 ============ */
+:root {
+  --paper: #f7f4ee;          /* 微暖档案纸 */
+  --paper-deep: #efe9de;     /* 深一档纸色，篇章页 */
+  --paper-panel: #f1ede4;    /* 面板 */
+  --ink: #23201a;            /* 近黑墨 */
+  --ink-2: #4a453b;          /* 次级墨 */
+  --ink-3: #7d766a;          /* 弱墨 */
+  --hairline: #d8d1c2;       /* 发丝线 */
+  --hairline-2: #c5bca8;
+  --seal: #a03123;           /* 印章红——唯一强调色 */
+  --seal-soft: #b8514419;    /* 印章红 10% */
+  --tag-blue: #2c5f7c;       /* 档案蓝，数据/图表用 */
+  --tag-blue-2: #6d98ad;
+  --tag-gold: #9a7b2d;       /* 档案金，第二数据色 */
+  --good: #3a7d5c;
+  --chart-grid: #dcd5c6;
+  --mono: 'JetBrains Mono', 'SF Mono', monospace;
+  --serif: 'Noto Serif SC', 'Songti SC', serif;
+  --sans: 'Noto Sans SC', 'PingFang SC', sans-serif;
+  --num: 'Spectral', 'Noto Serif SC', serif;
+}
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) {
+    --paper: #201e19;
+    --paper-deep: #262420;
+    --paper-panel: #2a2722;
+    --ink: #e6e0d2;
+    --ink-2: #b5ac99;
+    --ink-3: #857c6b;
+    --hairline: #3d382f;
+    --hairline-2: #4d463a;
+    --seal: #c9564a;
+    --seal-soft: #c9564a1f;
+    --tag-blue: #7aa9c0;
+    --tag-blue-2: #4a7d96;
+    --tag-gold: #c0a054;
+    --good: #5b9c7c;
+    --chart-grid: #38342b;
+  }
+}
+:root[data-theme="dark"] {
+  --paper: #201e19;
+  --paper-deep: #262420;
+  --paper-panel: #2a2722;
+  --ink: #e6e0d2;
+  --ink-2: #b5ac99;
+  --ink-3: #857c6b;
+  --hairline: #3d382f;
+  --hairline-2: #4d463a;
+  --seal: #c9564a;
+  --seal-soft: #c9564a1f;
+  --tag-blue: #7aa9c0;
+  --tag-blue-2: #4a7d96;
+  --tag-gold: #c0a054;
+  --good: #5b9c7c;
+  --chart-grid: #38342b;
+}
+
+* { margin: 0; padding: 0; box-sizing: border-box; }
+html { scroll-behavior: smooth; }
+body {
+  font-family: var(--sans);
+  background: var(--paper);
+  color: var(--ink);
+  font-size: 16px;
+  line-height: 2;
+  -webkit-font-smoothing: antialiased;
+}
+
+/* ============ 布局 ============ */
+.shell { max-width: 760px; margin: 0 auto; padding: 0 24px; }
+.wide { max-width: 920px; margin-left: auto; margin-right: auto; }
+
+/* ============ 封面 ============ */
+.cover {
+  min-height: 92vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  position: relative;
+  border-bottom: 1px solid var(--hairline-2);
+  background: linear-gradient(180deg, var(--paper-deep), var(--paper));
+}
+.cover-inner { max-width: 760px; margin: 0 auto; padding: 96px 24px; width: 100%; }
+.cover-kicker {
+  font-family: var(--mono);
+  font-size: 12px;
+  letter-spacing: 4px;
+  color: var(--seal);
+  margin-bottom: 28px;
+  display: flex;
+  align-items: center;
+  gap: 14px;
+}
+.cover-kicker::after { content: ''; flex: 1; height: 1px; background: var(--hairline-2); }
+.cover h1 {
+  font-family: var(--serif);
+  font-size: clamp(40px, 7vw, 64px);
+  font-weight: 900;
+  line-height: 1.25;
+  letter-spacing: 2px;
+  text-wrap: balance;
+  margin-bottom: 12px;
+}
+.cover-sub {
+  font-family: var(--serif);
+  font-size: clamp(17px, 2.4vw, 21px);
+  font-weight: 400;
+  color: var(--ink-2);
+  line-height: 1.9;
+  max-width: 600px;
+  margin-bottom: 44px;
+}
+.cover-thesis {
+  border-left: 3px solid var(--seal);
+  padding: 6px 0 6px 22px;
+  max-width: 620px;
+}
+.cover-thesis p {
+  font-size: 15.5px;
+  color: var(--ink-2);
+  line-height: 2;
+}
+.cover-meta {
+  margin-top: 52px;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px 32px;
+  font-family: var(--mono);
+  font-size: 12px;
+  color: var(--ink-3);
+  letter-spacing: 1px;
+}
+
+/* 档案编号章 */
+.file-stamp {
+  position: absolute;
+  top: 42px;
+  right: 42px;
+  border: 2px solid var(--seal);
+  color: var(--seal);
+  font-family: var(--mono);
+  font-size: 11px;
+  letter-spacing: 2px;
+  padding: 8px 14px;
+  transform: rotate(4deg);
+  opacity: .75;
+  line-height: 1.7;
+  text-align: center;
+  border-radius: 3px;
+}
+@media (max-width: 720px) { .file-stamp { position: static; display: inline-block; margin: 0 24px 24px; } }
+
+/* ============ 目录 ============ */
+.toc-wrap { padding: 72px 0 40px; }
+.toc-head {
+  font-family: var(--serif);
+  font-size: 15px;
+  font-weight: 700;
+  letter-spacing: 6px;
+  color: var(--ink-3);
+  margin-bottom: 28px;
+}
+.toc-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 0 48px; }
+@media (max-width: 640px) { .toc-grid { grid-template-columns: 1fr; } }
+.toc-item {
+  display: flex;
+  align-items: baseline;
+  gap: 14px;
+  padding: 13px 2px;
+  border-bottom: 1px solid var(--hairline);
+  text-decoration: none;
+  color: var(--ink);
+  transition: color .15s;
+}
+.toc-item:hover { color: var(--seal); }
+.toc-item .no {
+  font-family: var(--num);
+  font-size: 15px;
+  font-style: italic;
+  color: var(--seal);
+  min-width: 30px;
+}
+.toc-item .tt { font-size: 15px; font-weight: 500; flex: 1; }
+.toc-item .pg { font-family: var(--mono); font-size: 11px; color: var(--ink-3); }
+
+/* ============ 篇章页 ============ */
+.chapter {
+  margin-top: 96px;
+  padding: 60px 0 36px;
+  border-top: 1px solid var(--hairline-2);
+  background: linear-gradient(180deg, var(--paper-deep) 0%, var(--paper) 100%);
+}
+.chapter-label {
+  font-family: var(--num);
+  font-style: italic;
+  font-size: 17px;
+  color: var(--seal);
+  margin-bottom: 10px;
+}
+.chapter h2 {
+  font-family: var(--serif);
+  font-size: clamp(28px, 4.6vw, 38px);
+  font-weight: 900;
+  line-height: 1.4;
+  letter-spacing: 1px;
+  text-wrap: balance;
+  margin-bottom: 18px;
+}
+.chapter-dek {
+  font-family: var(--serif);
+  font-size: 16.5px;
+  color: var(--ink-2);
+  line-height: 1.95;
+  max-width: 620px;
+}
+
+/* ============ 正文 ============ */
+.prose { padding: 44px 0 8px; }
+.prose p {
+  margin-bottom: 26px;
+  color: var(--ink);
+  text-align: justify;
+  hanging-punctuation: first;
+}
+.prose > p:first-of-type::first-letter {
+  font-family: var(--serif);
+  font-size: 3.1em;
+  font-weight: 900;
+  float: left;
+  line-height: .85;
+  padding: 8px 10px 0 0;
+  color: var(--seal);
+}
+.prose h3 {
+  font-family: var(--serif);
+  font-size: 21px;
+  font-weight: 700;
+  margin: 52px 0 22px;
+  padding-bottom: 12px;
+  border-bottom: 1px solid var(--hairline);
+  letter-spacing: .5px;
+}
+.prose h4 {
+  font-family: var(--serif);
+  font-size: 17px;
+  font-weight: 700;
+  margin: 36px 0 16px;
+  color: var(--ink);
+}
+strong { font-weight: 700; color: var(--ink); }
+.prose a { color: var(--tag-blue); text-decoration: none; border-bottom: 1px solid var(--tag-blue-2); }
+
+/* 抽文 */
+.pull {
+  font-family: var(--serif);
+  font-size: 21px;
+  font-weight: 500;
+  line-height: 1.85;
+  color: var(--ink);
+  border-top: 2px solid var(--ink);
+  border-bottom: 1px solid var(--hairline-2);
+  padding: 30px 4px;
+  margin: 48px 0;
+  text-wrap: balance;
+}
+.pull .attr {
+  display: block;
+  font-family: var(--mono);
+  font-size: 11.5px;
+  color: var(--ink-3);
+  margin-top: 14px;
+  letter-spacing: 1px;
+}
+
+/* 引文块 */
+blockquote.doc {
+  background: var(--paper-panel);
+  border-left: 3px solid var(--tag-gold);
+  padding: 22px 26px;
+  margin: 30px 0;
+  font-size: 15px;
+  line-height: 2;
+  color: var(--ink-2);
+}
+blockquote.doc .src {
+  display: block;
+  font-family: var(--mono);
+  font-size: 11.5px;
+  color: var(--ink-3);
+  margin-top: 12px;
+}
+
+/* 旁注 */
+.side-note {
+  font-size: 13.5px;
+  color: var(--ink-3);
+  border-top: 1px dashed var(--hairline-2);
+  border-bottom: 1px dashed var(--hairline-2);
+  padding: 14px 2px;
+  margin: 30px 0;
+  line-height: 1.9;
+}
+.side-note b { color: var(--ink-2); font-weight: 500; }
+
+/* ============ 档案卷宗构件 ============ */
+/* 废止文件卷宗 */
+.repealed-vault {
+  background: var(--paper-panel);
+  border: 1px solid var(--hairline-2);
+  border-radius: 4px;
+  padding: 30px 30px 24px;
+  margin: 40px 0;
+  position: relative;
+  overflow: hidden;
+}
+.repealed-vault::after {
+  content: '废 止';
+  position: absolute;
+  top: 22px;
+  right: 26px;
+  font-family: var(--serif);
+  font-size: 26px;
+  font-weight: 900;
+  color: var(--seal);
+  border: 3px solid var(--seal);
+  border-radius: 6px;
+  padding: 6px 12px;
+  transform: rotate(-11deg);
+  opacity: .55;
+  letter-spacing: 6px;
+  pointer-events: none;
+}
+.repealed-vault h4 {
+  font-family: var(--serif);
+  font-size: 15px;
+  font-weight: 700;
+  margin-bottom: 18px;
+  color: var(--ink-2);
+  letter-spacing: 1px;
+}
+.repealed-list { list-style: none; }
+.repealed-list li {
+  font-size: 13.5px;
+  padding: 8px 0 8px 4px;
+  border-bottom: 1px dashed var(--hairline);
+  color: var(--ink-2);
+  display: flex;
+  gap: 14px;
+  align-items: baseline;
+}
+.repealed-list li:last-child { border-bottom: none; }
+.repealed-list .yr {
+  font-family: var(--num);
+  font-style: italic;
+  font-size: 14px;
+  color: var(--ink-3);
+  min-width: 44px;
+}
+.repealed-list li s { text-decoration-color: var(--seal); text-decoration-thickness: 1.5px; color: var(--ink-3); text-decoration-line: line-through; }
+
+/* 制度年表 */
+.timeline { margin: 44px 0; position: relative; padding-left: 26px; }
+.timeline::before {
+  content: '';
+  position: absolute;
+  left: 5px; top: 8px; bottom: 8px;
+  width: 1.5px;
+  background: var(--hairline-2);
+}
+.tl-item { position: relative; padding: 0 0 30px; }
+.tl-item:last-child { padding-bottom: 4px; }
+.tl-item::before {
+  content: '';
+  position: absolute;
+  left: -25px; top: 11px;
+  width: 9px; height: 9px;
+  border-radius: 50%;
+  background: var(--paper);
+  border: 2px solid var(--ink-3);
+}
+.tl-item.mark::before { border-color: var(--seal); background: var(--seal); }
+.tl-year {
+  font-family: var(--num);
+  font-style: italic;
+  font-size: 18px;
+  color: var(--seal);
+  margin-bottom: 4px;
+}
+.tl-title { font-weight: 700; font-size: 15px; margin-bottom: 4px; font-family: var(--serif); }
+.tl-body { font-size: 14px; color: var(--ink-2); line-height: 1.9; }
+
+/* ============ 数据图表 ============ */
+figure.chart {
+  margin: 44px 0;
+  background: var(--paper-panel);
+  border: 1px solid var(--hairline);
+  border-radius: 4px;
+  padding: 26px 26px 18px;
+}
+figure.chart figcaption {
+  font-family: var(--serif);
+  font-size: 15px;
+  font-weight: 700;
+  margin-bottom: 4px;
+}
+figure.chart .chart-sub {
+  font-size: 12.5px;
+  color: var(--ink-3);
+  margin-bottom: 18px;
+  font-family: var(--mono);
+  letter-spacing: .5px;
+}
+figure.chart .chart-note {
+  font-size: 12px;
+  color: var(--ink-3);
+  margin-top: 12px;
+  line-height: 1.7;
+  border-top: 1px dashed var(--hairline);
+  padding-top: 10px;
+}
+figure.chart svg { width: 100%; height: auto; display: block; overflow: visible; }
+.chart-scroll { overflow-x: auto; }
+
+/* 大数字组 */
+.stat-row {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+  gap: 1px;
+  background: var(--hairline);
+  border: 1px solid var(--hairline);
+  border-radius: 4px;
+  overflow: hidden;
+  margin: 40px 0;
+}
+.stat {
+  background: var(--paper-panel);
+  padding: 22px 20px 18px;
+}
+.stat .v {
+  font-family: var(--num);
+  font-size: 32px;
+  font-weight: 500;
+  line-height: 1.1;
+  color: var(--ink);
+  font-variant-numeric: tabular-nums;
+}
+.stat .v em { font-style: normal; font-size: 17px; color: var(--ink-2); }
+.stat .v.down { color: var(--seal); }
+.stat .k { font-size: 12.5px; color: var(--ink-3); margin-top: 8px; line-height: 1.6; }
+
+/* ============ 主体分析表 ============ */
+.actor-table { width: 100%; border-collapse: collapse; margin: 36px 0; font-size: 14px; }
+.actor-table th {
+  font-family: var(--serif);
+  background: var(--ink);
+  color: var(--paper);
+  text-align: left;
+  padding: 11px 15px;
+  font-weight: 500;
+  font-size: 13.5px;
+  letter-spacing: 1px;
+}
+.actor-table td {
+  padding: 13px 15px;
+  border-bottom: 1px solid var(--hairline);
+  vertical-align: top;
+  line-height: 1.85;
+  color: var(--ink-2);
+}
+.actor-table td:first-child { font-weight: 700; color: var(--ink); white-space: nowrap; }
+.actor-table tr:nth-child(even) td { background: var(--paper-panel); }
+.table-scroll { overflow-x: auto; margin: 36px 0; }
+.table-scroll .actor-table { margin: 0; min-width: 640px; }
+
+/* 落差卡 */
+.gap-card {
+  border: 1px solid var(--hairline-2);
+  border-radius: 4px;
+  margin: 34px 0;
+  overflow: hidden;
+}
+.gap-card .gc-head {
+  background: var(--paper-deep);
+  padding: 14px 22px;
+  font-family: var(--serif);
+  font-weight: 700;
+  font-size: 15.5px;
+  border-bottom: 1px solid var(--hairline);
+  display: flex;
+  align-items: baseline;
+  gap: 12px;
+}
+.gap-card .gc-head .idx {
+  font-family: var(--num);
+  font-style: italic;
+  color: var(--seal);
+  font-size: 15px;
+}
+.gap-card .gc-body { padding: 6px 22px 8px; }
+.gap-card .gc-row { padding: 13px 0; border-bottom: 1px dashed var(--hairline); font-size: 14.5px; line-height: 1.95; color: var(--ink-2); }
+.gap-card .gc-row:last-child { border-bottom: none; }
+.gap-card .gc-row b.tag {
+  font-family: var(--serif);
+  display: inline-block;
+  font-size: 12.5px;
+  color: var(--paper);
+  background: var(--ink-3);
+  border-radius: 3px;
+  padding: 1px 9px;
+  margin-right: 9px;
+  font-weight: 500;
+  vertical-align: 1px;
+  letter-spacing: 1px;
+}
+.gap-card .gc-row.policy b.tag { background: var(--tag-blue); }
+.gap-card .gc-row.real b.tag { background: var(--tag-gold); }
+.gap-card .gc-row.gap b.tag { background: var(--seal); }
+
+/* 观点对垒 */
+.debate {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 20px;
+  margin: 36px 0;
+}
+@media (max-width: 640px) { .debate { grid-template-columns: 1fr; } }
+.debate-col {
+  border-top: 3px solid var(--tag-blue);
+  background: var(--paper-panel);
+  padding: 20px 22px;
+  border-radius: 0 0 4px 4px;
+}
+.debate-col.con { border-top-color: var(--seal); }
+.debate-col h5 {
+  font-family: var(--serif);
+  font-size: 14px;
+  font-weight: 700;
+  letter-spacing: 2px;
+  margin-bottom: 14px;
+  color: var(--ink-2);
+}
+.debate-col p { font-size: 13.5px; line-height: 1.95; color: var(--ink-2); margin-bottom: 12px; }
+.debate-col p:last-child { margin-bottom: 0; }
+.debate-col .who { font-family: var(--mono); font-size: 11px; color: var(--ink-3); }
+
+/* 情景卡 */
+.scenario-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(210px, 1fr)); gap: 18px; margin: 36px 0; }
+.scenario {
+  border: 1px solid var(--hairline-2);
+  border-radius: 4px;
+  padding: 20px 20px 16px;
+  background: var(--paper-panel);
+}
+.scenario h5 { font-family: var(--serif); font-size: 15px; font-weight: 700; margin-bottom: 4px; }
+.scenario .prob { font-family: var(--mono); font-size: 11px; color: var(--seal); letter-spacing: 1px; margin-bottom: 12px; }
+.scenario p { font-size: 13.5px; line-height: 1.9; color: var(--ink-2); }
+
+/* ============ 章节间隔符 ============ */
+.divider {
+  text-align: center;
+  margin: 72px 0;
+  color: var(--ink-3);
+  font-family: var(--num);
+  font-size: 18px;
+  letter-spacing: 14px;
+}
+
+/* ============ 脚注/来源 ============ */
+.sources {
+  margin-top: 96px;
+  border-top: 2px solid var(--ink);
+  padding: 40px 0 80px;
+}
+.sources h3 { font-family: var(--serif); font-size: 18px; font-weight: 700; margin-bottom: 24px; }
+.sources ol { padding-left: 22px; }
+.sources li { font-size: 13px; color: var(--ink-2); line-height: 1.9; margin-bottom: 9px; }
+.sources .cat {
+  font-family: var(--mono);
+  font-size: 11.5px;
+  letter-spacing: 2px;
+  color: var(--seal);
+  margin: 26px 0 12px;
+  display: block;
+}
+.sources li a { color: var(--tag-blue); text-decoration: none; word-break: break-all; }
+
+.footer-note {
+  font-size: 12.5px;
+  color: var(--ink-3);
+  line-height: 1.9;
+  border-top: 1px solid var(--hairline);
+  padding: 24px 0 60px;
+}
+</style>
+</head>
+<body>
+
+<!-- ================= 封面 ================= -->
+<header class="cover">
+  <div class="file-stamp">HPW-ARCHIVE<br>No. 2026-0828</div>
+  <div class="cover-inner">
+    <div class="cover-kicker">住房政策观察 · 深度研究</div>
+    <h1>风险重估</h1>
+    <p class="cover-sub">828 新政与中国房地产的制度换轨——九份文件如何重新分配一个行业的风险、损失与未来</p>
+    <div class="cover-thesis">
+      <p>2026 年 8 月 28 日晚，四部委九份文件同时落地：预售制走向终局，房贷拉长到四十年，每个楼盘绑定一家银行。这不是又一轮调控。这是对「谁出钱、谁担风险、谁兜底」的一次总清算——而账单上每一个名字，都还没有签字。</p>
+    </div>
+    <div class="cover-meta">
+      <span>成稿 2026-08-29 · v2</span>
+      <span>基于 9 份政策原文 · 13 组官方数据序列 · 中指 14 份报告与 CREIS 实测 · 财新 35 篇全文（含「新模式」系列 24 篇）</span>
+      <span>housing-policy-watch</span>
+    </div>
+  </div>
+</header>
+
+<!-- ================= 目录 ================= -->
+<nav class="shell toc-wrap">
+  <div class="toc-head">目 录</div>
+  <div class="toc-grid">
+    <a class="toc-item" href="#c1"><span class="no">Ⅰ</span><span class="tt">一夜九文：发生了什么</span><span class="pg">全景</span></a>
+    <a class="toc-item" href="#c2"><span class="no">Ⅱ</span><span class="tt">两条线走到尽头：制度史与财政史</span><span class="pg">脉络</span></a>
+    <a class="toc-item" href="#c3"><span class="no">Ⅲ</span><span class="tt">风险的重新分配：新政的真正内核</span><span class="pg">主轴</span></a>
+    <a class="toc-item" href="#c4"><span class="no">Ⅳ</span><span class="tt">地方政府：发动机熄火之后</span><span class="pg">主体</span></a>
+    <a class="toc-item" href="#c5"><span class="no">Ⅴ</span><span class="tt">开发商：五种命运</span><span class="pg">主体</span></a>
+    <a class="toc-item" href="#c6"><span class="no">Ⅵ</span><span class="tt">买房的人：三十年信任的重建与代价</span><span class="pg">主体</span></a>
+    <a class="toc-item" href="#c7"><span class="no">Ⅶ</span><span class="tt">租房的人：政策照进来的与照不到的</span><span class="pg">主体</span></a>
+    <a class="toc-item" href="#c8"><span class="no">Ⅷ</span><span class="tt">银行：最后的承接者</span><span class="pg">主体</span></a>
+    <a class="toc-item" href="#c9"><span class="no">Ⅸ</span><span class="tt">向何处去：三种情景与两个没碰的根子</span><span class="pg">研判</span></a>
+    <a class="toc-item" href="#sources"><span class="no">＊</span><span class="tt">数据与观点来源</span><span class="pg">索引</span></a>
+  </div>
+</nav>
+
+<!-- 各章内容由构建脚本注入 -->
+<!-- ============ 第一章 ============ -->
+<section id="c1">
+  <div class="chapter"><div class="shell">
+    <div class="chapter-label">Chapter Ⅰ · 全景</div>
+    <h2>一夜九文：发生了什么</h2>
+    <p class="chapter-dek">这不是一次政策发布，是一次制度交割。四部委在同一个晚上放出九份文件，把房地产的开发、融资、销售三套基础制度整体换掉——并且当场废止了从 1998 年到 2016 年的十份旧文件。</p>
+  </div></div>
+  <div class="shell prose">
+    <p>2026 年 8 月 28 日是个周五。傍晚六点之后，政策开始密集落地：央行和金融监管总局联合印发《关于改革完善房地产信贷管理 推动加快构建房地产发展新模式的意见》（银发〔2026〕171号）；住建部、自然资源部、金融监管总局三家发布《关于完善商品住房销售制度的通知》（建房规〔2026〕3号）；证监会公开了成文于去年 12 月的《关于资本市场支持构建房地产发展新模式的意见》；金融监管总局则一口气挂出五个管理办法——商品住房开发贷款、个人住房贷款、商业地产贷款、城市更新项目贷款、房地产领域信托业务，文号从金规〔2026〕4 号排到 8 号。加上央行的答记者问，一晚九份文件。</p>
+    <p>密集发布本身就是信息。过去二十年，房地产政策的常态是各部门零散出手、市场逐条消化；这一次是刻意的打包——171 号文作为信贷「基本法」立在顶层，销售制度通知负责交易环节，证监会文件接管资本市场，五个办法把每类贷款的细则一次给齐。九份文件互相引用、互相咬合，条文里反复出现同三个词：<strong>项目为中心、主办银行制、资金封闭管理</strong>。金融监管总局在当晚的汇总公告里把这三个词并列写进了同一句话。</p>
+    <p>要理解这套文件的分量，先看它废掉了什么。</p>
+
+    <div class="repealed-vault">
+      <h4>随 828 新政废止的旧制度文件</h4>
+      <ul class="repealed-list">
+        <li><span class="yr">1998</span><s>《个人住房贷款管理办法》（银发〔1998〕190号）</s>——房改元年的按揭制度基石，运行 28 年</li>
+        <li><span class="yr">2003</span><s>《关于进一步加强房地产信贷业务管理的通知》（银发〔2003〕121号）</s>——上一次收紧预售资金的尝试</li>
+        <li><span class="yr">2006</span><s>银发〔2006〕184号</s>——住房信贷政策调整</li>
+        <li><span class="yr">2007</span><s>银发〔2007〕359号、452号</s>——商业性房地产信贷管理及其补充</li>
+        <li><span class="yr">2008</span><s>银发〔2008〕302号</s>——房贷利率下浮扩大</li>
+        <li><span class="yr">2010–11</span><s>银发〔2010〕275号、〔2011〕66号</s>——差别化住房信贷（限贷时代）</li>
+        <li><span class="yr">2015–16</span><s>银发〔2015〕305号、〔2016〕26号</s>——上一轮宽松的首付比例安排</li>
+      </ul>
+    </div>
+
+    <p>这份废止清单几乎是一部中国房地产金融简史：1998 年的按揭元规则、2003 年那次未遂的收紧、2007 年的过热管控、2008 年与 2015 年的两轮救市。全部一笔勾销。其中最值得停留的是 121 号文——2003 年 6 月，央行曾试图收紧房企贷款和预售资金管理，条文方向与今天高度相似；三个月后，国务院 18 号文把房地产定为「国民经济支柱产业」，121 号文实质被搁置。<strong>同样的制度动作，2003 年推不动，2026 年一夜推平</strong>。差别不在文件的措辞，在市场的状态：上一次房地产是财政的发动机，这一次它是风险的策源地。官方在答记者问里罕见地点了名——恒大的破产清算和许家印案，被直接引为「高负债、高杠杆、高周转」模式弊端的证明。</p>
+    <p>九份文件的核心变更可以压缩成一张表：</p>
+
+    <div class="table-scroll"><table class="actor-table">
+      <thead><tr><th>制度</th><th>旧规则</th><th>新规则</th></tr></thead>
+      <tbody>
+        <tr><td>销售方式</td><td>拿到预售证即可卖房，多数城市工程进度过 1/4 即可申请</td><td>新出让土地项目优先现房销售；仍预售的须主体结构封顶，全部购房资金入监管账户，竣工验收后才解除</td></tr>
+        <tr><td>开发融资</td><td>依托集团信用多头授信，贷款期限普遍 3 年</td><td>一个项目一家主办银行，资金全封闭；预售项目贷款最长 5 年、现售最长 7 年，首次还本原则上在竣工备案后</td></tr>
+        <tr><td>个人房贷</td><td>最长 30 年（1999 年定）；主体封顶即放款；月所有债务/收入上限 55%（2004 年定）</td><td>最长 40 年；现房销售备案后、预售竣工备案后才放款，受托支付；月房贷/收入 ≤50%，月总债务/收入 ≤60%</td></tr>
+        <tr><td>资本市场</td><td>依赖主体信用评级发债增发</td><td>「基于项目情况」融资；REITs 扩容至租赁住房与城市更新；退市渠道畅通</td></tr>
+        <tr><td>企业组织</td><td>集团统借统还，资金跨项目调拨</td><td>项目开发公司制，项目间资金不得混同；对外负债投资须事先告知主办银行</td></tr>
+      </tbody>
+    </table></div>
+
+    <p>市场对文件的第一反应是分裂的。具名的机构研究者几乎一致给出正面解读：中指研究院当天 17 时即发七页解读，定性为「改革和完善商品房基础制度已经进入实质性落地阶段」，对房价的判断是「整体或偏中性」，并特别点出预售条件「由各地根据实际情况确定」是「为地方政策预留了空间」；易居严跃进总结出「首付低、利率低、月供低」的三低格局，中原张大伟称住房消费将从「赌预期」转为「验实物」。而匿名的声音——自媒体、论坛、知乎——集中火力打一个点：40 年房贷加上偿债比上限从 55% 提到 60%，「说穿了就是允许你欠得更多」；海外论坛上的说法更刻薄，「下一步推出永续房贷」「贷贷相传」。两边其实没有交锋：唱多者谈的是制度设计，质疑者谈的是这套设计落在一个什么样的居民资产负债表上。这个分裂本身，就是本报告后面八章要处理的问题。</p>
+    <div class="side-note"><b>一个当晚无人回答的问题清单：</b>银行愿不愿意接七年期的开发贷敞口？土地出让收入再降之后地方财政的缺口谁来填？已经卖掉但还没交付的几百万套期房怎么办？——828 当天的所有官方文件与专家解读，对这三个问题保持了整齐的沉默。</div>
+  </div>
+</section>
+
+<!-- ============ 第二章 ============ -->
+<section id="c2">
+  <div class="chapter"><div class="shell">
+    <div class="chapter-label">Chapter Ⅱ · 脉络</div>
+    <h2>两条线走到尽头</h2>
+    <p class="chapter-dek">828 不是起点，是两条历史线索的同时终结：一条是 1994 年从香港引入的预售制，它是高周转的燃料；一条是同年分税制改革催生的土地财政，它是地方政府的第二财政。两条线在 2021 年一起见顶，此后政策做的所有事情，本质上都是在给它们办理后事。</p>
+  </div></div>
+  <div class="shell prose">
+    <h3>制度线：预售制的一生</h3>
+    <p>商品房预售借鉴自香港的「卖楼花」，1994 年随《城市房地产管理法》正式确立。它解决的是短缺时代的真问题：开发商没有资本金，银行没有长钱，城市化嗷嗷待哺——让购房者的预付款充当开发资金，是那个年代能找到的最快的杠杆。此后三十年，在建楼盘拿到预售证即可开卖，开发商快速回款、再拿地、再预售，「高负债、高杠杆、高周转」的模式由此成型。</p>
+    <p>这个模式的隐藏条款是：<strong>购房者承担了银行都不愿意承担的建设期风险，却没有获得任何风险溢价</strong>。制度对此的补丁是预售资金监管——预收款须进监管账户、专款专用。但补丁从未真正生效。财新在 2025 年的调查报道里写得直白：2021 年之前，「不少房企想方设法挪用预售资金，各地政府视房地产为财政支柱，也没有严格执行上述规定」。挪用不是漏洞，是默契：房企要周转，地方要土地卖得动，监管账户里的钱管得越松，土地市场越热。</p>
+    <p>默契如何运作，2022 年停贷潮时财新周刊的逐案调查留下了精确的解剖标本。三个具体漏洞：其一，<strong>按揭贷款根本不进监管账户</strong>——武汉、郑州彼时仅首付款受监管，贷款由银行直接打给开发商；郑州融创中原大观 300 余名业主自查，近六成人的实际贷款支付账户与合同载明的监管账户不符。其二，<strong>入了账的钱照样被挪走</strong>——武汉某项目 7.6 亿监管资金被拨走 5.6 亿，而 20 栋楼只有 2 栋封顶；路径是通过总承包商转移，「转移去其他项目或者被集团抽走，都很常见」。其三，<strong>银行对未封顶楼盘违规放贷是「默认的做法」</strong>——尽管 2007 年就有封顶才能放贷的规定。监管责任则在三方间推诿：银行说自己「是听招呼干活的」，本地房企人士说行业向好时房管局、银行、开发商「三方合作、加快周转」很常见。把这三个漏洞记住，828 的三项核心设计——现售扩围、个贷推迟到竣工备案、主办银行封闭管理——就不再是抽象的制度创新，而是<strong>对着 2022 年验尸报告逐条开出的处方</strong>。</p>
+    <p>2021 年三季度，默契的代价一次性结清。高杠杆房企接连爆雷，挪用留下的资金窟窿让全国大量项目停工，2022 年夏天爆发业主集体「停贷潮」——彼时易居测算全国烂尾面积 2.31 亿平方米，涉及房贷约 0.9 万亿元。此后的政策是一路倒退着修补：2023 年住建部首次建议有条件地区现房销售；2024 年初「城市房地产融资协调机制」推出白名单，给项目指定主办银行、封闭管理——<strong>828 新政里的主办银行制，就是把这套保交楼的战时机制转成了永久宪法</strong>。到 2025 年 5 月，金融监管总局局长李云泽在国新办发布会上预告「加快出台与房地产发展新模式相适配的系列融资制度」，828 的一切已在路上。</p>
+    <p>而市场没有等政策。商品住宅销售里现房的占比，2021 年底还只有 10.4%，2025 年已经升到 32% 以上——不是因为哪个文件要求，而是因为购房者用脚投票不再信任期房，开发商积压的库存也自然变成了现房。城市级的数据更直观：北京 2026 年逐月的现房成交占比在 34% 到 51% 之间波动（4 月一度过半），7 月末全市可售库存中现房已占近一半——<strong>在 828 文件下发之前，中国定价能力最强的城市已经事实上是半个现房市场</strong>。另一个同样安静的结构反转发生在新旧房之间：2026 年前 7 月全国二手房网签面积 4.82 亿平方米（同比 +10.2%），历史上第一次超过了同期新房销售面积。张大伟那句话说得准确：期房销售正在从制度问题变成历史名词。</p>
+
+    <figure class="chart">
+      <figcaption>现房销售占比：政策没推，市场自己走到了这里</figcaption>
+      <div class="chart-sub">商品住宅现售面积占销售面积比重 · %</div>
+      <svg viewBox="0 0 700 250" role="img" aria-label="现房销售占比从2015年23%降至2020年10%后快速回升至2025年35%">
+        <g font-family="JetBrains Mono, monospace" font-size="11" fill="var(--ink-3)">
+          <line x1="60" y1="20" x2="60" y2="200" stroke="var(--chart-grid)"/>
+          <line x1="60" y1="200" x2="680" y2="200" stroke="var(--chart-grid)"/>
+          <line x1="60" y1="110" x2="680" y2="110" stroke="var(--chart-grid)" stroke-dasharray="3 4"/>
+          <line x1="60" y1="20" x2="680" y2="20" stroke="var(--chart-grid)" stroke-dasharray="3 4"/>
+          <text x="52" y="204" text-anchor="end">0</text>
+          <text x="52" y="114" text-anchor="end">20</text>
+          <text x="52" y="24" text-anchor="end">40</text>
+        </g>
+        <!-- data: 2015:23 2016:17 2017:14 2018:12 2019:11 2020:10.2 2021:10.4 2022:13.9 2023:20 2024:30.8 2025:35.4 ; x: 60 + (yr-2015)*62 ; y = 200 - v*4.5 -->
+        <polyline fill="none" stroke="var(--tag-blue)" stroke-width="2.5" stroke-linejoin="round"
+          points="60,96.5 122,123.5 184,137 246,146 308,150.5 370,154.1 432,153.2 494,137.5 556,110 618,61.4 680,40.7"/>
+        <g fill="var(--tag-blue)">
+          <circle cx="60" cy="96.5" r="4"/>
+          <circle cx="370" cy="154.1" r="4"/>
+          <circle cx="680" cy="40.7" r="5" fill="var(--seal)"/>
+        </g>
+        <g font-family="JetBrains Mono, monospace" font-size="11.5" fill="var(--ink-2)">
+          <text x="60" y="86" text-anchor="middle">23%</text>
+          <text x="370" y="174" text-anchor="middle">10.2%</text>
+          <text x="666" y="34" text-anchor="end" fill="var(--seal)" font-weight="700">35.4%</text>
+        </g>
+        <g font-family="JetBrains Mono, monospace" font-size="10.5" fill="var(--ink-3)">
+          <text x="60" y="220" text-anchor="middle">2015</text>
+          <text x="370" y="220" text-anchor="middle">2020</text>
+          <text x="494" y="220" text-anchor="middle">2022</text>
+          <text x="680" y="220" text-anchor="middle">2025</text>
+        </g>
+      </svg>
+      <div class="chart-note">2015—2021 为商品住宅口径（统计局数据，财新整理）；2022 起点 13.9% 为三部门答记者问口径；2025 为 1—9 月商品房口径 35.4%（证券时报据统计局数据计算）。口径存在细微差异，趋势一致：五年翻了两番多。悬停无交互，静态图。</div>
+    </figure>
+
+    <h3>财政线：土地财政的一生</h3>
+    <p>另一条线要从 1994 年分税制讲起。财权上收、事权留在地方，地方政府必须自己找钱。周飞舟在《以利为利》里用浙江县域的账本算清了这条路径：土地的直接税收全归地方，间接税收（建筑业和房地产业）大头归地方，而且比直接税「更保险」——直接税收增长太快「很可能被划分或者部分划分为中央税收」。到 2003 年前后，金华一个地级市的土地出让金已达 20 亿元，超过其全年预算内财政收入。他的结论是那句被反复引用的话：「不但第二财政靠土地，第一财政也在越来越依靠土地而不是工业。」</p>
+    <p>兰小欢在《置身事内》里给出了全国口径：把土地转让收入与相关税收加总，2018 年「土地财政」收入相当于地方公共预算收入的 89%，「是名副其实的第二财政」。而运行机制是一手一脚的双轨：压低工业地价招商引资，收缩商住用地供给赚取垄断溢价——「商住用地面积只占出让土地的一半，却贡献了几乎所有的土地使用权转让收入」。陶然进一步指出这个安排的代价：地方政府垄断限量供应住宅用地，是房价「泡沫化」的体制根源；同一个机制还决定了保障房的「激励不相容」——地方政府根本没有动力给挤压自己土地收入的外来人口供房。</p>
+    <p>赵燕菁则把这条线推到金融层面：土地财政的真正产出不是卖地收入，而是信用。土地把公共服务的未来现金流资本化，成为中国信用货币创造的主要抵押物——地方政府的城投融资、开发商的开发贷、居民的按揭，三层杠杆都架在同一块土地的估值上。这就是华生所描述的死结：「经济增长、地方政府财政状况、银行信贷安全、房地产商和地价房价之间，形成了一荣俱荣一损俱损的奇特依赖关系，这也是这些年来的房地产市场虽然多次调控无功而返的原因。」调控之所以无功而返，因为每一次真收紧都等于地方政府、银行、开发商同时勒自己的脖子。</p>
+
+    <figure class="chart">
+      <figcaption>两条曲线一起见顶：销售额与土地出让收入</figcaption>
+      <div class="chart-sub">全国商品房销售额（蓝）· 国有土地使用权出让收入（金）· 万亿元</div>
+      <svg viewBox="0 0 700 270" role="img" aria-label="商品房销售额2021年见顶18.2万亿后跌至2025年8.4万亿，土地出让收入2021年8.7万亿跌至2025年4.15万亿">
+        <g font-family="JetBrains Mono, monospace" font-size="11" fill="var(--ink-3)">
+          <line x1="60" y1="15" x2="60" y2="215" stroke="var(--chart-grid)"/>
+          <line x1="60" y1="215" x2="680" y2="215" stroke="var(--chart-grid)"/>
+          <line x1="60" y1="115" x2="680" y2="115" stroke="var(--chart-grid)" stroke-dasharray="3 4"/>
+          <line x1="60" y1="15" x2="680" y2="15" stroke="var(--chart-grid)" stroke-dasharray="3 4"/>
+          <text x="52" y="219" text-anchor="end">0</text>
+          <text x="52" y="119" text-anchor="end">10</text>
+          <text x="52" y="19" text-anchor="end">20</text>
+        </g>
+        <!-- 销售额: 2015 8.73 16 11.76 17 13.37 18 15.0 19 15.97 20 17.36 21 18.19 22 13.33 23 11.66 24 9.68 25 8.39 ; x=60+(yr-2015)*62; y=215-v*10 -->
+        <polyline fill="none" stroke="var(--tag-blue)" stroke-width="2.5" stroke-linejoin="round"
+          points="60,127.7 122,97.4 184,81.3 246,65 308,55.3 370,41.4 432,33.1 494,81.7 556,98.4 618,118.2 680,131.1"/>
+        <!-- 土地: 3.25 3.75 5.21 6.51 7.26 8.41 8.71 6.69 5.80 4.87 4.15 -->
+        <polyline fill="none" stroke="var(--tag-gold)" stroke-width="2.5" stroke-linejoin="round" stroke-dasharray="none"
+          points="60,182.5 122,177.5 184,162.9 246,149.9 308,142.4 370,130.9 432,127.9 494,148.1 556,157 618,166.3 680,173.5"/>
+        <circle cx="432" cy="33.1" r="5" fill="var(--seal)"/>
+        <circle cx="432" cy="127.9" r="5" fill="var(--seal)"/>
+        <g font-family="JetBrains Mono, monospace" font-size="11.5" fill="var(--ink-2)">
+          <text x="432" y="22" text-anchor="middle" fill="var(--seal)" font-weight="700">18.2</text>
+          <text x="452" y="122" fill="var(--seal)" font-weight="700">8.7</text>
+          <text x="680" y="147" text-anchor="end">8.4</text>
+          <text x="680" y="192" text-anchor="end">4.15</text>
+        </g>
+        <g font-family="Noto Sans SC, sans-serif" font-size="11.5">
+          <text x="130" y="80" fill="var(--tag-blue)">商品房销售额</text>
+          <text x="130" y="200" fill="var(--tag-gold)">土地出让收入</text>
+        </g>
+        <g font-family="JetBrains Mono, monospace" font-size="10.5" fill="var(--ink-3)">
+          <text x="60" y="235" text-anchor="middle">2015</text>
+          <text x="308" y="235" text-anchor="middle">2019</text>
+          <text x="432" y="235" text-anchor="middle">2021</text>
+          <text x="680" y="235" text-anchor="middle">2025</text>
+        </g>
+      </svg>
+      <div class="chart-note">数据：国家统计局历年发布（销售额）、财政部历年发布（土地出让收入）。2026 年不完整故未画入：前 7 月销售额 4.27 万亿（同比 −13.1%），年化约为峰值四成；上半年土地出让收入 9,778 亿（同比 −31.5%），降幅重新扩大。</div>
+    </figure>
+
+    <p>2021 年，两条曲线同时到顶：销售额 18.2 万亿元，土地出让收入 8.7 万亿元。此后四年，前者跌去五成五，后者跌去五成二还在加速（2026 上半年同比 −31.5%）。更深的变化在需求的地基：全国人口连续四年负增长且降幅骤然扩大（2025 年 −339 万），出生人口跌破 800 万；居民部门杠杆率从峰值回落约 6 个百分点，居民贷款连续 13 个季度负增长——中国家庭在集体地、持续地做同一件事：<strong>还钱，而不是借钱</strong>。</p>
+    <p>把两条线放在一起，828 的历史位置就清楚了：预售制赖以成立的「房价永远涨、周转永远快」预期已死，土地财政赖以成立的「卖地—抵押—再投资」循环已断。九份文件不是在改革一个运转中的制度，而是在为一个已经停摆的制度重写章程。这不是贬低它的意义——恰恰相反，<strong>为死去的旧制度立新宪法，正是防止它借尸还魂的唯一办法</strong>。2003 年 121 号文的教训就是：旧模式只要还剩一口气，它就有足够的政治能量推翻任何收紧。</p>
+
+    <div class="pull">预售制不是被文件废除的，是被市场废除的——文件只是补办了死亡证明。真正的问题从来不是「要不要告别旧模式」，而是旧模式欠下的账，由谁来付。<span class="attr">本报告核心判断 · 详见第三章</span></div>
+  </div>
+</section>
+<!-- ============ 第三章 ============ -->
+<section id="c3">
+  <div class="chapter"><div class="shell">
+    <div class="chapter-label">Chapter Ⅲ · 主轴</div>
+    <h2>风险的重新分配</h2>
+    <p class="chapter-dek">读懂九份文件的钥匙只有一把：它们在回答「谁出钱、谁担风险、谁兜底」。旧模式的本质是把开发风险层层下移给最没有议价能力的人；新制度把风险沿着同一条链条反向推回去。但风险可以重新分配，已经发生的损失不能——那笔账还挂在半空中。</p>
+  </div></div>
+  <div class="shell prose">
+    <p>旧模式下的风险地图是这样的：购房者交出首付和三十年负债，在房子还是图纸的时候就承担了全部交付风险；银行在主体封顶时放出按揭，实际上把建设期风险打包转给了业主；开发商用预售款和银行的钱做十倍杠杆，自有资本金薄得可以忽略；地方政府拿走地价，对楼盘烂尾不承担任何法定责任。风险的分布与承受能力恰好倒置——<strong>链条最末端、信息最少、退出成本最高的家庭，承担了最大份额的风险</strong>。这不是设计失误，这就是设计：预售制的全部效率，正来自把风险成本从账面上藏起来。</p>
+    <p>828 的九份文件，每一条核心条款都是对这张风险地图的一次改绘：</p>
+
+    <div class="table-scroll"><table class="actor-table">
+      <thead><tr><th>条款</th><th>风险从谁身上卸下</th><th>压到谁身上</th></tr></thead>
+      <tbody>
+        <tr><td>现房销售优先</td><td>购房者（交付风险归零）</td><td>开发商（建设期全部资金占用）＋土地市场（拿地意愿下降）</td></tr>
+        <tr><td>预售须封顶＋资金全监管</td><td>购房者（烂尾概率）</td><td>开发商（预售回款几乎失去融资功能）</td></tr>
+        <tr><td>个贷竣工备案后发放</td><td>购房者（「房没拿到、贷先还上」终结）</td><td>银行（建设期不再有按揭资金垫底）＋开发商（回款再推迟）</td></tr>
+        <tr><td>主办银行制＋封闭管理</td><td>购房者、其他债权银行（资金挪用与多头抽贷）</td><td>主办银行（单项目集中敞口、最长七年）</td></tr>
+        <tr><td>项目公司制、资金不得混同</td><td>单个项目的购房者与银行</td><td>房企集团（失去内部资金池，等于拆掉流动性缓冲）</td></tr>
+        <tr><td>禁止贷款缴地价、须自有资金购地</td><td>金融体系（土地泡沫的信贷基础）</td><td>地方政府（土地购买力直接缩水）</td></tr>
+        <tr><td>40 年期限＋偿债比放宽到 60%</td><td>——（不卸风险）</td><td>购房家庭（用更长的负债期限换更低的月供，总利息上升）</td></tr>
+      </tbody>
+    </table></div>
+
+    <p>看清这张表，就看清了新政的性质：除了最后一行，几乎所有条款都在做同一件事——<strong>把风险从家庭部门推回到企业与金融部门</strong>。这是三十年来第一次方向性的逆转，其保护购房者的力度是真实的、制度性的，不是口号。央行答记者问里那六个字「能拿房、再还贷」，配合竣工备案后放款的硬约束，意味着「烂尾楼里还月供」这种中国房地产史上最刺眼的不正义，在新签合同的世界里被制度性消灭了。</p>
+    <p>但同一张表也暴露了两个问题。</p>
+    <p>第一个问题：<strong>最后一行是反向的</strong>。40 年房贷和偿债比上限放宽，是整套文件里唯一让家庭部门加杠杆的条款。政策逻辑不难理解——利率工具用尽了。新发房贷利率 3.06%，历史最低，横盘一年；首付比例已降无可降；能动的只剩期限和偿债比。用严跃进的话说这是「三低」组合拳的最后一块拼图；用批评者的话说，「你在拼命研究怎么让他多借点，他正在排队提前还贷，这是在推一根绳子」。两种说法都对：作为选择权，40 年期限没有伤害任何人；作为政策信号，它暴露了需求端工具箱的枯竭。一笔 200 万、利率 3.78% 的贷款，40 年比 30 年月供少约 1,200 元，总利息多约 54 万——愿不愿意签这个字，取决于对自己未来四十年收入的信心，而这恰恰是当下最稀缺的东西。</p>
+    <p>第二个问题更根本：<strong>风险可以重新分配，损失不能</strong>。新制度管的是「从今往后」，但 2021 年以来已经发生的损失还挂在系统里：截至 2025 年末累计 74 家房企出险、违约债券超 4,500 亿元，已批复重组的削债比例普遍在 40% 到 70% 之间；白名单项目贷款审批超 7 万亿元，2026 年初监管允许这些贷款展期五年——「保交楼」在官方口径下已收官（累计交付 750 多万套），但支撑它的贷款只是被推迟，没有被消化。土地出让收入较峰值少了约 4.6 万亿元/年，这个窟窿同样没有替代来源。<strong>存量损失最终只有四个去处：房企股东（削债）、金融体系（核销）、财政（注资）、家庭（房价与就业）。828 的九份文件对这道四选多的分配题保持沉默</strong>——这是理解后面几章所有矛盾的总根源。</p>
+
+    <div class="pull">新制度回答了「以后的风险归谁」，没有回答「过去的损失归谁」。前一个答案写在九份文件的每一条里；后一个答案将写在未来五年每一次房企重组、每一笔银行核销、每一份地方预算里。<span class="attr">本报告核心判断</span></div>
+
+    <p>还有一层再分配藏在更深处，值得单独点出：<strong>风险定价权的再分配</strong>。旧模式里，判断一个楼盘靠不靠谱的是购房者——用全家的积蓄下注；新模式里，这个判断被移交给了主办银行：贷不贷、贷多少、按什么进度放款，银行的授信审查实质上替全社会筛选项目。证监会文件把同样的逻辑复制到资本市场——「从主体信用转向项目信用」。这是一次金融体系与房地产关系的重构：银行从旧模式里的「风险击鼓传花的中转站」，变成了新模式里的「风险的定价者和守门人」。这个角色银行能不能演好、愿不愿意演，是第八章的主题。</p>
+    <p>把第二章的历史和本章的框架合起来，我们对 828 的总定位是：<strong>一次真实的、方向正确的、迟到的基础制度重构——它同时是一份没有附上「付款人」签名的账单</strong>。以下五章，逐一检验这份账单递到每个主体手里时，会发生什么。</p>
+  </div>
+</section>
+
+<!-- ============ 第四章 ============ -->
+<section id="c4">
+  <div class="chapter"><div class="shell">
+    <div class="chapter-label">Chapter Ⅳ · 主体之一</div>
+    <h2>地方政府：发动机熄火之后</h2>
+    <p class="chapter-dek">土地出让收入五年腰斩再腰斩，828 又亲手拆掉了土地金融的最后一根杠杆。中央文件期望地方政府「优化土地供应、转型城市更新」；地方政府的真实处境是：既要保交楼、又要化隐债、还要发工资——它执行新政的方式，一定和文件写的不一样。</p>
+  </div></div>
+  <div class="shell prose">
+    <h3>政策落点</h3>
+    <p>九份文件分给地方政府的任务清单很长：优先安排现房销售用地并公开信息、允许土地出让价款分期缴纳（比例时限由市县政府定）、可带规划方案出让、市县住建部门承担预售资金与定金监管职责、制定实施细则。城市更新贷款办法则给了一条新融资通道，但通道口立着三块牌子：项目须纳入城市更新项目库、须有覆盖本息的经营性收入、不得接受任何形式的政府隐性增信——并且贷款资金明令禁止用于缴纳土地出让金和净地供应前的征拆安置。</p>
+    <h3>真实处境</h3>
+    <p>先看账本。土地出让收入 2021 年 8.7 万亿、2025 年 4.15 万亿、2026 上半年同比再降 31.5%；这项收入占地方政府性基金本级收入的近八成，是城投偿债、基建配套、乃至部分区县「三保」的实际来源。周飞舟二十年前记录的「吃饭靠第一财政、建设靠第二财政」，如今是两个财政一起紧：房地产相关税收（契税、土增税、房企所得税）随销售额同步萎缩，「第一财政也在越来越依靠土地」的那部分同样落空。</p>
+    <p>再看激励。对市县官员来说，现房销售新政意味着本已冰冷的土地市场雪上加霜——开发商从拿地到回款的周期拉长到四年以上，测算拿地价格时必然把资金成本打进去，地价和成交率双降。财新周刊在 828 之前一年的调查里，东部沿海某住建部门人士已经把话说透：现售制改革「可能引发连锁反应，开发商后续拿地开发意愿会大幅下降，拖累土地财政收入与地方税收」。而 828 之后，这不再是风险预判，是明牌。</p>
+    <p>但「土地市场」这个词本身也在失去总量意义——它已经裂成两个互不相通的市场。2026 年 1—8 月，300 城住宅用地出让金同比再降 28%，三四线绝大多数地块以底价成交（平均溢价率 2.8%）；同一时间窗口里，北京的涉宅用地溢价率从年初的 0% 一路抬升到 8 月的 14%，楼面均价冲上 5.1 万元/㎡，海淀四季青、朝阳广渠路的高总价地块被中国金茂、中海高溢价拿走——中指月报的标题就叫「缩量延续，京沪高热」。<strong>这组数据改写了「现售拖累土地财政」的传导方式：核心城市的稀缺地块，央国企抢着用现售条件拿；广大三四线，什么销售制度都无法让地卖出溢价</strong>。土地财政的问题从来不是全国均匀的失血，而是绝大多数城市的完全断流、与少数城市的照常运转并存——这决定了「变形」的地理分布：越是断流的城市，缓冲阀拧得越松。</p>
+    <p>于是出现了政策文本与地方行为之间可预期的落差。制度给了地方三个合规的缓冲阀：预售条件「具体条件由各地根据实际情况确定」、土地价款分期「具体缴纳比例和时限由市县人民政府确定」、存量项目「按原有政策执行」。每一个「由各地确定」都是一个变形的入口。828 发布前一两天，多家房企已经收到风声、「加紧跑证」——赶在新规生效前拿到建设工程规划许可证，锁定旧预售规则。这个细节的含义远超事件本身：<strong>信息在正式发布前已经沿着政商网络流动，而地方对「新老划断」时点的把握，本身就是一种可以出让的资源</strong>。</p>
+
+    <div class="gap-card">
+      <div class="gc-head"><span class="idx">落差研判</span>地方政府的三种可预期变形</div>
+      <div class="gc-body">
+        <div class="gc-row policy"><b class="tag">变形一</b>「优先现房销售」执行为「口头优先」——文件用词是「优先选择」而非「必须」，高库存城市有动力真现售（反正卖不动期房），而尚有土地财政余温的城市会倾向于把「优先」解释成「鼓励」，用带条件出让、定向地块等技术安排保留预售空间。判断依据：海南 2020 年全省现售五年后，仅三个地市有现售新盘入市；文件措辞的弹性是刻意保留的。</div>
+        <div class="gc-row real"><b class="tag">变形二</b>土地价款分期变成变相打折与对赌——分期比例和时限由市县自定，等于给了地方一个合法的价格工具：首付 50%、两年缴清（广州南沙模式）只是起点，财政越紧的城市分期条件会越宽，实质是用财政的时间价值补贴开发商拿地，把今天的土地收入折价挪到后年。</div>
+        <div class="gc-row gap"><b class="tag">变形三</b>城市更新贷款的「项目包装竞赛」——贷款办法要求项目有覆盖本息的经营性收入，而大多数真实更新项目恰恰没有。可预期的应对是打包：把无收益的更新内容和有现金流的资产（停车场、租赁住房、商业）捆成一个「项目」过银行审查。这正是十年前棚改专项债时代「项目收益平衡」包装术的重演——政策研究者应当紧盯项目库入库标准在各地的实际执行。</div>
+      </div>
+    </div>
+
+    <h3>落差与后果</h3>
+    <p>更大的问题是替代收入从哪里来。文件体系对此的回答是转型叙事：从卖地转向城市更新、从增量转向存量运营。但赵燕菁的「不可替代规则」在这里是冷水：资本型收入和现金流型收入不能互相弥补——卖地是一次性资本收入，运营是细水长流的现金流，用后者填前者的窟窿，数量级差着一个身位。财新智库的测算给过方向性方案（中央 2 万亿稳定基金、消费税下划、数据财政），但 828 的文件包里一个字都没有。<strong>这意味着新政实际上默认了地方财政继续收缩，而没有给出过渡期的桥</strong>。</p>
+    <p>后果沿两条路径展开。财政路径：土地收入缺口逼着地方在「化债纪律」与「发展支出」之间做减法，公共服务与基建投资继续降速，部分弱资质城投的再融资压力在 2027 年前后集中到期。行为路径：当合规收入枯竭，非规范行为回潮——罚没收入异常增长、异地执法「远洋捕捞」、拖欠企业账款，这些 2024 年以来已被中央文件点名的现象，其财政根源恰恰是土地财政的坍塌。<strong>828 客观上加速了这个进程，却把善后留给了下一份文件</strong>。这是本报告对新政最主要的批评之一，第九章将展开。</p>
+    <div class="side-note"><b>观察清单（未来 6—12 个月验证本章判断）：</b>① 各地实施细则中预售条件的实际门槛（封顶 vs 更低）；② 现房销售地块在新出让宅地中的真实占比；③ 土地价款分期的比例与期限竞赛是否出现；④ 城市更新项目库的入库口径松紧；⑤ 罚没收入与非税收入占比变化。</div>
+  </div>
+</section>
+
+<!-- ============ 第五章 ============ -->
+<section id="c5">
+  <div class="chapter"><div class="shell">
+    <div class="chapter-label">Chapter Ⅴ · 主体之二</div>
+    <h2>开发商：五种命运</h2>
+    <p class="chapter-dek">「开发商」这个词在 2026 年已经指不了任何单一物种。央企在核心城市高溢价抢地，民企作为群体已退出土地市场，城投托底拿地却不会盖房，出险房企在削债 40% 到 70% 的重组桌上，而少数运营商正在 REITs 通道里排队。同一套新政，落在五种企业身上是五份完全不同的判决书。</p>
+  </div></div>
+  <div class="shell prose">
+    <p>先看这个行业还剩下什么。2026 年上半年，百强房企拿地总额 3,360 亿元，同比再降 33.7%；其中央企与地方国企占 85%，民企只占 13%。开发投资年化约 7.3 万亿，是峰值的一半；新开工面积同比 −24%，意味着两三年后的竣工和投资还要继续收缩。行业的资金内循环——销售回款养开发、开发撑拿地——已经停转，正在运转的是外循环：白名单贷款、重组削债、国资注入。到位资金的分项数据把这个判断钉死：2026 年前 7 月房企国内贷款同比 −32.1%、定金及预收款 −14.4%、个人按揭 −23.5%，没有一个资金渠道在生长。</p>
+    <p>名单本身也在讲同一个故事。2026 年 1—7 月权益拿地金额前十——保利、华润、越秀、建发、绿城、招商蛇口、滨江、金茂、中海、保利置业——除滨江外几乎清一色央国企与混合所有制；而拿地榜二十名开外，密密麻麻排着石家庄城发投、徐州硕源、滁州城建投这样的地方城投。销售榜同样：TOP10 里唯一的民企背景企业万科以 417 亿垫底，不足榜首保利（1,500 亿）的三成。<strong>行业的头部已经完成了所有制的置换，828 只是给这个既成事实颁发了制度执照</strong>。</p>
+
+    <div class="stat-row">
+      <div class="stat"><div class="v down">13<em>%</em></div><div class="k">民企在百强拿地金额中的占比（2026 上半年，中指）</div></div>
+      <div class="stat"><div class="v down">74<em>家</em></div><div class="k">累计出险房企（截至 2025 年末，违约债券超 4,500 亿元）</div></div>
+      <div class="stat"><div class="v">40–70<em>%</em></div><div class="k">已批复重组方案的普遍削债比例</div></div>
+      <div class="stat"><div class="v down">−24<em>%</em></div><div class="k">2026 年前 7 月新开工面积同比</div></div>
+    </div>
+
+    <h3>政策落点 × 五类主体</h3>
+    <p><strong>央企与头部国企</strong>——新政为它们量身定制。资本金充裕、融资成本低于 4%，主办银行制下它们是银行争抢的优质客户；「一视同仁」条款名义上普惠，实际上谁能通过银行的项目审查，答案不言自明。此前它们的玩法（财新引述香港房企高管）是「投资核心城市优质宅地，开工销售获得回款，资金再用到其他项目解决存量债务问题」——注意，<strong>项目资金封闭管理恰恰打断了这个腾挪</strong>。这是新政对央国企唯一的真约束：可以继续拿地，但每个项目变成一个独立的资金孤岛，用新项目回款养旧债务的通道收窄了。判决：赢家，但赢得比想象中辛苦。</p>
+    <p><strong>地方国企</strong>——分化。强区域国企（如深耕单一城市的城建系）项目少、半径小、与主办银行关系深，是项目制的天然适配者。弱地市国企过去几年被动接盘本地土地，账面存货跌价，主办银行制下反而可能第一次被银行的项目审查真正筛选——地方背书在「不得接受政府隐性增信」的条文面前贬值了。判决：强者恒强，弱者显形。</p>
+    <p><strong>城投平台</strong>——最尴尬的角色。过去四年它们是土地市场的「托底人」，拿了大量宅地却普遍不具备开发能力，大量地块趴在账上未开工。828 对它们是三面夹击：现房销售拉长开发周期，它们最缺的就是开发能力与耐心资本；「房地产开发资质＋项目资本金」门槛把很多平台挡在开发贷之外；而禁止贷款缴地价断了「借钱拿地做大资产负债表」的老路。<strong>城投托底拿地的游戏难以为继，而这个游戏恰恰是过去四年土地市场没有彻底崩盘的隐形支柱</strong>——它的退场对土地财政的二次冲击，尚未被市场充分定价。判决：旧角色终结，新角色（更新实施主体、租赁持有主体）尚未就位。</p>
+    <p><strong>出险民企</strong>——新政与它们基本无关，它们活在另一个法律时空里：重组桌上。削债 40–70% 意味着债权人承担了实际损失，而 828 的制度红利（融资支持、白名单扩容）明文只给「符合监管要求的项目开发公司」。证监会文件同时把另一扇门焊死：「严格执行退市制度，畅通多元化退市渠道」。政策意图清晰——出清通道比输血通道宽。资本市场通道的既往战绩支持这个解读：2022 年「第三支箭」开闸以来，房企定增实际获批寥寥且多为国企（首批 6 家中 4 家国企），首单房企定向可转债迟至 2025 年才出现（保利 85 亿元）；2026 上半年地产债融资总额同比增逾 20%、结束五年连降，但资金多用于借新还旧。业内的定位很传神：「第三支箭」是「抢救止血」，这次是「救活改造」——而抢救名单和改造名单，从来不是同一份。判决：制度性出局，剩余价值是项目和团队被并购。</p>
+    <p><strong>专业化租赁运营商与轻资产公司</strong>——文件包里唯一被正向点名扩容的物种。171 号文给租赁住房搭了完整的信贷梯子：开发建设贷款（最长 5 年）→ 团体购房贷款（最长 30 年、评估价八成，可批量收购存量房）→ 经营性贷款（自有产权最长 20 年），加上证监会的租赁 REITs 扩募通道，「开发—持有—退出」的投融资闭环第一次在制度层面接通。保租房 REITs 二级市场平均涨幅近 54%，资本对这个方向的态度已经投票。判决：政策意义上的新主角——但体量还是零头，8 只 REITs 发行规模 131 亿元，对照 7 万亿的年销售额，杠杆效应在预期而不在当下。</p>
+
+    <h3>落差与后果</h3>
+    <p>把五份判决书合起来看，行业的新结构是：<strong>央国企做开发、运营商做持有、代建公司做服务、民企要么出局要么转入前三种角色</strong>。这个结构性重组的效率代价被讨论得太少：民企曾贡献行业七成以上的开发能力与几乎全部的产品创新，国资主导的行业在品质竞争上未必如政策预期的「好房子」叙事那样乐观——垄断格局下「品质溢价」更可能表现为「价格溢价」。第一财经引述的匿名业内人士说得直白：「单纯的现房销售并不会真正解决销售问题……根本还在于产品和质量。」</p>
+    <p>另一个落差在时间轴上。新政的制度红利（长周期开发贷、REITs 退出）兑现要以年计，而冲击（预售回款功能废止、资金池拆除）是即期的。财新周刊引述的测算：10 万㎡ 项目「3 年建设 + 3 年销售」，头部民企 10 亿融资每多一年多付 4,000–5,000 万利息。开发商的应对已经可以预见——把楼盘切成小单元分批开发竣工，「碎片化的开发模式最终或将影响整体楼盘的整合与公共建筑配套的兑现程度」。<strong>现房销售消灭了「货不对板」，但可能催生新的走样：一期实景样板、二期缩水配套</strong>。政策研究者应当把「分期开发下的配套兑现」列入观察清单。</p>
+    <div class="side-note"><b>与城市更新研究的接口：</b>城投转型的现实出口之一是城市更新实施主体与租赁住房持有主体——但城市更新贷款办法要求经营性收入覆盖本息、租赁团体购房贷款要求「法律关系清晰、已竣工备案」，两条都对资产质量提出了城投恰恰最缺的要求。转型窗口是真的，门槛也是真的。</div>
+  </div>
+</section>
+<!-- ============ 第六章 ============ -->
+<section id="c6">
+  <div class="chapter"><div class="shell">
+    <div class="chapter-label">Chapter Ⅵ · 主体之三</div>
+    <h2>买房的人：三十年信任的重建与代价</h2>
+    <p class="chapter-dek">「能拿房、再还贷」六个字，是这套文件里最接近道歉的表述。对未来的购房者，保护是真实的；但对三类现实中的家庭——多套房的、一套房的、正犹豫要不要上车的——这份保护的含义完全不同。而对停贷潮里那批已经受伤的人，新政一个字也没有提。</p>
+  </div></div>
+  <div class="shell prose">
+    <p>先承认新政做对了什么。预售项目个贷改在竣工备案后发放，配合受托支付进监管账户，从制度上消灭了「房子烂尾、月供照还」——这是 2022 年停贷潮中最刺痛公众的不正义。现房销售「所见即所得」，交付风险归零；「交房即交证」终结了「住了十年拿不到证」的历史遗留；预售资金全额监管加开发商违约退款条款，把购房合同从「单方风险合同」拉回了对价平衡。这些不是修辞，是可执行的条款。海南现房销售试点后新房投诉量下降 67%，方向的民意基础是实的。</p>
+    <p>但「购房者」不是一类人。按住房状况拆开，同一套政策照出三种处境：</p>
+    <h3>多套房家庭：政策不再需要你</h3>
+    <p>过去二十年每轮周期的主角——投资性购房者——在这套文件里彻底消失了。不是被打击，是被无视：文件全部篇幅服务于「刚性和改善性住房需求」，投资需求既无支持亦无新限制。真正相关的条款藏在个贷办法第二十五条：已抵押房产在贷款结清前「不得以再评估后的净值为抵押追加购房贷款」——美式「房屋净值提款机」的路被明文焊死。对持有多套的家庭，828 的实际含义是确认了退出通道的漫长：二手房价连跌 38 个月，一线城市成交价回到 2017—2019 年，挂牌量高企；新政收缩新房供给客观上减少了替代品竞争，但也把「以旧换新」链条的上游（卖旧）变得更难。<strong>这个群体的核心风险不是政策，是流动性——想卖的人远多于想买的人，而新政无意改变这一点</strong>。</p>
+    <h3>一套房家庭：账面损失与真实保障之间</h3>
+    <p>自住家庭承受了房价下跌的账面损失——全国二手房较峰值累计跌幅市场口径约两三成，且下跌仍在进行时：2026 年 7 月百城二手住宅同比 −7.4%、一百个城市无一上涨，南京、武汉同比跌幅超过 10%。这意味着 2019—2021 年入场的家庭普遍浮亏，其中用了七成杠杆的家庭权益部分接近清零。与此同时百城新房均价同比 +2.1%（上海 +8.4%、成都 +8.3%）——「新房结构性上涨、二手普跌」的裂口，本质是核心城市「好房子」新盘对存量住宅的定价降维，自住家庭的资产正在被自己城市的新供给贬值。但对不卖房的自住者，账面浮亏的现实痛感有限，真正的现实压力是月供与收入的关系。这里新政给了两个真实的减压阀：存量房贷利率偏离新发放利率一定幅度时可协商调整或转按揭（171 号文第二十四条，把 2024 年那次一次性批量下调变成了常态机制）；还款困难可协商展期、延迟还本（第二十六条）。<strong>这两条是写给银行的社会稳定条款——它们的实际含义是：制度宁可让银行让利，也不愿看到弃房断供潮</strong>。对「保交楼」遗留群体——已经停贷、房屋烂尾的家庭——新政只管增量不管存量，他们的救济仍然依赖白名单项目的逐个交付，而白名单贷款展期五年的安排暗示这个过程还要以年计。</p>
+    <h3>潜在购房者：保护最足，犹豫最深</h3>
+    <p>对正在观望的家庭，新政给出了史上最完备的购买条件组合：利率 3.06% 历史最低、首付低位、40 年期限、现房所见即所得、竣工才还贷。纯从交易条款看，2026 年的购房者拿到了三十年来风险保障最好的合同。但市场的反应大概率仍是观望，原因政策无法触及：<strong>购房决策的自变量已经从「房价会不会涨」变成「我的收入稳不稳」</strong>。居民贷款连续 13 个季度负增长、提前还贷持续、青年就业承压——需求端的问题不在购买力的静态测算，在对未来现金流的信心。40 年房贷正是在这个语境下被舆论群嘲的：它把月供降到了最低，也把「用四十年赌收入稳定」这个要求摆到了最明处。批评者的测算并不复杂——200 万贷款，40 年比 30 年月供少 1,200 元、总利息多 54 万——但决定性的不是算术，是分母上那个「四十年」在人口负增长、名义收入增速放缓的年代意味着什么。</p>
+    <p>需求端的政策弹药其实已经打到了地方财政这一层。828 前一年间，全国 13 个城市陆续推出房贷贴息——按贷款总额贴 1%—2%（上海、广州、南京等）、按公积金利息贴 15%—50%（成都、大连等）、公转商利差贴息（汕头、贵阳），且从特定人群逐步扩到一般购房者。背景很清楚：央行 2025 年 5 月起因净息差压力不再降 LPR，利率工具冻结，只能由地方财政接棒。但多数城市租金回报率仅 2% 左右、与 3% 上下的房贷利率仍然倒挂，而贴息单套上限普遍两三万元、还设置全市总额「用完即止」——用业内的话说，「信号意义大于减负本身」；央企高管的判断更直接：「只有居民收入预期回暖，房价下跌预期企稳……需求端才能得到真正修复。」<strong>财政贴息是利率政策失效后的替补，而它自己也已显出财力的边界</strong>。</p>
+
+    <div class="debate">
+      <div class="debate-col">
+        <h5>拉长期限是给选择权</h5>
+        <p>「期限拉长后，购房者的月供明显下降……形成『首付低、利率低、月供低』的三低格局。」「40 年并非强制还款期限，购房者后续收入提升后，仍可通过提前还贷等方式优化债务。」<span class="who">——严跃进（易居研究院），2026-08-28</span></p>
+        <p>「月供压力和可贷额度空间均得到实质性释放……极大降低了短期置业门槛。」<span class="who">——张大伟（中原地产），2026-08-28</span></p>
+      </div>
+      <div class="debate-col con">
+        <h5>拉长期限是推绳子</h5>
+        <p>「偿债比上限放宽这七个字，说穿了就是『允许你欠得更多』。」「你在拼命研究怎么让他多借点，他正在排队提前还贷，这是在推一根绳子。」<span class="who">——网易号评论文章，2026-08-28</span></p>
+        <p>「房贷期限延长并不意味着购房总成本同步下降……更直接的政策效果仍是降低月供、平滑现金流压力。」<span class="who">——未具名研究机构高管（财联社），2026-08-28</span></p>
+      </div>
+    </div>
+
+    <p>值得单独记录的是舆论场的时间对照：2022 年 8 月，学者董藩建议房贷延长到 40 年，被全网讥为「建议专家不要建议」；四年后同一政策正式落地，机构解读一致叫好，而民间情绪几乎原样复刻了 2022 年——「有期徒刑上限也才 25 年」「贷贷相传」。<strong>专家共识与大众情绪的这道裂缝，本身就是政策效果的先行指标：一项需要公众用四十年信任来兑现的政策，正发布在公众信任最稀缺的时刻</strong>。</p>
+    <div class="side-note"><b>本章判断的边界：</b>新政对购房者保护的评价（真实、制度性）建立在条款文本上，其兑现依赖第四章所述地方执行与第八章所述银行配合；若预售监管在弱财政城市重演「松执行」，保护条款的实际含金量将打折。观察指标：新政后签约项目的资金挪用与延迟交付投诉是否归零。</div>
+  </div>
+</section>
+
+<!-- ============ 第七章 ============ -->
+<section id="c7">
+  <div class="chapter"><div class="shell">
+    <div class="chapter-label">Chapter Ⅶ · 主体之四</div>
+    <h2>租房的人：政策照进来的与照不到的</h2>
+    <p class="chapter-dek">171 号文给租赁住房搭起了完整的信贷梯子，这是文件包里最有远见的部分。但「租房的人」是三亿流动人口、不愿接盘的城市青年和保租房轮候家庭的总和——信贷通道服务的是持有租赁资产的机构，租客得到的是间接的、滞后的、分布不均的外溢。</p>
+  </div></div>
+  <div class="shell prose">
+    <p>先看制度供给。171 号文第一次把租赁住房的全生命周期信贷写进顶层文件：开发建设贷款（新建改建，最长 5 年，借款主体扩到工业园区、农村集体经济组织、企事业单位）、团体购房贷款（批量收购存量房用作租赁，最长 30 年、评估价八成）、经营性贷款（自有产权最长 20 年；非自有产权改造——工业厂房、商业用房、城中村——最长 5 年、租金总额七成），且明确经营贷可置换前期开发贷。加上证监会文件里租赁住房 REITs 的发行与扩募通道、「研究优化净现金流分派率要求」，机构化租赁第一次拿到了「融资—持有—退出」的完整制度闭环。</p>
+    <p>这套设计里藏着一个重要的政策雄心：<strong>团体购房贷款是把「去库存」和「租赁供给」焊在一起的工具</strong>——30 年期、八成杠杆，明文允许企业与专业化租赁企业批量收购「已竣工备案的商品住房」长期持有运营。如果规模化落地，它同时消化新房库存、扩充租赁房源、给房企回款——一石三鸟。这是文件包里最值得跟踪落地力度的单项条款。</p>
+    <h3>但租客在哪里？</h3>
+    <p>把镜头从资产端转到人端，图景立刻粗糙起来。「租房的人」至少是三个世界：</p>
+    <p><strong>外来流动人口</strong>——规模约三亿，聚居在城中村、园区宿舍、老旧小区合租房里。他们的居住问题从来不是「租不到」而是「租得起的都不体面、体面的都租不起」，以及居住权利与公共服务（子女教育为最）的脱钩。171 号文的城中村改造经营贷（非自有产权、最长 5 年）在制度上承认了「二房东改造」业态，这对提升存量质量有边际意义；但陶然的老判断仍然成立：地方政府在土地财政格局下「缺乏为外来流动人口提供保障房和公共服务的积极性」，保障房分配「基本只覆盖本地户籍家庭」。<strong>土地财政坍塌并没有自动瓦解这个激励结构——财政越紧，公共服务向纳税与购房人口倾斜的动力反而越强</strong>。对这三亿人，828 是一场发生在别人世界里的改革：他们既不买期房也不买现房，唯一确定的影响是若城中村改造在新融资工具下提速，他们将再一次面对租金上移与居所搬迁。</p>
+    <p><strong>不愿买房的城市青年</strong>——主动或被动的长租群体。对他们，新政的间接利好是真实的：机构化长租房供给增加、品质上移；保租房 REITs 的资产要求倒逼运营标准化；而新房供给收缩期，部分卖不动的库存转为租赁房源，租金承压利于租客。但政策的根本取向仍然是把他们视为「未来的购房者」——40 年房贷、低首付、低月供，全部工具都在降低「从租到购」的门槛，而不是提高「长期租」的可得与稳权。租购同权——租房者在教育、落户上的权利均等——在这轮九份文件里没有出现。<strong>「租购并举」在金融端已经并举，在权利端仍然单行</strong>。</p>
+    <p><strong>保租房覆盖人群</strong>——制度化程度最高的一群。「十四五」870 万套（间）目标基本完成，829 之后配售型保障房、保租房的开发贷款在 171 号文里拿到了「利率低于商品住房开发贷」的明文倾斜。这一块的真实短板不在融资在运营：部分城市保租房位置偏远、空置率高企，与需求错配。金融通道打通之后，考验转移到地方政府的选址与定价诚意上。</p>
+
+    <div class="gap-card">
+      <div class="gc-head"><span class="idx">落差研判</span>租赁条款的三个兑现悬念</div>
+      <div class="gc-body">
+        <div class="gc-row policy"><b class="tag">悬念一</b>团体购房贷款会不会重演 2023 年租赁贷的冷场——彼时央行 1,000 亿租赁住房贷款支持计划在 8 城试点，落地迟缓，核心卡点是租金回报率（一二线约 2%）低于贷款利率，收购算不过账。30 年期限拉长了容忍度，但利差倒挂未解，落地规模取决于是否配套贴息。</div>
+        <div class="gc-row real"><b class="tag">悬念二</b>城中村改造贷款的租金传导——非自有产权改造贷以「应收租金总额七成」为限，还款靠租金，制度上内嵌了改造后租金上涨的要求。对流动人口聚居区，「改造提速」与「可负担性」的矛盾将以更快节奏出现。</div>
+        <div class="gc-row gap"><b class="tag">悬念三</b>REITs 分派率优化的方向——「研究优化净现金流分派率要求」如落地为放宽，租赁资产入市门槛降低、供给扩容；但也可能稀释资产质量。对租客的净效应取决于扩容部分落在市场化长租还是保租房。</div>
+      </div>
+    </div>
+
+    <p>行业侧的数字可以帮我们校准对「机构化租赁」的期望值。据从业者测算（陆见山系列），机构式长租公寓全行业投入约 4,000 亿元才完成第一个 100 万间；一线城市租金收益率普遍仍在 1%—2%，距离「应然」的 3%—4% 差着一半——2025 年北京核心区回升到 2.5%—3%，是收益率修复的先行信号，其动力恰恰是房价下跌而非租金上涨。需求侧的结构变化则更快：30 岁以上租住群体占比从 2017 年的 16% 升到 2024 年的 38%，平均租期在拉长，「租住不再是购房之前的将就」正在从口号变成行为数据。行业对集中式公寓饱和量的判断是全国约 300—400 万套——这个体量提醒我们：<strong>机构化租赁做到极限也只覆盖租赁人口的零头，八成以上的租房供给过去是、将来也是分散的个人房东</strong>——而 828 的全部租赁条款，没有一条与个人房东有关。</p>
+    <p>本章的结论是一句需要直说的话：<strong>828 文件包里的「租赁」，是作为资产类别的租赁，不是作为居住形态的租赁</strong>。它回答了「租赁住房怎么融资」，没有回答「租房的人怎么安居」。前者是后者的必要条件，远不是充分条件——从金融闭环到居住正义之间，隔着户籍、学位、租金管制与租期保护这些九份文件之外的制度（德国《民法典》的租金参考表、租客权益保护是可对标的立法方向）。这是「租购并举」下半场真正的考题，也是本报告所在课题（租赁住房战略）需要持续深耕的方向。</p>
+  </div>
+</section>
+
+<!-- ============ 第八章 ============ -->
+<section id="c8">
+  <div class="chapter"><div class="shell">
+    <div class="chapter-label">Chapter Ⅷ · 主体之五</div>
+    <h2>银行：最后的承接者</h2>
+    <p class="chapter-dek">每一条保护购房者的条款，另一端都拴着银行：按揭晚放两年、开发贷拉长到七年、单项目绑定单一银行。新政把银行从风险传递链的中转站改造成了风险的终点站——而这发生在房地产贷款全面负增长、银行息差历史最低的时刻。文件假设银行愿意接，这个假设本身就是最大的执行悬念。</p>
+  </div></div>
+  <div class="shell prose">
+    <p>先量化银行的起点。2026 年二季度末，房地产贷款余额 50.74 万亿元，同比 −4.9%，为有统计以来最大降幅；其中开发贷余额 12.65 万亿（−8.5%），个人住房贷款余额 36.29 万亿（−3.8%），上半年净减少 7,163 亿——超过 2025 全年的减少额。按揭曾是中国银行业最优质的资产（低违约、低资本占用、长久期），这台资产发动机已经连续四年反转。</p>
+    <p>828 在这个背景下重写了银行与房地产的关系，实质是三笔交易：</p>
+    <p><strong>第一笔：时间换安全</strong>。按揭放款从主体封顶推迟到竣工备案，意味着建设期项目失去了按揭资金的提前接力，开发贷必须独自撑完全程——期限从普遍 3 年拉到现售项目最长 7 年，首次还本推到竣工备案后。银行的单笔资产久期拉长一倍以上，换来的是放款时点上抵押物（现房）的完整性。用财新引述的银行人士的话说，「3 年+3 年」的项目周期下拉长期限「有必要」——但「有必要」不等于「有意愿」。</p>
+    <p><strong>第二笔：垄断换责任</strong>。主办银行制给了银行单项目的全资金视野——预售资金、定金、销售回款、自有资金全部归集在自家账户，销售回款的活期存款是实打实的揽存利益（银行三项收益：开发贷、按揭、存款）。代价是集中：一个项目一家银行，风险无法再通过多头授信分散；「结清前原则上不得变更」意味着七年绑定，中途项目恶化没有退出机制。白名单时期这套安排是财政隐性背书下的政治任务，常态化之后背书撤了，审查责任全归银行自担——<strong>这正是文件反复强调「市场化、法治化、自主决策」的用意：把否决权真正交给银行，也把责任焊死在银行身上</strong>。</p>
+    <p><strong>第三笔：让利换稳定</strong>。存量房贷利率常态化调整机制（第二十四条）等于给按揭资产装上了单向棘轮——市场利率降、存量随之降，市场利率升、存量按合同——净息差的房贷部分被制度性压缩。还款困难展期条款（第二十六条）进一步要求银行在借款人失业时「灵活调整还款计划」。这些是把银行当作社会稳定器使用的条款，成本真实且不可转嫁。</p>
+    <h3>银行会怎么打这手牌</h3>
+    <p>828 当天的舆论场里，银行是唯一集体沉默的主角——没有一位银行业人士公开评论主办银行制的意愿问题。沉默本身是信息。可以从激励结构推演银行的应对：</p>
+    <p>其一，<strong>挑客户、挑城市的力度会超过政策预期</strong>。风险自担 + 长久期 + 单点集中，理性银行的反应必然是把项目审查门槛提到最高——只做央国企、只做一二线核心地段、只做去化确定性高的项目。「一视同仁满足不同所有制企业」的条文，将在银行风控模型面前失效：民企项目、弱二线项目将发现开发贷比新政前更难拿。<strong>信贷的马太效应会放大行业的马太效应</strong>——这与第五章的判决书互为因果。</p>
+    <p>其二，<strong>定价会补偿久期与集中度</strong>。现售项目 7 年期贷款的利率不会是 3 年期的价格，风险溢价最终计入开发成本，再传导进房价或地价——「现房销售推高成本」的市场担忧，一半会通过银行定价兑现。</p>
+    <p>其三，<strong>中小银行被挤出，格局向大行集中</strong>。七年期大额封闭贷款吃资本、吃流动性管理能力，城商行农商行多数玩不起主办银行角色；而它们恰恰是三四线房地产信贷的主力。三四线的项目融资将更依赖国有大行的下沉意愿——这又叠加了区域收缩的一层。</p>
+    <p>其四，<strong>真实的风险敞口向表内集中、向后展期</strong>。白名单贷款展期五年、按揭断供协商展期、开发贷首次还本推迟——多项安排的共同点是把风险确认时点后移。在拨备充足的大行这是平滑，在局部区域行这是掩埋。<strong>新模式下银行体系的房地产风险不是变小了，是变得更集中、更长期、更依赖少数大行的资产负债表</strong>。监管显然明白这一点：171 号文专设宏观审慎章节，贷款集中度管理、逆周期调节机制全部保留并强化——这是给自己留的刹车。</p>
+    <div class="side-note"><b>本章判断的最大不确定性：</b>银行的真实意愿数据尚缺。观察指标：① 新规后首批主办银行项目的签约行分布（大行占比）；② 现售项目开发贷的实际定价与期限；③ 城商行农商行的房地产贷款余额变化；④ 银行业协会或个体银行家的公开表态（截至成稿全部缺位，待补采）。</div>
+  </div>
+</section>
+<!-- ============ 第九章 ============ -->
+<section id="c9">
+  <div class="chapter"><div class="shell">
+    <div class="chapter-label">Chapter Ⅸ · 研判</div>
+    <h2>向何处去：三种情景与两个没碰的根子</h2>
+    <p class="chapter-dek">新模式的图纸画完了：项目制开发、现房交易、租购并举、金融闭环。但图纸能不能变成房子，取决于四个此刻无人能保证的变量。我们给出三种情景、各自的触发条件——以及一个直说的判断：828 绕开了它最应该回答的两个问题。</p>
+  </div></div>
+  <div class="shell prose">
+    <h3>决定走向的四个变量</h3>
+    <p><strong>变量一：居民收入预期何时修复</strong>。这是所有变量的母变量。「三低」组合把购房门槛降到了三十年最低，但门槛不是问题，跨过门槛之后四十年的现金流才是。收入预期不修复，需求端所有工具都是推绳子；一旦修复，积压的改善需求（政策已把通道修好）会快速释放。</p>
+    <p><strong>变量二：地方财政缺口以什么方式补</strong>。每年约 4.6 万亿的土地收入缺口，可选项无非中央转移支付扩容、消费税下划、房产税重启、地方支出压缩四种。一个不应忽略的细节是：与九份文件同日，财政部、税务总局发布了《地方附加税法》征求意见稿——把城建税与两项教育附加合并为地方税体系第一大税种，税率 11%—13% 由省级自定。方向正确（落实三中全会「增加地方自主财力」），但量级说明一切：三项税费 2025 年合计约 0.9 万亿，对照峰值期 8.7 万亿的土地出让收入，<strong>补位比例约一成</strong>。牌桌上有了第一张小牌，大牌还没影子。补的方式与力度决定了地方执行新政的诚意——缺口不补足，第四章的三种变形就是基准情形。</p>
+    <p><strong>变量三：存量损失的确认节奏</strong>。74 家出险房企、4,500 亿违约债券、展期五年的白名单贷款——账单在冰柜里，不在垃圾桶里。确认得太快，银行资本承压、信用收缩；确认得太慢，僵尸项目占用资源、市场出清遥遥无期。日本的教训恰恰是后者。</p>
+    <p><strong>变量四：银行的真实参与度</strong>。第八章已述。主办银行制若只在央国企核心城市项目上运转，新模式就只覆盖半个市场，另外半个（弱城市、中小房企）将陷入「没有预售回款、也没有开发贷」的融资真空。</p>
+
+    <h3>三种情景</h3>
+    <div class="scenario-grid">
+      <div class="scenario">
+        <h5>基准：漫长的换轨</h5>
+        <div class="prob">主观概率 55–65%</div>
+        <p>销售在 6—7 万亿量级寻底徘徊两到三年；现房占比 2028 年前后过半；土地市场靠央国企+分期缴款维持低位运转；地方财政靠中央转移支付与化债展期勉力平衡；一线与强二线率先企稳，弱城市长期阴跌。新模式在半个市场里成形，另外半个市场靠时间消化。特征词：不崩、不起、分化。</p>
+      </div>
+      <div class="scenario">
+        <h5>上行：信心闭环</h5>
+        <div class="prob">主观概率 15–25%</div>
+        <p>触发条件：宏观刺激带动名义收入回升＋存量损失处置提速（类似中央稳定基金落地）＋房产税长期悬置明确化。改善需求释放，现房品质竞争兑现「好房子」溢价，REITs 扩容打通存量循环。房地产以小一半的体量回到正常行业。关键标志：二手房价同比转正且持续两个季度以上。</p>
+      </div>
+      <div class="scenario">
+        <h5>下行：换轨脱轨</h5>
+        <div class="prob">主观概率 15–25%</div>
+        <p>触发条件：收入预期继续恶化＋银行对新模式实质抵制（开发贷收缩快于按揭）＋某个万亿级城投或大型混合所有制房企二次爆雷。新房供给断崖引发局部「现房荒」与租金上行，土地流拍蔓延至强二线，地方非税收入乱象倒逼中央被动兜底。特征：新制度未及成形，旧制度的清算先到。</p>
+      </div>
+    </div>
+
+    <h3>两个没碰的根子</h3>
+    <p>把九份文件与四十年制度史对照，828 最重要的特征其实是它的沉默之处。</p>
+    <p><strong>根子一：财税制度</strong>。土地财政的本质是地方以土地为税基的「隐性财产税」——一次性预征了未来七十年的级差地租。这个税基枯竭后，正统的替代方案在学理上只有一个：把一次性的土地出让金换成年年可收的房地产税，让地方财政从「卖地方」变成「服务存量业主的物业公司」。但房产税在 2021 年试点搁浅后再无下文，828 亦只字未提；同日启动立法的地方附加税，量级只有峰值土地收入的一成（见上文变量二）。<strong>不解决地方的钱从哪来，就没有真正解决地方为什么要配合</strong>——第四章所有变形的根源都在这里。华生十几年前的话在今天更显分量：「不从根本上终结这种卖地财政和融资负债搞发展的传统城市化道路，新型城市化根本不可能起步。」828 终结了卖地财政的工具（预售、土地金融），却没有安排它的继承人。</p>
+    <p><strong>根子二：存量债务的最终分配</strong>。第三章已述，不赘。国际对照可以更精确一些。市场派研究者陆见山在 828 前夕收官的「构建房地产新模式」系列（财新连载 24 篇）里给出了量化的三国比较：日本的路径是「做减法、换业态」——1990 年泡沫破裂后全行业连续亏损 11 年，累计亏损相当于 1990 年行业净资产的 1.3 倍，能穿越周期的头部房企全都把经营性业务做到了三成以上；美国的路径是「做校正」——按市值计价的会计规则强制及时确认损失，调整周期不超过五到七年，代价是数百万家庭在次贷危机中丧失房产的剧烈冲击。他对中国的定性是第三种：「做系统重建」——因为中国房地产背负的是城市、居民财富、宏观经济三重历史负荷（对 GDP 贡献长期超 25%，远高于日本的 10%—12%），制度管道同时缠着土地财政、金融体制、调控体系多条线，注定不能只做减法或只做校正。这个判断与 828「九文齐发、整体换制」的动作形态吻合。但系统重建路径有一个日本式的暗礁：<strong>重建可以渐进，损失确认不能无限渐进</strong>。中国当下的选择——展期、重组、时间换空间——在节奏上更接近日本而非美国。<strong>828 的新制度设计得越好，越反衬出旧账清算机制的缺位：新船已经造好，旧船上的人和货还没安排</strong>。</p>
+    <p>陆见山系列还留下一个与本报告框架直接对话的判断，值得记录：「新模式不是主动的、浪漫的模式升级，而是被动的、阵痛的模式变迁」，而其中最尖锐的问题正是「谁来支付新旧模式切换的代价」——他给出的观察是开发商最早最直接付出代价（「多数企业股权投资接近清零，民营开发商近乎团灭」），且中国式危机处理与美国式的根本区别在于「压实地方主体责任，地方吸损比例更大」。这与本报告第三章的风险再分配框架互为印证：<strong>市场派与制度派从不同起点走到了同一个结论——账单的分配，而非制度的设计，才是这场转型真正的硬问题</strong>。</p>
+
+    <div class="pull">828 回答了「房地产以后怎么运转」，没有回答「地方政府以后靠什么活」和「过去的损失谁来认」。前一个问题是工程学，后两个是政治经济学——而中国房地产从来是政治经济学问题。<span class="attr">本报告总判断</span></div>
+
+    <h3>我们的规范性判断</h3>
+    <p>按本报告的分析框架，直说三条：</p>
+    <p><strong>一、方向判断：828 是对的，而且是这套约束条件下能做出的最好版本之一</strong>。风险从家庭部门向企业与金融部门回移，方向正义且技术路径成熟（白名单两年实践打了样）；「先立后破」的过渡安排（存量项目老办法、预售未一刀切）吸取了海南试点和历次急刹车的教训。最强的反方意见——「此时推现售是压垮土地市场的最后一根稻草」——低估了一个事实：土地市场的下行由需求决定，与销售制度关系有限；保留预售制救不了土地财政，只会延长风险错配。</p>
+    <p><strong>二、节奏批评：需求端工具已经透支信用，不应再加码</strong>。40 年期限+偿债比 60% 在边际上无害（自愿选择），但它消耗的是政策部门更稀缺的资产——公信力。当「专家建议 40 年房贷」四年前还是全网笑柄、四年后成为正式制度，公众读出的信息不是「政策关心我的月供」，而是「政策需要我接盘」。此类工具每加码一次，观望情绪的自我实现就强化一分。需求端真正有效的政策在房地产政策之外：就业、社保、生育成本。</p>
+    <p><strong>三、补课清单：新模式还缺三块承重墙</strong>。①地方财政的替代安排——无论房产税、消费税下划还是转移支付重构，必须在「十五五」内给出明确路线图，否则新政执行将持续变形；②存量损失的处置框架——参考资产管理公司模式设立全国性的房地产重组基金，把「谁认多少」从个案博弈变成规则分配；③租赁的权利侧立法——租购并举的金融侧已经完备，租期保护、租金规制、租房者公共服务准入的立法再不启动，三亿人的居住改善将继续依赖开发商的商业模式善意。这三块都不在金融部门的权限内——<strong>这正是问题所在：房地产新模式是一个超越房地产的改革，而 828 只动员了金融与住建两个系统</strong>。</p>
+
+    <div class="divider">· · ·</div>
+
+    <p>最后回到那个晚上。九份文件在周五夜里落地，没有发布会，没有解读造势，市场甚至来不及在收盘前反应。这种低调本身像一个隐喻：这不是一场宣告胜利的改革，而是一次安静的清算——对三十年高速增长模式的告别仪式，在它的遗产尚未分割完毕之前，就必须先行举行。新的规则已经写好，旧的账单还在路上。<strong>中国房地产的下一个十年，将由这两份文书共同书写</strong>。</p>
+  </div>
+</section>
+
+<!-- ============ 来源索引 ============ -->
+<section id="sources" class="shell sources">
+  <h3>数据与观点来源</h3>
+  <span class="cat">政策原文（本仓库 policies/ 已归档全文）</span>
+  <ol>
+    <li>央行、金融监管总局：《关于改革完善房地产信贷管理 推动加快构建房地产发展新模式的意见》（银发〔2026〕171号），2026-08-27 印发</li>
+    <li>住建部、自然资源部、金融监管总局：《关于完善商品住房销售制度的通知》（建房规〔2026〕3号），2026-08-28</li>
+    <li>证监会：《关于资本市场支持构建房地产发展新模式的意见》，2025-12-27 成文、2026-08-28 发布</li>
+    <li>金融监管总局：金规〔2026〕4—8 号（商品住房开发贷款、个人住房贷款、商业地产贷款、城市更新项目贷款、房地产信托业务五个管理办法），2026-08-28</li>
+    <li>央行有关部门负责人就 171 号文答记者问，2026-08-28</li>
+  </ol>
+  <span class="cat">官方数据（口径与链接见仓库 research/data/2026-08-公开数据锚点.md）</span>
+  <ol>
+    <li>国家统计局：历年房地产开发与销售数据；2026 年 1—7 月发布（2026-08-17）；70 城房价指数；2025 年统计公报</li>
+    <li>财政部：历年国有土地使用权出让收入；2026 上半年财政收支（2026-07-22）</li>
+    <li>央行：《金融机构贷款投向统计报告》（2026 二季度）；《货币政策执行报告》（2026 二季度）</li>
+    <li>NIFD：宏观杠杆率季报（2026 二季度）</li>
+    <li>住建部/金融监管总局：保交楼交付 750 余万套（截至 2025-10）；白名单贷款审批超 7 万亿（截至 2025-09）</li>
+  </ol>
+  <span class="cat">机构与市场数据</span>
+  <ol>
+    <li>中指研究院（CREIS 开发云，14 份报告）：828 当日《住房销售制度改革来了，影响有多大？》；《2026 年 1—7 月全国房地产开发经营数据解读》《投资拿地榜》《销售业绩解析》《8 月土地市场月报》《百城价格指数（2026-07）》、现房销售专题四篇（2023—2026）等；北京现房/期房分项成交、可售库存与出清周期、涉宅用地溢价率为 CREIS 在线查询实测（口径注明于仓库 research/notes/zhongzhi/）</li>
+    <li>克而瑞：现房销售试点城市统计；金杜、方达律师事务所：出险房企与债务重组年度报告</li>
+    <li>清华五道口：《2024—2025 中国住房租赁行业发展报告》（保租房完成率）</li>
+  </ol>
+  <span class="cat">媒体报道与专家观点（详见仓库 research/viewpoints/ 与 research/notes/caixin/）</span>
+  <ol>
+    <li>财新网 2026-08-28 当日报道四篇（王婧、丁锋、范浅蝉、武晓蒙）及次日跟进（韩宇航：证监会十二条解读；陈博：13 城房贷贴息盘点；程思炜：地方附加税法征求意见）；《财新周刊》2025 年第 22 期《房地产现售制渐进》（陈博、武晓蒙）、2022 年第 29 期《停工楼盘能停贷吗》（牛牧江曲、朱亮韬）；财新观点《土地财政何去何从》（2025-03）</li>
+    <li>陆见山：「构建房地产新模式」系列专栏 24 篇（财新网评论，2026-01-12 至 2026-08-24 连载）——实然/应然方法论、价值链七环节「融投建管售退服」、中美日转型路径三国比较</li>
+    <li>财联社、21 世纪经济报道、每日经济新闻、澎湃新闻、第一财经、新京报、东方财富 2026-08-28 报道</li>
+    <li>专家：严跃进（易居）、李宇嘉（广东省城乡规划院）、张大伟（中原地产）、董希淼（招联）、王嵩（联储证券）、浦湛（住建部政策研究中心）、肖文晓（普睿数智）等 2026-08-28 公开发言</li>
+    <li>批评方样本：网易号评论两篇、知乎问题、海外中文论坛（定性样本，观点汇编内注明）</li>
+  </ol>
+  <span class="cat">理论文献（本地书库）</span>
+  <ol>
+    <li>兰小欢：《置身事内：中国政府与经济发展》——土地财政机制与规模测算</li>
+    <li>周飞舟：《以利为利：财政关系与地方政府行为》——分税制后地方土地生财的微观账本</li>
+    <li>华生：《城市化转型与土地陷阱》——土地财政异化与「一荣俱荣一损俱损」依赖结构</li>
+    <li>陶然：《人地之间：中国增长模式下的城乡土地改革》——土地垄断供应与房价泡沫化、保障房激励不相容</li>
+    <li>赵燕菁：《大崛起：中国经济的增长与转型》——土地金融与信用创造、资本型增长向运营型增长转轨</li>
+  </ol>
+  <div class="footer-note" style="border-top:none;padding-top:8px;">
+    统计口径提示：文中「商品房」与「商品住宅」、「累计」与「单月」口径均按原始来源标注使用；现房占比因口径差异存在 32%—36% 区间表述；70 城较峰值累计跌幅官方不发布，采用「成交价回到 2017—2019 年水平」的市场口径表述。百分比与百分点已区分使用。
+  </div>
+</section>
+
+
+<div class="shell footer-note">
+  本报告为《住房政策观察》(Housing Policy Watch) 独立研究，基于公开政策文件、官方统计数据与公开报道写成；引用均注明出处，不构成投资建议。数据核对口径见文末索引。仓库：github.com/youhong/housing-policy-watch（持续迭代）。
+</div>
+
+</body>
+</html>
