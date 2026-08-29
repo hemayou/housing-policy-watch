@@ -1,0 +1,76 @@
+#!/usr/bin/env python3
+"""dstext — 把本地长文本交给 DeepSeek v4-flash 消化，只把结果返回给主模型。
+
+用法：
+  dstext 文件路径 -p "处理要求"                # 单文件
+  dstext 文件路径 --lines 500-900 -p "..."    # 只取某行段
+  cat x.md | dstext - -p "..."               # stdin
+成本走 stderr，结果走 stdout。参考 ~/bin/webget 的架构。
+"""
+import argparse
+import json
+import os
+import sys
+import urllib.request
+
+API = "https://api.deepseek.com/chat/completions"
+MODEL = "deepseek-v4-flash"
+
+def api_key():
+    try:
+        return json.load(open(os.path.expanduser("~/.deepseek/config.json")))["api_key"]
+    except Exception:
+        sys.exit("找不到 ~/.deepseek/config.json 里的 api_key")
+
+def call(text, prompt, max_tokens=4000):
+    body = {
+        "model": MODEL,
+        "messages": [
+            {"role": "system", "content": "你是文本研究助手。严格基于给定材料回答，不编造。引用原文时逐字保留并注明大致行号。"},
+            {"role": "user", "content": f"{prompt}\n\n=== 材料开始 ===\n{text}\n=== 材料结束 ==="},
+        ],
+        "max_tokens": max_tokens,
+        "stream": False,
+    }
+    req = urllib.request.Request(
+        API,
+        data=json.dumps(body).encode(),
+        headers={"Content-Type": "application/json", "Authorization": f"Bearer {api_key()}"},
+    )
+    with urllib.request.urlopen(req, timeout=600) as r:
+        resp = json.load(r)
+    msg = resp["choices"][0]["message"]
+    usage = resp.get("usage", {})
+    return msg.get("content", ""), usage
+
+def main():
+    ap = argparse.ArgumentParser()
+    ap.add_argument("file")
+    ap.add_argument("-p", "--prompt", required=True)
+    ap.add_argument("--lines", help="行段 START-END（1起）")
+    ap.add_argument("--max-tokens", type=int, default=4000)
+    a = ap.parse_args()
+
+    raw = sys.stdin.read() if a.file == "-" else open(a.file, encoding="utf-8", errors="ignore").read()
+    lines = raw.splitlines()
+    if a.lines:
+        s, e = a.lines.split("-")
+        seg = lines[int(s) - 1 : int(e)]
+        # 带行号，便于回查原文
+        text = "\n".join(f"{int(s)+i}\t{l}" for i, l in enumerate(seg))
+    else:
+        text = "\n".join(f"{i+1}\t{l}" for i, l in enumerate(lines))
+
+    # v4-flash 单次上下文有限，超长直接截断提醒（书籍章节一般 <3万字没问题）
+    if len(text) > 240_000:
+        print(f"[dstext] 输入 {len(text)} 字符过长，截前 24 万字符", file=sys.stderr)
+        text = text[:240_000]
+
+    content, usage = call(text, a.prompt, a.max_tokens)
+    print(content)
+    pi, po = usage.get("prompt_tokens", 0), usage.get("completion_tokens", 0)
+    hit = usage.get("prompt_cache_hit_tokens", 0)
+    print(f"[dstext] {MODEL} 输入{pi}(缓存{hit})/输出{po} tokens", file=sys.stderr)
+
+if __name__ == "__main__":
+    main()
