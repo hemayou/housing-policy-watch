@@ -1,0 +1,525 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>数读828：十二张图</title>
+<script>
+try {
+  var t = localStorage.getItem('hpw-theme');
+  if (t === 'dark' || t === 'light') document.documentElement.setAttribute('data-theme', t);
+} catch (e) {}
+</script>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Noto+Serif+SC:wght@400;700;900&family=Noto+Sans+SC:wght@300;400;500;700&family=Spectral:ital,wght@0,400;0,500;1,400&family=JetBrains+Mono:wght@400;500&family=ZCOOL+QingKe+HuangYou&display=swap">
+<style>
+:root {
+  --paper: #fcfcf9; --paper-deep: #f2f2ea; --paper-panel: #f6f5ee;
+  --ink: #1d1f26; --ink-2: #494c58; --ink-3: #7b7e8c;
+  --hairline: #e2e1d7; --hairline-2: #c8c7ba;
+  --seal: #e8432d; --seal-soft: #e8432d1f;
+  --tag-blue: #2b5cd9; --tag-blue-2: #86a3e8; --tag-gold: #d9910c; --good: #159f68;
+  --chart-grid: #e7e6db;
+  --mono: 'JetBrains Mono', monospace;
+  --serif: 'Noto Serif SC', serif;
+  --sans: 'Noto Sans SC', sans-serif;
+  --num: 'ZCOOL QingKe HuangYou', 'Spectral', 'Noto Serif SC', serif;
+}
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) {
+    --paper: #15171e; --paper-deep: #1b1e26; --paper-panel: #20232d;
+    --ink: #e9eae4; --ink-2: #b3b6bf; --ink-3: #82858f;
+    --hairline: #333640; --hairline-2: #464a56;
+    --seal: #ff6a4d; --seal-soft: #ff6a4d24;
+    --tag-blue: #82a5ff; --tag-blue-2: #4a68b3; --tag-gold: #f0b83d; --good: #43c98b;
+    --chart-grid: #343744;
+  }
+}
+:root[data-theme="dark"] {
+  --paper: #15171e; --paper-deep: #1b1e26; --paper-panel: #20232d;
+  --ink: #e9eae4; --ink-2: #b3b6bf; --ink-3: #82858f;
+  --hairline: #333640; --hairline-2: #464a56;
+  --seal: #ff6a4d; --seal-soft: #ff6a4d24;
+  --tag-blue: #82a5ff; --tag-blue-2: #4a68b3; --tag-gold: #f0b83d; --good: #43c98b;
+  --chart-grid: #343744;
+}
+* { margin: 0; padding: 0; box-sizing: border-box; }
+[hidden] { display: none !important; }
+body { font-family: var(--sans); background: var(--paper); color: var(--ink); font-size: 16px; line-height: 1.9; -webkit-font-smoothing: antialiased; }
+.shell { max-width: 720px; margin: 0 auto; padding: 0 clamp(24px, 6vw, 40px); }
+.top-nav { display: flex; align-items: center; justify-content: space-between; padding: 18px clamp(24px, 6vw, 40px); border-bottom: 1px solid var(--hairline); background: var(--paper-deep); position: sticky; top: 0; z-index: 50; }
+.top-nav a { font-size: 13.5px; color: var(--ink-2); text-decoration: none; font-weight: 500; }
+.top-nav a:hover { color: var(--seal); }
+.top-nav .brand { font-family: var(--serif); font-weight: 700; letter-spacing: 1px; }
+.theme-toggle { background: none; border: 1px solid var(--hairline-2); border-radius: 50%; width: 34px; height: 34px; cursor: pointer; color: var(--ink-2); display: flex; align-items: center; justify-content: center; }
+.theme-toggle svg { width: 17px; height: 17px; }
+
+header.hero { padding: 68px 0 30px; position: relative; overflow: hidden; }
+.kicker { font-family: var(--mono); font-size: 11.5px; letter-spacing: 3px; color: var(--seal); margin-bottom: 14px; }
+h1 { font-family: var(--serif); font-size: clamp(30px, 6.4vw, 44px); font-weight: 900; line-height: 1.3; margin-bottom: 14px; text-wrap: balance; }
+.dek { font-size: 15.5px; color: var(--ink-2); max-width: 560px; }
+
+/* 图卡 */
+.fig {
+  background: var(--paper-panel);
+  border: 1px solid var(--hairline);
+  border-radius: 16px;
+  padding: 28px clamp(18px, 4vw, 30px) 20px;
+  margin: 30px 0 14px;
+  box-shadow: 0 1px 3px rgba(20,22,30,.04), 0 10px 32px rgba(20,22,30,.05);
+}
+.fig-no {
+  font-family: var(--num);
+  font-size: 15px;
+  color: var(--seal);
+  letter-spacing: 1px;
+  margin-bottom: 4px;
+}
+.fig h2 { font-family: var(--serif); font-size: 20px; font-weight: 700; line-height: 1.5; margin-bottom: 4px; text-wrap: balance; }
+.fig .sub { font-family: var(--mono); font-size: 11.5px; color: var(--ink-3); margin-bottom: 16px; letter-spacing: .5px; }
+.fig svg { width: 100%; height: auto; display: block; overflow: visible; }
+.fig .note { font-size: 12px; color: var(--ink-3); border-top: 1px dashed var(--hairline); margin-top: 14px; padding-top: 10px; line-height: 1.7; }
+.fig [data-tip] { cursor: crosshair; }
+.fig .bar { transition: opacity .15s; }
+.fig .bar:hover { opacity: .75; }
+.takeaway {
+  font-size: 15px;
+  color: var(--ink-2);
+  margin: 0 0 40px;
+  padding: 0 6px;
+}
+.takeaway b { color: var(--ink); }
+.takeaway .hl { color: var(--seal); font-weight: 700; }
+
+/* 章节分隔 */
+.act {
+  margin: 68px 0 8px;
+  display: flex;
+  align-items: center;
+  gap: 14px;
+}
+.act .n {
+  font-family: var(--num);
+  font-size: 30px;
+  color: var(--seal);
+  line-height: 1;
+}
+.act h3 { font-family: var(--serif); font-size: 22px; font-weight: 900; }
+.act::after { content: ''; flex: 1; height: 2px; border-radius: 2px; background: linear-gradient(90deg, var(--seal-soft), transparent); }
+.act-dek { font-size: 14px; color: var(--ink-3); margin-bottom: 8px; padding-left: 44px; }
+
+/* 悬停提示 */
+.chart-tip {
+  position: fixed; z-index: 120;
+  background: color-mix(in srgb, var(--ink) 94%, var(--tag-blue));
+  color: var(--paper);
+  font-family: var(--mono); font-size: 12px; line-height: 1.7;
+  padding: 8px 12px; border-radius: 10px;
+  pointer-events: none; opacity: 0; transition: opacity .12s;
+  max-width: 250px; white-space: pre-line;
+  box-shadow: 0 4px 16px rgba(0,0,0,.25);
+}
+.chart-tip.show { opacity: 1; }
+
+.reveal { opacity: 0; transform: translateY(16px); transition: opacity .55s cubic-bezier(.2,.7,.3,1), transform .55s cubic-bezier(.2,.7,.3,1); }
+.reveal.in { opacity: 1; transform: none; }
+@media (prefers-reduced-motion: reduce) { .reveal { opacity: 1; transform: none; transition: none; } }
+
+footer { border-top: 1px solid var(--hairline); margin-top: 60px; padding: 26px 0 60px; font-size: 12.5px; color: var(--ink-3); line-height: 1.8; }
+footer a { color: var(--tag-blue); text-decoration: none; }
+</style>
+</head>
+<body>
+
+<nav class="top-nav">
+  <a href="../" class="brand">住房政策观察</a>
+  <div style="display:flex; align-items:center; gap:16px;">
+    <a href="../">← 返回主报告</a>
+    <button class="theme-toggle" id="themeBtn" aria-label="切换明暗主题">
+      <svg id="iconSun" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="12" cy="12" r="4.5"/><line x1="12" y1="2" x2="12" y2="4.5"/><line x1="12" y1="19.5" x2="12" y2="22"/><line x1="2" y1="12" x2="4.5" y2="12"/><line x1="19.5" y1="12" x2="22" y2="12"/><line x1="4.8" y1="4.8" x2="6.5" y2="6.5"/><line x1="17.5" y1="17.5" x2="19.2" y2="19.2"/><line x1="4.8" y1="19.2" x2="6.5" y2="17.5"/><line x1="17.5" y1="6.5" x2="19.2" y2="4.8"/></svg>
+      <svg id="iconMoon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" hidden><path d="M21 12.8A8.5 8.5 0 1 1 11.2 3a6.6 6.6 0 0 0 9.8 9.8z"/></svg>
+    </button>
+  </div>
+</nav>
+
+<div class="shell">
+
+<header class="hero">
+  <div class="kicker">小专题 · 数据叙事</div>
+  <h1>数读 828：十二张图看懂房地产往哪去</h1>
+  <p class="dek">政策文件有几万字，但数据只需要十二张图。三幕：市场怎么塌的、钱怎么断的、828 落在什么地上。每张图讲一个论点，悬停（或点按）数据点看明细。</p>
+</header>
+
+<!-- ============ 第一幕 ============ -->
+<div class="act"><span class="n">壹</span><h3>市场怎么塌的</h3></div>
+<p class="act-dek">2021 年是所有曲线的分水岭。</p>
+
+<figure class="fig reveal">
+  <div class="fig-no">图 1</div>
+  <h2>销售额五年跌去五成四，回到十年前</h2>
+  <div class="sub">全国商品房销售额 · 万亿元 · 统计局</div>
+  <svg viewBox="0 0 660 240" role="img" aria-label="商品房销售额2015年8.7万亿升至2021年18.2万亿后跌至2025年8.4万亿">
+    <g id="f1bars"></g>
+  </svg>
+  <div class="note">2026 年为前 7 月年化估算（虚色）。2025 年 8.39 万亿低于 2015 年的 8.73 万亿——名义值回到十年前，考虑通胀实际更低。</div>
+</figure>
+<p class="takeaway"><b>要点：</b>这不是回调，是量级切换。市场共识的新稳态在 <span class="hl">6—8 万亿</span>——约为峰值的四成。828 的所有制度设计，都是按这个「小一半的行业」的尺寸裁剪的。</p>
+
+<figure class="fig reveal">
+  <div class="fig-no">图 2</div>
+  <h2>价格：二手房连跌三年半，新房结构性分化</h2>
+  <div class="sub">百城二手住宅价格同比 · % · 中指研究院 2026-07</div>
+  <svg viewBox="0 0 660 200" role="img" aria-label="百城二手房同比负7.4%，一百城无一上涨；新房同比正2.1%">
+    <g id="f2bars"></g>
+  </svg>
+  <div class="note">2026 年 7 月：百城二手住宅同比 −7.4%（100 城全部下跌），新建住宅同比 +2.1%（上海 +8.4%、成都 +8.3% 拉动）。70 城口径二手房已连跌 38 个月。</div>
+</figure>
+<p class="takeaway"><b>要点：</b>新房上涨是幻觉性的——它反映的是<b>入市新盘的结构变化</b>（核心地段「好房子」占比升高），不是资产升值。同一座城市里，居民手中存量住宅正在被新供给<b>定价降维</b>。</p>
+
+<figure class="fig reveal">
+  <div class="fig-no">图 3</div>
+  <h2>需求的地基：人口四连降，出生跌破 800 万</h2>
+  <div class="sub">全国总人口年度变化 · 万人 · 统计局</div>
+  <svg viewBox="0 0 660 210" role="img" aria-label="人口2022年起负增长，2025年减少339万">
+    <g id="f3bars"></g>
+  </svg>
+  <div class="note">2025 年出生 792 万人、死亡 1,131 万人，自然增长率 −2.41‰。城镇化率 67.89%，年增不到 1 个百分点，是住房需求仅存的结构性增量。</div>
+</figure>
+<p class="takeaway"><b>要点：</b>2025 年一年减少的人口（339 万）接近此前三年总和。住房的长期需求曲线不再有「刚需大军」——828 文件里「城镇化转向稳定发展期」一句，背后是这张图。</p>
+
+<figure class="fig reveal">
+  <div class="fig-no">图 4</div>
+  <h2>二手房网签史上首超新房</h2>
+  <div class="sub">2026 年 1—7 月 · 亿平方米 · 统计局/住建部网签口径</div>
+  <svg viewBox="0 0 660 150" role="img" aria-label="二手房网签4.82亿平米超过新房销售4.50亿平米">
+    <g id="f4bars"></g>
+  </svg>
+  <div class="note">二手房 4.82 亿㎡（同比 +10.2%）vs 新房 4.50 亿㎡（−11.8%）。口径为网签面积与销售面积，趋势明确。</div>
+</figure>
+<p class="takeaway"><b>要点：</b>中国房地产正式进入<b>存量市场主导</b>时代。二手房承接了新房流失的需求——这解释了为什么 828 的资本市场文件把「存量盘活」（REITs、收购贷款）放在与新增开发同等的位置。</p>
+
+<!-- ============ 第二幕 ============ -->
+<div class="act"><span class="n">贰</span><h3>钱怎么断的</h3></div>
+<p class="act-dek">土地、信贷、杠杆——三个水龙头同时关闭。</p>
+
+<figure class="fig reveal">
+  <div class="fig-no">图 5</div>
+  <h2>土地出让收入：地方政府的第二财政腰斩再腰斩</h2>
+  <div class="sub">国有土地使用权出让收入 · 万亿元 · 财政部</div>
+  <svg viewBox="0 0 660 240" role="img" aria-label="土地出让收入2021年8.7万亿跌至2025年4.15万亿，2026上半年同比再降31.5%">
+    <g id="f5bars"></g>
+  </svg>
+  <div class="note">2026 上半年 9,778 亿元、同比 −31.5%，降幅重新扩大。土地出让收入占地方政府性基金本级收入的近八成。</div>
+</figure>
+<p class="takeaway"><b>要点：</b>较峰值每年少了约 <span class="hl">4.6 万亿</span>——大约相当于全国一般公共预算收入的五分之一凭空消失。这是理解地方政府一切行为（化债、罚没、拖欠、变形执行）的总背景。同日启动立法的地方附加税只能补回约一成。</p>
+
+<figure class="fig reveal">
+  <div class="fig-no">图 6</div>
+  <h2>房地产信贷全面负增长</h2>
+  <div class="sub">2026 年二季度末余额同比 · % · 央行贷款投向报告</div>
+  <svg viewBox="0 0 660 180" role="img" aria-label="房地产贷款总盘负4.9%，开发贷负8.5%，个贷负3.8%">
+    <g id="f6bars"></g>
+  </svg>
+  <div class="note">房地产贷款余额 50.74 万亿（−4.9%，有统计以来最大降幅）；开发贷 12.65 万亿（−8.5%）；个人住房贷款 36.29 万亿（−3.8%，仅上半年净减 7,163 亿、超 2025 全年）。</div>
+</figure>
+<p class="takeaway"><b>要点：</b>银行与房地产正在<b>互相撤资</b>。828 的主办银行制要求银行接下更长（最长 7 年）、更集中的项目敞口——政策把风险的定价权连同风险本身一起交给了一个正在收缩敞口的部门。这是新政最大的执行悬念。</p>
+
+<figure class="fig reveal">
+  <div class="fig-no">图 7</div>
+  <h2>居民在还钱，不是在借钱</h2>
+  <div class="sub">居民部门杠杆率 · %（债务/GDP）· NIFD</div>
+  <svg viewBox="0 0 660 200" role="img" aria-label="居民杠杆率从2023年峰值63.5%降至2026年中57.7%">
+    <g id="f7line"></g>
+  </svg>
+  <div class="note">居民贷款连续 13 个季度负增长；房贷占居民总债务比重从 2020 年 55.2% 降至 44.9%。2026 年二季度单季降 1.3 个百分点。</div>
+</figure>
+<p class="takeaway"><b>要点：</b>这是 40 年房贷争议的底色——政策在降低借钱门槛，家庭在集体还钱。杠杆率较峰值回落约 6 个百分点，相当于居民部门主动缩表数万亿。「推绳子」之争，争的就是这张图会不会拐头。</p>
+
+<figure class="fig reveal">
+  <div class="fig-no">图 8</div>
+  <h2>利率工具已经打完</h2>
+  <div class="sub">新发放个人住房贷款加权平均利率 · % · 央行货政报告</div>
+  <svg viewBox="0 0 660 200" role="img" aria-label="房贷利率从2021年约5.5%降至3.06%历史最低后横盘一年"><g id="f8line"></g></svg>
+  <div class="note">2026 年一季度 3.06% 为有统计以来最低，二季度约 3.1% 与上年基本持平——已横盘约一年。2025 年 5 月后央行未再降 LPR（银行净息差压力）。</div>
+</figure>
+<p class="takeaway"><b>要点：</b>累计降了约 <span class="hl">245 个基点</span>之后，利率对需求的边际拉动趋于零。这就是为什么 828 转向期限（40 年）、偿债比（60%）这些「非价格工具」，也是为什么 13 个城市开始用财政贴息接棒——弹药序列的切换本身就是信号。</p>
+
+<!-- ============ 第三幕 ============ -->
+<div class="act"><span class="n">叁</span><h3>828 落在什么地上</h3></div>
+<p class="act-dek">新政不是在白纸上写字——市场已经先走完了大半。</p>
+
+<figure class="fig reveal">
+  <div class="fig-no">图 9</div>
+  <h2>现房销售：政策没推，市场自己走到了 35%</h2>
+  <div class="sub">商品住宅现售面积占比 · % · 统计局/官方答记者问口径</div>
+  <svg viewBox="0 0 660 210" role="img" aria-label="现房占比从2020年10.2%升至2025年35.4%"><g id="f9line"></g></svg>
+  <div class="note">北京 2026 年逐月现房成交占比 34%—51%（CREIS 实测）；克而瑞预计未来三五年可售现房规模超过期房。</div>
+</figure>
+<p class="takeaway"><b>要点：</b>828「优先现房销售」是给既成事实<b>补办手续</b>。购房者用脚投票在先、文件确认在后——这也是为什么说预售制「不是被文件废除的，是被市场废除的」。</p>
+
+<figure class="fig reveal">
+  <div class="fig-no">图 10</div>
+  <h2>谁还在拿地：民企只剩 13%</h2>
+  <div class="sub">百强房企拿地金额结构 · 2026 上半年 · 中指研究院</div>
+  <svg viewBox="0 0 660 190" role="img" aria-label="央企43%地方国企21%城投等其他占比之外民企仅13%"><g id="f10bars"></g></svg>
+  <div class="note">百强拿地总额 3,360 亿元（同比 −33.7%）。权益拿地前十除滨江外全为央国企/混合所有制；20 名以外密集分布地方城投。</div>
+</figure>
+<p class="takeaway"><b>要点：</b>土地市场的「国进民退」在 828 之前已经完成。新政「一视同仁支持各类所有制」的条文，将接受银行风控模型的检验——而模型只认资产负债表，不认文件。</p>
+
+<figure class="fig reveal">
+  <div class="fig-no">图 11</div>
+  <h2>同一个土地市场，两个世界</h2>
+  <div class="sub">2026 年宅地成交平均溢价率 · % · 中指 300 城/CREIS 北京实测</div>
+  <svg viewBox="0 0 660 180" role="img" aria-label="一线19.6%，二线8.9%，三四线2.8%，北京8月13.97%"><g id="f11bars"></g></svg>
+  <div class="note">300 城 1—8 月宅地出让金同比 −28%：三四线绝大多数底价成交；北京溢价率从年初 0% 升至 8 月 14%、楼面价冲上 5.1 万元/㎡（中指月报：「缩量延续，京沪高热」）。</div>
+</figure>
+<p class="takeaway"><b>要点：</b>「土地财政坍塌」不是均匀失血——是<b>大多数城市完全断流</b>与<b>少数城市照常运转</b>并存。这决定了 828 的执行地理：越是断流的城市，越有动力把新政的缓冲阀（预售条件自定、地价分期）拧到最松。</p>
+
+<figure class="fig reveal">
+  <div class="fig-no">图 12</div>
+  <h2>账单还挂在半空：出险与化解的规模</h2>
+  <div class="sub">存量风险关键数字 · 截至 2025 年末/2026 年中</div>
+  <svg viewBox="0 0 660 210" role="img" aria-label="74家出险房企、4500亿违约债券、削债40-70%、白名单7万亿"><g id="f12bars"></g></svg>
+  <div class="note">出险房企累计 74 家（金杜/方达年度报告，基于公开债券数据）；已批复重组的削债比例普遍 40%—70%；白名单贷款审批超 7 万亿、2026 年初获准展期 5 年。</div>
+</figure>
+<p class="takeaway"><b>要点：</b>828 回答了「以后的风险归谁」，没有回答「过去的损失归谁」。削债 40%—70% 的意思是债权人已在承担实际损失；展期五年的意思是<b>更大的账单被推迟，而不是被取消</b>。这是读完十二张图之后，真正该留在心里的那一张。</p>
+
+<footer>
+  数据来源：国家统计局、财政部、中国人民银行、NIFD、中指研究院（CREIS）、金杜/方达律师事务所年度报告；口径与逐项链接见 <a href="https://github.com/hemayou/housing-policy-watch/blob/main/research/data/2026-08-公开数据锚点.md">仓库数据锚点文档</a>。2026 年年化数为估算。<br>
+  <a href="../">← 返回《风险重估：828 房地产新政研究》</a> · <a href="land-finance-30y.html">土地财政三十年</a> · <a href="baojiaolou.html">保交楼往事</a> · <a href="https://github.com/hemayou/housing-policy-watch">GitHub 仓库</a>
+</footer>
+
+</div>
+
+<script>
+(function () {
+  /* ---- 主题 ---- */
+  var root = document.documentElement;
+  var themeBtn = document.getElementById('themeBtn');
+  var iconSun = document.getElementById('iconSun');
+  var iconMoon = document.getElementById('iconMoon');
+  function currentTheme() {
+    var a = root.getAttribute('data-theme');
+    if (a) return a;
+    return matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light';
+  }
+  function renderIcon() {
+    var dark = currentTheme() === 'dark';
+    iconSun.hidden = !dark; iconMoon.hidden = dark;
+  }
+  themeBtn.addEventListener('click', function () {
+    var next = currentTheme() === 'dark' ? 'light' : 'dark';
+    root.setAttribute('data-theme', next);
+    try { localStorage.setItem('hpw-theme', next); } catch (e) {}
+    renderIcon();
+  });
+  renderIcon();
+
+  /* ---- SVG 工具 ---- */
+  var NS = 'http://www.w3.org/2000/svg';
+  function el(tag, attrs, parent) {
+    var e = document.createElementNS(NS, tag);
+    for (var k in attrs) e.setAttribute(k, attrs[k]);
+    if (parent) parent.appendChild(e);
+    return e;
+  }
+  function txt(parent, x, y, s, attrs) {
+    var t = el('text', Object.assign({ x: x, y: y, 'font-family': "JetBrains Mono, monospace", 'font-size': 11, fill: 'var(--ink-3)' }, attrs || {}), parent);
+    t.textContent = s;
+    return t;
+  }
+
+  /* 通用柱状图：data=[{l:标签,v:数值,tip,cls}] */
+  function bars(gid, data, opt) {
+    var g = document.getElementById(gid);
+    if (!g) return;
+    var W = opt.w || 600, H = opt.h, X0 = 46, Y0 = H - 34;
+    var max = opt.max || Math.max.apply(null, data.map(function (d) { return Math.abs(d.v); }));
+    var bw = Math.min(44, (W - X0) / data.length - 8);
+    el('line', { x1: X0, y1: Y0, x2: X0 + W - 40, y2: Y0, stroke: 'var(--chart-grid)' }, g);
+    data.forEach(function (d, i) {
+      var x = X0 + 14 + i * ((W - X0 - 10) / data.length);
+      var h = Math.abs(d.v) / max * (Y0 - 24);
+      var y = d.v >= 0 ? Y0 - h : Y0;
+      var r = el('rect', { class: 'bar', x: x, y: y, width: bw, height: Math.max(h, 2), rx: 4, fill: d.color || 'var(--tag-blue)', 'data-tip': d.tip || (d.l + '：' + d.v) }, g);
+      if (d.dashed) { r.setAttribute('opacity', '.45'); }
+      txt(g, x + bw / 2, H - 16, d.l, { 'text-anchor': 'middle', 'font-size': 10 });
+      if (d.showV !== false) txt(g, x + bw / 2, y - 6 < 12 ? y + 14 : y - 6, d.vs || String(d.v), { 'text-anchor': 'middle', 'font-size': 10.5, fill: d.color || 'var(--ink-2)', 'font-weight': d.bold ? '700' : '400' });
+    });
+  }
+
+  /* 通用折线图 data=[{l,v,tip}] */
+  function line(gid, data, opt) {
+    var g = document.getElementById(gid);
+    if (!g) return;
+    var W = opt.w || 600, H = opt.h, X0 = 50, Y0 = H - 32;
+    var min = opt.min !== undefined ? opt.min : Math.min.apply(null, data.map(function (d) { return d.v; }));
+    var max = opt.max !== undefined ? opt.max : Math.max.apply(null, data.map(function (d) { return d.v; }));
+    var span = max - min || 1;
+    el('line', { x1: X0, y1: Y0, x2: X0 + W - 44, y2: Y0, stroke: 'var(--chart-grid)' }, g);
+    var pts = data.map(function (d, i) {
+      var x = X0 + i * ((W - X0 - 40) / (data.length - 1));
+      var y = Y0 - (d.v - min) / span * (Y0 - 30);
+      return { x: x, y: y, d: d };
+    });
+    el('polyline', { points: pts.map(function (p) { return p.x + ',' + p.y; }).join(' '), fill: 'none', stroke: 'var(--tag-blue)', 'stroke-width': 2.5, 'stroke-linejoin': 'round' }, g);
+    pts.forEach(function (p, i) {
+      var isKey = p.d.key;
+      el('circle', { cx: p.x, cy: p.y, r: isKey ? 5 : 3.5, fill: isKey ? 'var(--seal)' : 'var(--tag-blue)' }, g);
+      el('circle', { cx: p.x, cy: p.y, r: 14, fill: 'transparent', 'data-tip': p.d.tip || (p.d.l + '：' + p.d.v) }, g);
+      if (p.d.lb !== false) txt(g, p.x, H - 14, p.d.l, { 'text-anchor': 'middle', 'font-size': 10 });
+      if (isKey) txt(g, p.x, p.y - 10, p.d.vs || String(p.d.v), { 'text-anchor': 'middle', fill: 'var(--seal)', 'font-weight': '700', 'font-size': 11.5 });
+    });
+  }
+
+  /* 图1 销售额 */
+  bars('f1bars', [
+    { l: '2015', v: 8.73, vs: '8.7', tip: '2015：8.73 万亿' },
+    { l: '2017', v: 13.37, vs: '13.4', tip: '2017：13.37 万亿' },
+    { l: '2019', v: 15.97, vs: '16.0', tip: '2019：15.97 万亿' },
+    { l: '2021', v: 18.19, vs: '18.2', color: 'var(--seal)', bold: true, tip: '2021 峰值：18.19 万亿' },
+    { l: '2022', v: 13.33, vs: '13.3', tip: '2022：13.33 万亿（−26.7%）' },
+    { l: '2023', v: 11.66, vs: '11.7', tip: '2023：11.66 万亿' },
+    { l: '2024', v: 9.68, vs: '9.7', tip: '2024：9.68 万亿' },
+    { l: '2025', v: 8.39, vs: '8.4', color: 'var(--seal)', bold: true, tip: '2025：8.39 万亿——低于 2015 年' },
+    { l: '26E', v: 7.3, vs: '~7.3', dashed: true, tip: '2026 年化估算：约 7.3 万亿\n（前 7 月 4.27 万亿、−13.1%）' }
+  ], { h: 240 });
+
+  /* 图2 价格同比 */
+  bars('f2bars', [
+    { l: '新房(百城)', v: 2.09, vs: '+2.1%', color: 'var(--good)', tip: '百城新建住宅同比 +2.09%\n结构性：核心城市新盘拉动' },
+    { l: '二手(百城)', v: -7.37, vs: '−7.4%', color: 'var(--seal)', bold: true, tip: '百城二手住宅同比 −7.37%\n100 城全部下跌' },
+    { l: '二手·南京', v: -11.28, vs: '−11.3%', color: 'var(--seal)', tip: '南京二手同比 −11.28%' },
+    { l: '二手·武汉', v: -10.4, vs: '−10.4%', color: 'var(--seal)', tip: '武汉二手同比 −10.40%' },
+    { l: '租金(50城)', v: -2.62, vs: '−2.6%', color: 'var(--tag-gold)', tip: '50 城住宅租金同比 −2.62%\n仅 4 城上涨' }
+  ], { h: 200, max: 12 });
+
+  /* 图3 人口变化 */
+  bars('f3bars', [
+    { l: '2021', v: 48, vs: '+48', color: 'var(--tag-blue)', tip: '2021：+48 万人（最后一年正增长）' },
+    { l: '2022', v: -85, vs: '−85', color: 'var(--seal)', tip: '2022：−85 万，首次负增长' },
+    { l: '2023', v: -208, vs: '−208', color: 'var(--seal)', tip: '2023：−208 万' },
+    { l: '2024', v: -139, vs: '−139', color: 'var(--seal)', tip: '2024：−139 万' },
+    { l: '2025', v: -339, vs: '−339', color: 'var(--seal)', bold: true, tip: '2025：−339 万\n出生 792 万、死亡 1,131 万' }
+  ], { h: 210, max: 400 });
+
+  /* 图4 二手vs新房 */
+  bars('f4bars', [
+    { l: '新房销售', v: 4.50, vs: '4.50', color: 'var(--tag-blue)', tip: '新建商品房销售面积 4.50 亿㎡\n同比 −11.8%' },
+    { l: '二手网签', v: 4.82, vs: '4.82', color: 'var(--tag-gold)', bold: true, tip: '二手房交易网签面积 4.82 亿㎡\n同比 +10.2%——历史首超新房' }
+  ], { h: 150 });
+
+  /* 图5 土地出让 */
+  bars('f5bars', [
+    { l: '2015', v: 3.25, vs: '3.3', tip: '2015：3.25 万亿' },
+    { l: '2017', v: 5.21, vs: '5.2', tip: '2017：5.21 万亿' },
+    { l: '2019', v: 7.26, vs: '7.3', tip: '2019：7.26 万亿' },
+    { l: '2021', v: 8.71, vs: '8.7', color: 'var(--seal)', bold: true, tip: '2021 峰值：8.71 万亿\n= GDP 7.4%、地方两本预算 35.9%' },
+    { l: '2022', v: 6.69, vs: '6.7', tip: '2022：6.69 万亿' },
+    { l: '2023', v: 5.80, vs: '5.8', tip: '2023：5.80 万亿' },
+    { l: '2024', v: 4.87, vs: '4.9', tip: '2024：4.87 万亿' },
+    { l: '2025', v: 4.15, vs: '4.2', color: 'var(--seal)', bold: true, tip: '2025：4.15 万亿——峰值的 48%' },
+    { l: '26E', v: 3.2, vs: '~3.2', dashed: true, tip: '2026 走势：上半年 9,778 亿\n同比 −31.5%，降幅重新扩大' }
+  ], { h: 240 });
+
+  /* 图6 信贷负增长 */
+  bars('f6bars', [
+    { l: '房地产贷款总盘', v: -4.9, vs: '−4.9%', color: 'var(--seal)', tip: '余额 50.74 万亿\n有统计以来最大降幅' },
+    { l: '开发贷', v: -8.5, vs: '−8.5%', color: 'var(--seal)', bold: true, tip: '余额 12.65 万亿\n上半年减少 5,402 亿' },
+    { l: '个人住房贷款', v: -3.8, vs: '−3.8%', color: 'var(--seal)', tip: '余额 36.29 万亿\n上半年净减 7,163 亿、超 2025 全年' }
+  ], { h: 180, max: 10 });
+
+  /* 图7 居民杠杆率 */
+  line('f7line', [
+    { l: '2020', v: 62.2, tip: '2020 末：62.2%' },
+    { l: '2023', v: 63.5, key: true, vs: '63.5 峰', tip: '2023 末：约 63.5%（峰值附近）' },
+    { l: '2025', v: 59.4, tip: '2025 末：59.4%' },
+    { l: '26Q1', v: 59.0, tip: '2026 一季度末：59.0%' },
+    { l: '26Q2', v: 57.7, key: true, vs: '57.7', tip: '2026 二季度末：57.7%\n单季降 1.3 个百分点' }
+  ], { h: 200, min: 55, max: 66 });
+
+  /* 图8 房贷利率 */
+  line('f8line', [
+    { l: '2021', v: 5.54, key: true, vs: '5.54', tip: '2021 年三季度：约 5.54%\n（贝壳百城口径首套曾达 5.73%）' },
+    { l: '2022', v: 4.26, tip: '2022 末：约 4.26%' },
+    { l: '2023', v: 3.97, tip: '2023 末：约 3.97%' },
+    { l: '2024', v: 3.32, tip: '2024 末：约 3.32%' },
+    { l: '2025', v: 3.08, tip: '2025 末：约 3.08%' },
+    { l: '26Q2', v: 3.1, key: true, vs: '3.1', tip: '2026 二季度：约 3.1%\n一季度 3.06% 为历史最低，横盘一年' }
+  ], { h: 200, min: 2.5, max: 6 });
+
+  /* 图9 现房占比 */
+  line('f9line', [
+    { l: '2015', v: 23, tip: '2015：约 23%' },
+    { l: '2018', v: 12, tip: '2018：约 12%' },
+    { l: '2020', v: 10.2, key: true, vs: '10.2', tip: '2020：10.2%——预售制的顶峰' },
+    { l: '2022', v: 13.9, tip: '2022：13.9%（停贷潮转折）' },
+    { l: '2024', v: 30.8, tip: '2024：30.8%' },
+    { l: '2025', v: 35.4, key: true, vs: '35.4', tip: '2025 前三季度：35.4%\n五年翻两番' }
+  ], { h: 210, min: 0, max: 42 });
+
+  /* 图10 拿地结构 */
+  bars('f10bars', [
+    { l: '央企', v: 1599, vs: '1599 亿', color: 'var(--tag-blue)', tip: '央企：约 1,599 亿（43%）\n同比 −48% 但份额居首' },
+    { l: '地方国企', v: 773, vs: '773', color: 'var(--tag-blue-2)', tip: '地方国企：约 773 亿（21%）' },
+    { l: '城投等', v: 499, vs: '499', color: 'var(--tag-gold)', tip: '城投等主体：约 499 亿\n拿地榜 20 名以外密集分布' },
+    { l: '民企', v: 489, vs: '489', color: 'var(--seal)', bold: true, tip: '民企：仅 489 亿（13%）\n作为群体已基本退出土地市场' }
+  ], { h: 190 });
+
+  /* 图11 溢价率分层 */
+  bars('f11bars', [
+    { l: '一线', v: 19.6, vs: '19.6%', color: 'var(--tag-blue)', bold: true, tip: '一线城市宅地平均溢价率 19.6%' },
+    { l: '北京8月', v: 13.97, vs: '14.0%', color: 'var(--tag-blue)', tip: '北京 8 月：13.97%\n楼面均价 51,220 元/㎡（CREIS 实测）' },
+    { l: '二线', v: 8.9, vs: '8.9%', color: 'var(--tag-blue-2)', tip: '二线城市：8.9%' },
+    { l: '三四线', v: 2.8, vs: '2.8%', color: 'var(--seal)', bold: true, tip: '三四线：2.8%\n绝大多数地块底价成交' }
+  ], { h: 180 });
+
+  /* 图12 存量账单 */
+  bars('f12bars', [
+    { l: '出险房企', v: 74, vs: '74 家', color: 'var(--seal)', tip: '累计出险房企 74 家（截至 2025 末）' },
+    { l: '违约债券', v: 45, vs: '4500 亿', color: 'var(--seal)', bold: true, tip: '违约债券超 4,500 亿元（466 只）' },
+    { l: '削债比例', v: 55, vs: '40–70%', color: 'var(--tag-gold)', tip: '已批复重组方案的普遍削债比例\n债权人已承担实际损失' },
+    { l: '白名单贷款', v: 70, vs: '7 万亿', color: 'var(--tag-blue)', tip: '白名单贷款审批超 7 万亿\n2026 年初获准展期 5 年' }
+  ], { h: 210, max: 90 });
+
+  /* ---- 提示层 ---- */
+  var tip = document.createElement('div');
+  tip.className = 'chart-tip';
+  document.body.appendChild(tip);
+  function showTip(elm, x, y) {
+    tip.textContent = elm.getAttribute('data-tip');
+    tip.classList.add('show');
+    var w = tip.offsetWidth, h = tip.offsetHeight;
+    var left = Math.min(Math.max(8, x - w / 2), window.innerWidth - w - 8);
+    var top = y - h - 14;
+    if (top < 8) top = y + 18;
+    tip.style.left = left + 'px';
+    tip.style.top = top + 'px';
+  }
+  function hideTip() { tip.classList.remove('show'); }
+  document.addEventListener('mousemove', function (e) {
+    var t = e.target.closest && e.target.closest('[data-tip]');
+    if (t) showTip(t, e.clientX, e.clientY); else hideTip();
+  }, { passive: true });
+  document.addEventListener('click', function (e) {
+    var t = e.target.closest && e.target.closest('[data-tip]');
+    if (t) { showTip(t, e.clientX, e.clientY); e.stopPropagation(); }
+    else hideTip();
+  });
+  window.addEventListener('scroll', hideTip, { passive: true });
+
+  /* ---- 滚动淡入 ---- */
+  if ('IntersectionObserver' in window) {
+    var io = new IntersectionObserver(function (entries) {
+      entries.forEach(function (en) {
+        if (en.isIntersecting) { en.target.classList.add('in'); io.unobserve(en.target); }
+      });
+    }, { rootMargin: '0px 0px -8% 0px' });
+    document.querySelectorAll('.reveal').forEach(function (elm) { io.observe(elm); });
+  }
+})();
+</script>
+
+</body>
+</html>

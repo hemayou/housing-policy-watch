@@ -10,7 +10,9 @@
 | [40 年房贷计算器](https://hemayou.github.io/housing-policy-watch/topics/mortgage-40.html) | 工具：拖动滑块，一分钟算清 40 年 vs 30 年方案的月供、利息与年龄账 |
 | [租购大账：买还是租](https://hemayou.github.io/housing-policy-watch/topics/rent-or-buy.html) | 工具：同一笔钱，买房和「租房 + 理财」哪个更有利？九个变量自己调，含盈亏平衡涨幅 |
 | [新政与我：按身份速查](https://hemayou.github.io/housing-policy-watch/topics/what-it-means.html) | 速查：打算买房 / 背着房贷 / 等交付 / 租房 / 多套房——五种身份各自的利好、风险与行动清单 |
+| [数读 828：十二张图](https://hemayou.github.io/housing-policy-watch/topics/in-charts.html) | 数据叙事：三幕十二图——市场怎么塌的、钱怎么断的、828 落在什么地上，全部可交互 |
 | [土地财政三十年](https://hemayou.github.io/housing-policy-watch/topics/land-finance-30y.html) | 叙事：一根曲线讲完的故事——从 1994 分税制到 2026 地方附加税，滚动阅读 |
+| [隐形的账主：债务文献地图](https://hemayou.github.io/housing-policy-watch/topics/debt-literature.html) | 文献综述：七篇 2023—2026 中英文文献（含 RFS 顶刊）拼出 828 背后的地方债务问题——城投托市机器与「禁止贷款缴地价」的正面碰撞 |
 | [保交楼往事](https://hemayou.github.io/housing-policy-watch/topics/baojiaolou.html) | 叙事：从停贷潮到 828 的五年时间轴——每一条新规都从一个具体的伤口上长出来 |
 
 报告支持明暗主题切换与移动端阅读；数据图表可悬停查看明细。
@@ -60,6 +62,7 @@ docs/        网站发布目录（GitHub Pages）
 - **数据**：统计局 / 财政部 / 央行 / NIFD 官方序列为主，中指研究院等机构数据为辅；每个数字注明来源、时间与口径，百分比与百分点严格区分
 - **观点**：机构、媒体、专家具名观点与匿名民间情绪分层引用，正反方并陈
 - **理论**：兰小欢《置身事内》、周飞舟《以利为利》、华生《城市化转型与土地陷阱》、陶然《人地之间》、赵燕菁《大崛起》等
+- **学术文献**：Chang, Wang & Xiong（RFS 2026）、Li & Kohl（2026）、Rogoff & Yang 系列（NBER/Economic Policy）、Huang（PIIE）、王劲松等（《金融研究》）——逐篇笔记与综述见 `research/notes/debt-literature/`
 - 付费内容（财新全文、中指报告原件）按版权边界仅存本地，仓库内只保留自行归纳的要点笔记与规范引用
 
 ## 版权
@@ -70,7 +73,8 @@ docs/        网站发布目录（GitHub Pages）
 
 ## 后续计划
 
-- [ ] v3：券商研报与银行业界反应补采（周一开盘后）；「土地财政缺口谁来填」的正面讨论跟踪
+- [ ] v3：券商研报与银行业界反应补采；「土地财政缺口谁来填」的正面讨论跟踪
+- [ ] 债务专题深化：城投拿地在 828 后的实际变化追踪（检验 RFS 机制的关键实验）
 - [ ] 子专题扩展：银行的算盘（主办银行制专题）、中美日房地产转型三国比较、北京楼市月度仪表盘
 - [ ] 政策落地追踪：各地实施细则、现房销售地块占比、预售门槛实际执行
 

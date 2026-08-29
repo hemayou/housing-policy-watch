@@ -1,0 +1,298 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>隐形的账主：地方债务文献地图</title>
+<script>
+try {
+  var t = localStorage.getItem('hpw-theme');
+  if (t === 'dark' || t === 'light') document.documentElement.setAttribute('data-theme', t);
+} catch (e) {}
+</script>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Noto+Serif+SC:wght@400;700;900&family=Noto+Sans+SC:wght@300;400;500;700&family=Spectral:ital,wght@0,400;0,500;1,400&family=JetBrains+Mono:wght@400;500&family=ZCOOL+QingKe+HuangYou&display=swap">
+<style>
+:root {
+  --paper: #fcfcf9; --paper-deep: #f2f2ea; --paper-panel: #f6f5ee;
+  --ink: #1d1f26; --ink-2: #494c58; --ink-3: #7b7e8c;
+  --hairline: #e2e1d7; --hairline-2: #c8c7ba;
+  --seal: #e8432d; --seal-soft: #e8432d1f;
+  --tag-blue: #2b5cd9; --tag-blue-2: #86a3e8; --tag-gold: #d9910c; --good: #159f68;
+  --mono: 'JetBrains Mono', monospace;
+  --serif: 'Noto Serif SC', serif;
+  --sans: 'Noto Sans SC', sans-serif;
+  --num: 'ZCOOL QingKe HuangYou', 'Spectral', 'Noto Serif SC', serif;
+}
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) {
+    --paper: #15171e; --paper-deep: #1b1e26; --paper-panel: #20232d;
+    --ink: #e9eae4; --ink-2: #b3b6bf; --ink-3: #82858f;
+    --hairline: #333640; --hairline-2: #464a56;
+    --seal: #ff6a4d; --seal-soft: #ff6a4d24;
+    --tag-blue: #82a5ff; --tag-blue-2: #4a68b3; --tag-gold: #f0b83d; --good: #43c98b;
+  }
+}
+:root[data-theme="dark"] {
+  --paper: #15171e; --paper-deep: #1b1e26; --paper-panel: #20232d;
+  --ink: #e9eae4; --ink-2: #b3b6bf; --ink-3: #82858f;
+  --hairline: #333640; --hairline-2: #464a56;
+  --seal: #ff6a4d; --seal-soft: #ff6a4d24;
+  --tag-blue: #82a5ff; --tag-blue-2: #4a68b3; --tag-gold: #f0b83d; --good: #43c98b;
+}
+* { margin: 0; padding: 0; box-sizing: border-box; }
+[hidden] { display: none !important; }
+body { font-family: var(--sans); background: var(--paper); color: var(--ink); font-size: 16px; line-height: 1.95; -webkit-font-smoothing: antialiased; }
+.shell { max-width: 700px; margin: 0 auto; padding: 0 clamp(24px, 6vw, 40px); }
+.top-nav { display: flex; align-items: center; justify-content: space-between; padding: 18px clamp(24px, 6vw, 40px); border-bottom: 1px solid var(--hairline); background: var(--paper-deep); }
+.top-nav a { font-size: 13.5px; color: var(--ink-2); text-decoration: none; font-weight: 500; }
+.top-nav a:hover { color: var(--seal); }
+.top-nav .brand { font-family: var(--serif); font-weight: 700; letter-spacing: 1px; }
+.theme-toggle { background: none; border: 1px solid var(--hairline-2); border-radius: 50%; width: 34px; height: 34px; cursor: pointer; color: var(--ink-2); display: flex; align-items: center; justify-content: center; }
+.theme-toggle svg { width: 17px; height: 17px; }
+header.hero { padding: 64px 0 28px; }
+.kicker { font-family: var(--mono); font-size: 11.5px; letter-spacing: 3px; color: var(--seal); margin-bottom: 14px; }
+h1 { font-family: var(--serif); font-size: clamp(29px, 6vw, 42px); font-weight: 900; line-height: 1.32; margin-bottom: 14px; text-wrap: balance; }
+.dek { font-size: 15.5px; color: var(--ink-2); max-width: 560px; }
+
+h2.sec { font-family: var(--serif); font-size: 21px; font-weight: 900; margin: 56px 0 18px; display: flex; align-items: center; gap: 12px; }
+h2.sec::before { content: ''; width: 26px; height: 3px; border-radius: 2px; background: linear-gradient(90deg, var(--seal), var(--tag-gold)); }
+p.body { margin-bottom: 20px; color: var(--ink-2); font-size: 15px; }
+p.body b, p.body strong { color: var(--ink); }
+
+/* 机制链条 */
+.chain { margin: 30px 0; }
+.chain-node {
+  background: var(--paper-panel);
+  border: 1px solid var(--hairline);
+  border-radius: 12px;
+  padding: 16px 20px;
+  margin-bottom: 0;
+  font-size: 14.5px;
+  color: var(--ink-2);
+  box-shadow: 0 1px 3px rgba(20,22,30,.04);
+}
+.chain-node b { color: var(--ink); }
+.chain-node .cite { font-family: var(--mono); font-size: 11px; color: var(--tag-blue); display: block; margin-top: 6px; }
+.chain-arrow {
+  text-align: center;
+  color: var(--seal);
+  font-size: 20px;
+  line-height: 1;
+  padding: 8px 0;
+  font-family: var(--num);
+}
+.chain-node.crux { border-color: var(--seal); border-width: 1.5px; background: var(--seal-soft); }
+
+/* 论文卡 */
+.paper {
+  border: 1px solid var(--hairline);
+  border-radius: 12px;
+  margin-bottom: 14px;
+  overflow: hidden;
+  box-shadow: 0 1px 3px rgba(20,22,30,.04);
+}
+.paper-head {
+  display: flex; align-items: baseline; gap: 12px; padding: 15px 20px; cursor: pointer;
+  background: var(--paper-panel); user-select: none;
+}
+.paper-head:hover { color: var(--seal); }
+.paper-head .tag {
+  font-family: var(--mono); font-size: 10px; font-weight: 700; letter-spacing: 1px;
+  border-radius: 3px; padding: 2px 8px; flex-shrink: 0; color: #fff; background: var(--tag-blue);
+}
+.paper-head .tag.top { background: var(--seal); }
+.paper-head .t { font-weight: 700; font-size: 14.5px; font-family: var(--serif); flex: 1; line-height: 1.6; }
+.paper-head .sign { font-family: var(--mono); font-size: 15px; color: var(--ink-3); transition: transform .2s; }
+.paper.open .paper-head .sign { transform: rotate(45deg); }
+.paper-body { display: none; padding: 16px 20px 18px; font-size: 14px; color: var(--ink-2); border-top: 1px solid var(--hairline); line-height: 1.9; }
+.paper.open .paper-body { display: block; }
+.paper-body b { color: var(--ink); }
+.paper-body .num-hl { font-family: var(--num); color: var(--seal); font-size: 17px; }
+.paper-body .src { display: block; font-family: var(--mono); font-size: 11px; color: var(--ink-3); margin-top: 10px; }
+
+/* 数字带 */
+.figures-band {
+  display: grid; grid-template-columns: repeat(auto-fit, minmax(150px, 1fr)); gap: 1px;
+  background: var(--hairline); border: 1px solid var(--hairline); border-radius: 14px;
+  overflow: hidden; margin: 30px 0;
+  box-shadow: 0 1px 3px rgba(20,22,30,.04), 0 8px 28px rgba(20,22,30,.05);
+}
+.fb-cell { background: var(--paper-panel); padding: 20px 18px 16px; }
+.fb-cell .v { font-family: var(--num); font-size: 34px; line-height: 1.1; color: var(--seal); }
+.fb-cell .v em { font-style: normal; font-size: 16px; color: var(--ink-2); }
+.fb-cell .k { font-size: 12px; color: var(--ink-3); margin-top: 6px; line-height: 1.65; }
+.fb-cell .c { font-family: var(--mono); font-size: 10px; color: var(--tag-blue); margin-top: 4px; }
+
+/* 冲突卡 */
+.clash {
+  border: 1.5px solid var(--seal);
+  border-radius: 14px;
+  padding: 24px 26px;
+  margin: 34px 0;
+  background: linear-gradient(135deg, var(--seal-soft), transparent 60%);
+  box-shadow: 0 8px 28px color-mix(in srgb, var(--seal) 8%, transparent);
+}
+.clash h3 { font-family: var(--serif); font-size: 17px; font-weight: 900; margin-bottom: 10px; }
+.clash p { font-size: 14.5px; color: var(--ink-2); margin-bottom: 12px; }
+.clash p:last-child { margin-bottom: 0; }
+.clash b { color: var(--ink); }
+
+.divergence { border-left: 3px solid var(--tag-gold); background: var(--paper-panel); border-radius: 0 10px 10px 0; padding: 16px 20px; margin: 20px 0; font-size: 14px; color: var(--ink-2); }
+.divergence b { color: var(--ink); }
+
+.reveal { opacity: 0; transform: translateY(16px); transition: opacity .55s cubic-bezier(.2,.7,.3,1), transform .55s cubic-bezier(.2,.7,.3,1); }
+.reveal.in { opacity: 1; transform: none; }
+@media (prefers-reduced-motion: reduce) { .reveal { opacity: 1; transform: none; transition: none; } }
+
+footer { border-top: 1px solid var(--hairline); margin-top: 60px; padding: 26px 0 60px; font-size: 12.5px; color: var(--ink-3); line-height: 1.8; }
+footer a { color: var(--tag-blue); text-decoration: none; }
+</style>
+</head>
+<body>
+
+<nav class="top-nav">
+  <a href="../" class="brand">住房政策观察</a>
+  <div style="display:flex; align-items:center; gap:16px;">
+    <a href="../">← 返回主报告</a>
+    <button class="theme-toggle" id="themeBtn" aria-label="切换明暗主题">
+      <svg id="iconSun" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="12" cy="12" r="4.5"/><line x1="12" y1="2" x2="12" y2="4.5"/><line x1="12" y1="19.5" x2="12" y2="22"/><line x1="2" y1="12" x2="4.5" y2="12"/><line x1="19.5" y1="12" x2="22" y2="12"/><line x1="4.8" y1="4.8" x2="6.5" y2="6.5"/><line x1="17.5" y1="17.5" x2="19.2" y2="19.2"/><line x1="4.8" y1="19.2" x2="6.5" y2="17.5"/><line x1="17.5" y1="6.5" x2="19.2" y2="4.8"/></svg>
+      <svg id="iconMoon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" hidden><path d="M21 12.8A8.5 8.5 0 1 1 11.2 3a6.6 6.6 0 0 0 9.8 9.8z"/></svg>
+    </button>
+  </div>
+</nav>
+
+<div class="shell">
+
+<header class="hero">
+  <div class="kicker">小专题 · 文献综述</div>
+  <h1>隐形的账主：828 背后的地方债务问题</h1>
+  <p class="dek">828 新政的九份文件里没有一个字提到「城投」，但学术界过去三年最重要的实证发现恰恰指向这里：托住中国土地市场的，正是地方政府自己借来的钱。七篇 2023—2026 年的中英文文献（含一篇金融学顶刊 RFS），拼出这幅政策文件不会明说的地图。</p>
+</header>
+
+<h2 class="sec">一分钟版本</h2>
+<p class="body">房价下行这三年，一个反常现象始终没有得到解释：<b>土地成交量跌了四成，地价却还在涨</b>。普林斯顿的熊伟团队在《金融研究评论》（RFS，金融学三大顶刊）2026 年的论文里给出了答案——是地方政府融资平台（城投）在借债高价买地，托住自家土地的账面价值，好让抵押在这些土地上的债务能继续展期。<b>828 新政「禁止贷款缴纳土地出让价款」，恰好正面拆掉这台托市机器</b>。这就是为什么说，地方债务是这轮改革里那个没有出场、却决定成败的主角。</p>
+
+<div class="figures-band reveal">
+  <div class="fb-cell"><div class="v">31.8<em>%</em></div><div class="k">城投在土地成交中的购地占比（2022，2019 年仅 14.1%）</div><div class="c">CWX · RFS 2026</div></div>
+  <div class="fb-cell"><div class="v">+11.7<em>%</em></div><div class="k">城投出价高出市场价的幅度（2019 年为低 9%）</div><div class="c">CWX · RFS 2026</div></div>
+  <div class="fb-cell"><div class="v">50<em>%+</em></div><div class="k">城投债务规模相对 GDP；综合收入仅够付息</div><div class="c">Rogoff &amp; Yang 2024</div></div>
+  <div class="fb-cell"><div class="v">−43<em>%</em></div><div class="k">2022 年土地成交面积较 2019；同期地价 +11%——量价背离</div><div class="c">CWX · RFS 2026</div></div>
+</div>
+
+<h2 class="sec">机制链条：土地财政如何变成土地金融</h2>
+<p class="body">七篇文献合起来，勾勒出一条完整闭环。每一环都有专文压实：</p>
+
+<div class="chain reveal">
+  <div class="chain-node">房价与地价上涨预期 → <b>土地出让收入成为地方财政命脉</b>——占地方总财政收入约 37%（2021）；分线级看，二线城市依赖度最高达 46%<span class="cite">Huang PIIE 2023 · Rogoff &amp; Yang 2024</span></div>
+  <div class="chain-arrow">↓</div>
+  <div class="chain-node">土地沿两条通道<b>债务化</b>：①注入城投作抵押（pseudo-collateral）借债——城投债务超 GDP 五成；②隐性担保抬高国有主体的抵押率与信贷可得性<span class="cite">Rogoff &amp; Yang 2024 · 王劲松等《金融研究》2024</span></div>
+  <div class="chain-arrow">↓</div>
+  <div class="chain-node crux"><b>下行期的反向操作：托市</b>——城投借债高价购地（占比 14.1%→31.8%、溢价 +11.7%）、限发销售许可、行政限制降价，托住土地抵押品的账面估值以维持债务展期。债务压力每高 1 个标准差，当地地价被额外托高 6%、新房许可面积多压缩 13.2%<span class="cite">Chang, Wang &amp; Xiong · RFS 2026（核心实证）</span></div>
+  <div class="chain-arrow">↓</div>
+  <div class="chain-node">托市的代价由市场支付：开发商销售额外下滑 10.3%，二手房挂牌周期拉长到约 125 天（一线约 80 天），流动性冻结、价格调整被拖延而非避免<span class="cite">CWX 2026 · Li &amp; Kohl 2026</span></div>
+  <div class="chain-arrow">↓</div>
+  <div class="chain-node">循环收紧：<b>土地财政与土地金融互为抵押、互相塌陷</b>——土地收入越跌，越要借债托地价；托市越久，市场出清越慢，土地需求越萎缩<span class="cite">全体文献的共同结论</span></div>
+</div>
+
+<h2 class="sec">828 与这条链的正面碰撞</h2>
+<div class="clash reveal">
+  <h3>「禁止贷款缴地价」×「城投借钱托底拿地」</h3>
+  <p>RFS 论文证明的托市机器，运转的燃料是债务性资金：城投借钱、高价买地、土地再抵押。828 的 171 号文第五条——银行业金融机构<b>不得发放用于缴交土地出让价款的贷款</b>——在缴款环节掐断了这个循环。</p>
+  <p><b>推论：量价背离将向「价跌量现」切换。</b>地价失去城投托底后补跌，此前三年被行政和债务力量拖住的价格调整集中显性化；对土地抵押债务而言，抵押品重估先行、城投再融资收缩随后。</p>
+  <p>这就是主报告说「828 客观上加速了地方财政的清算进程」的学理版本——<b>新政拆的不是一个坏习惯，是一台仍在运转的、以数万亿债务为燃料的维稳机器</b>。</p>
+</div>
+
+<h2 class="sec">谁最痛：风险的地理分布</h2>
+<p class="body">两篇文献给出互补答案。Rogoff &amp; Yang（2022）指认<b>三线城市</b>是存量失衡最深处——占全国城市住房存量七成以上，到 2035 年建设需求需收缩约三成。Li &amp; Kohl（2026）用 2021 年后的真实跌幅修正为「杠铃形」：<b>跌得最深的是新一线和二线这批「挤压中层」</b>（峰值以来 −26%/−27%，对照一线 −17%、四线 −15%）——它们城投暴露与土地依赖双高，又缺一线的需求深度和四线的转移支付缓冲。预危机城投债务/GDP 每高 1 个标准差，此后房价年增速低 1.3 个百分点；四项财政敞口联合解释了「中层惩罚」的 37%。</p>
+<div class="divergence"><b>极端样本（CWX 附录）：</b>重庆、天津、赣州、镇江的城投债务达地方财政收入的 8—10 倍，利息支出吃掉一般公共预算收入的 39%—49%（2022）。828 之后，这个区间最先暴露。</div>
+
+<h2 class="sec">七篇文献速览</h2>
+<div id="papers">
+  <div class="paper reveal">
+    <div class="paper-head"><span class="tag top">RFS 顶刊</span><span class="t">量价背离：地方政府在房地产市场中的角色（Chang, Wang &amp; Xiong, 2026）</span><span class="sign">+</span></div>
+    <div class="paper-body">本批分量最重的一篇。解释「量跌价不跌」之谜：2020—2022 年土地成交面积较 2019 跌 <span class="num-hl">43.1%</span>、地价反涨 11%——靠的是城投购地占比从 14.1% 跳到 <span class="num-hl">31.8%</span>、出价从低于市场 9% 转为高出 11.7%。动机是保住土地抵押品估值以展期债务：城投债务压力每高 1 个标准差，当地地价额外 +6%、新房许可面积 −13.2%、开发商销售额外 −10.3%。<b>结论直指 828：应减少对卖地和土地抵押债务作为核心融资工具的依赖。</b><span class="src">Review of Financial Studies 2026 · 免费版 NBER w34303</span></div>
+  </div>
+  <div class="paper reveal">
+    <div class="paper-head"><span class="tag">开放获取</span><span class="t">土地财政、债务结构与楼市韧性：被挤压的中层（Li &amp; Kohl, 2026）</span><span class="sign">+</span></div>
+    <div class="paper-body">用 2021 年后真实下行数据画出跌幅的「杠铃形」：新一线 −26%、二线 −27% 最深。城投暴露高的城市跌得更狠，而<b>一般债敞口反而是缓冲</b>（下行期系数 +0.41、上行期不助涨泡沫）。政策主张明确：化债置换额度应按预危机城投债务/GDP 加权分配、向「挤压中层」定向扩容，而非按人口或预算规模平均分。国际对照：美国峰谷 −30%、西班牙 −35%~40%——中层城市的价格调整可能尚未走完。<span class="src">TU/e Pure 开放获取 · 2026</span></div>
+  </div>
+  <div class="paper reveal">
+    <div class="paper-head"><span class="tag">NBER</span><span class="t">Peak China Housing：房地产见顶的总量账（Rogoff &amp; Yang, 2020）</span><span class="sign">+</span></div>
+    <div class="paper-body">最常被引用的底数：房地产相关活动占中国 GDP <span class="num-hl">29%</span>（剔除进口后 24%），远超美国泡沫期。核心测算：房地产活动累计收缩 20%，拖累 GDP 水平 <span class="num-hl">5%–10%</span>——还不含银行危机的放大效应。这是评估 828「加速出清」宏观代价的风险预算。<span class="src">NBER w27697 · 2020</span></div>
+  </div>
+  <div class="paper reveal">
+    <div class="paper-head"><span class="tag">NBER</span><span class="t">三线城市的故事（Rogoff &amp; Yang, 2022）</span><span class="sign">+</span></div>
+    <div class="paper-body">三线城市占全国城市住房存量 <span class="num-hl">72%+</span>，在建/竣工比高达 10.6 倍，建筑企业负债率近 80%；到 2035 年三线建设需求需收缩约三成。土地财政依赖分层：一线 30%、二线 46%、三线 43%——<b>对土地收入依赖最深的，恰是需求萎缩最快的地方</b>。<span class="src">NBER w30519 · 2022</span></div>
+  </div>
+  <div class="paper reveal">
+    <div class="paper-head"><span class="tag">Econ Policy</span><span class="t">Rethinking China's Growth（Rogoff &amp; Yang, 2024）</span><span class="sign">+</span></div>
+    <div class="paper-body">房地产+基建合计占 GDP <span class="num-hl">31.7%</span>（2021）且投资回报已显著递减（住房存量越高的城市，新增投资的边际产出越低，三线尤甚）。城投债务超 GDP 五成、综合收入仅够付息。判断：即使放松信贷也难有持久刺激效果，还会加重高负债地区的困境——对「政策放松能否止跌」最悲观的一篇。<span class="src">Economic Policy 39(117) · 2024</span></div>
+  </div>
+  <div class="paper reveal">
+    <div class="paper-head"><span class="tag">PIIE</span><span class="t">Why China's Housing Policies Have Failed（Huang Tianlei, 2023）</span><span class="sign">+</span></div>
+    <div class="paper-body">系统批评预售制、供地制度与地方政府角色。记录 2022 年违约潮底数：境内债违约 115 只（1,353 亿元，为上年 6 倍）；开发商平均资产负债率约 80%，头部五家 85.3%。强调危机的「政策触发」属性（三道红线+封控），并警告救助制造的道德风险——housing too important to fail。<span class="src">PIIE Working Paper 23-5 · 2023</span></div>
+  </div>
+  <div class="paper reveal">
+    <div class="paper-head"><span class="tag">金融研究</span><span class="t">房价波动对地方政府债务稳定性的影响（王劲松等, 2024）</span><span class="sign">+</span></div>
+    <div class="paper-body">中文顶刊里最对口的一篇：用 DSGE 模型把「房价下行→土地需求萎缩→隐性担保减弱→地方债不稳定」装进可反事实模拟的框架。隐性担保被量化（国有主体抵押率 0.7 vs 非国有 0.6）。<b>关键保留意见：只切断土地融资渠道而不提升地方支出效率，短期经济承压且债务未必更稳</b>——对评估 828 过渡期成本最重要的警告。<span class="src">《金融研究》2024 年第 6 期</span></div>
+  </div>
+</div>
+
+<h2 class="sec">文献的分歧，也值得记录</h2>
+<div class="divergence"><b>托市是缓冲还是加害？</b>王劲松等的模型里，稳住土地收入对债务稳定性有正面意义（保住偿债现金流）；CWX 与 Li &amp; Kohl 的实证则显示托市加剧开发商困境、冻结二手房流动性，价格调整只是被拖延。<b>828 恰好站在这两种逻辑的冲突点上</b>——它选择了出清效率，赌的是长痛不如短痛。</div>
+<div class="divergence"><b>化债资源该往哪儿倾斜？</b>Rogoff &amp; Yang 的存量视角指向三线，Li &amp; Kohl 的债务结构视角指向新一线/二线「中层」。两者不矛盾（一个讲长期需求缺口、一个讲短中期价格调整），但对「置换额度怎么分」给出不同答案——这正是下一阶段政策观察的关键看点。</div>
+
+<h2 class="sec">对 828 的推演：债务可持续性的时间形状</h2>
+<p class="body"><b>短期（1—3 年）：机械恶化。</b>负债率的分母（土地财政收入）骤缩而分子（存量本息）刚性，账面负债率必然上行；同时托底工具失效，价格承担更多调整——出清更快，但财政报表更难看。</p>
+<p class="body"><b>中期：取决于三个配套是否同步到位。</b>①化债置换额度按城投暴露定向分配（Li &amp; Kohl 的主张）；②一般债与中央转移支付补位（2022 年转移支付 +18% 有先例）；③地方支出效率改革（王劲松等的模拟：效率参数提升可显著削弱「房价—地方债」的恶性反馈——只切融资渠道不提效率，债务未必更稳）。</p>
+<p class="body"><b>长期：方向上文献高度一致。</b>828 拆解的正是全部七篇文献共同指认的病根——对卖地收入和土地抵押债务的依赖。文献的警告全部集中在过渡期的量级与节奏：若房地产活动在已有跌幅上继续收缩、累计接近 20% 阈值情形，宏观代价以 GDP 水平 5%—10% 计。<b>这不是局部行业政策，是一次宏观再平衡操作。</b></p>
+
+<footer>
+  文献：Chang, Wang &amp; Xiong (RFS 2026／NBER w34303)；Li &amp; Kohl (2026)；Huang (PIIE WP23-5)；Rogoff &amp; Yang (NBER w27697／w30519；Economic Policy 2024)；王劲松等（《金融研究》2024/6）。逐篇研究笔记见 <a href="https://github.com/hemayou/housing-policy-watch/tree/main/research/notes/debt-literature">仓库 research/notes/debt-literature/</a>；数字均出自论文原文，出处标注到表格与章节。<br>
+  <a href="../">← 返回《风险重估：828 房地产新政研究》</a> · <a href="land-finance-30y.html">土地财政三十年</a> · <a href="in-charts.html">数读 828</a> · <a href="https://github.com/hemayou/housing-policy-watch">GitHub 仓库</a>
+</footer>
+
+</div>
+
+<script>
+(function () {
+  var root = document.documentElement;
+  var themeBtn = document.getElementById('themeBtn');
+  var iconSun = document.getElementById('iconSun');
+  var iconMoon = document.getElementById('iconMoon');
+  function currentTheme() {
+    var a = root.getAttribute('data-theme');
+    if (a) return a;
+    return matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light';
+  }
+  function renderIcon() {
+    var dark = currentTheme() === 'dark';
+    iconSun.hidden = !dark; iconMoon.hidden = dark;
+  }
+  themeBtn.addEventListener('click', function () {
+    var next = currentTheme() === 'dark' ? 'light' : 'dark';
+    root.setAttribute('data-theme', next);
+    try { localStorage.setItem('hpw-theme', next); } catch (e) {}
+    renderIcon();
+  });
+  renderIcon();
+
+  document.querySelectorAll('.paper-head').forEach(function (h) {
+    h.addEventListener('click', function () { h.parentElement.classList.toggle('open'); });
+  });
+
+  if ('IntersectionObserver' in window) {
+    var io = new IntersectionObserver(function (entries) {
+      entries.forEach(function (en) {
+        if (en.isIntersecting) { en.target.classList.add('in'); io.unobserve(en.target); }
+      });
+    }, { rootMargin: '0px 0px -8% 0px' });
+    document.querySelectorAll('.reveal').forEach(function (el) { io.observe(el); });
+  }
+})();
+</script>
+
+</body>
+</html>
