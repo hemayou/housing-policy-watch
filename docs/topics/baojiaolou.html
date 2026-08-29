@@ -1,0 +1,387 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>保交楼往事</title>
+<script>
+try {
+  var t = localStorage.getItem('hpw-theme');
+  if (t === 'dark' || t === 'light') document.documentElement.setAttribute('data-theme', t);
+} catch (e) {}
+</script>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Noto+Serif+SC:wght@400;700;900&family=Noto+Sans+SC:wght@300;400;500;700&family=Spectral:ital,wght@0,500;1,400&family=JetBrains+Mono:wght@400;500&display=swap">
+<style>
+:root {
+  --paper: #f7f4ee; --paper-deep: #efe9de; --paper-panel: #f1ede4;
+  --ink: #23201a; --ink-2: #4a453b; --ink-3: #7d766a;
+  --hairline: #d8d1c2; --hairline-2: #c5bca8;
+  --seal: #a03123; --seal-soft: #b8514419;
+  --tag-blue: #2c5f7c; --tag-gold: #9a7b2d; --good: #3a7d5c;
+  --mono: 'JetBrains Mono', monospace;
+  --serif: 'Noto Serif SC', serif;
+  --sans: 'Noto Sans SC', sans-serif;
+  --num: 'Spectral', 'Noto Serif SC', serif;
+}
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) {
+    --paper: #201e19; --paper-deep: #262420; --paper-panel: #2a2722;
+    --ink: #e6e0d2; --ink-2: #b5ac99; --ink-3: #857c6b;
+    --hairline: #3d382f; --hairline-2: #4d463a;
+    --seal: #c9564a; --seal-soft: #c9564a1f;
+    --tag-blue: #7aa9c0; --tag-gold: #c0a054; --good: #5b9c7c;
+  }
+}
+:root[data-theme="dark"] {
+  --paper: #201e19; --paper-deep: #262420; --paper-panel: #2a2722;
+  --ink: #e6e0d2; --ink-2: #b5ac99; --ink-3: #857c6b;
+  --hairline: #3d382f; --hairline-2: #4d463a;
+  --seal: #c9564a; --seal-soft: #c9564a1f;
+  --tag-blue: #7aa9c0; --tag-gold: #c0a054; --good: #5b9c7c;
+}
+* { margin: 0; padding: 0; box-sizing: border-box; }
+[hidden] { display: none !important; }
+body { font-family: var(--sans); background: var(--paper); color: var(--ink); font-size: 16px; line-height: 1.9; -webkit-font-smoothing: antialiased; }
+.shell { max-width: 680px; margin: 0 auto; padding: 0 clamp(24px, 6vw, 40px); }
+.top-nav { display: flex; align-items: center; justify-content: space-between; padding: 18px clamp(24px, 6vw, 40px); border-bottom: 1px solid var(--hairline); background: var(--paper-deep); }
+.top-nav a { font-size: 13.5px; color: var(--ink-2); text-decoration: none; font-weight: 500; }
+.top-nav a:hover { color: var(--seal); }
+.top-nav .brand { font-family: var(--serif); font-weight: 700; letter-spacing: 1px; }
+.theme-toggle { background: none; border: 1px solid var(--hairline-2); border-radius: 50%; width: 34px; height: 34px; cursor: pointer; color: var(--ink-2); display: flex; align-items: center; justify-content: center; }
+.theme-toggle svg { width: 17px; height: 17px; }
+header.hero { padding: 60px 0 10px; }
+.kicker { font-family: var(--mono); font-size: 11.5px; letter-spacing: 3px; color: var(--seal); margin-bottom: 14px; }
+h1 { font-family: var(--serif); font-size: clamp(28px, 6vw, 40px); font-weight: 900; line-height: 1.35; margin-bottom: 14px; text-wrap: balance; }
+.dek { font-size: 15.5px; color: var(--ink-2); max-width: 560px; }
+.lede { margin: 26px 0 8px; padding: 20px 22px; background: var(--paper-panel); border: 1px solid var(--hairline); border-left: 3px solid var(--seal); border-radius: 4px; font-size: 15px; color: var(--ink-2); }
+.lede b { color: var(--ink); }
+
+/* ============ 时间轴 ============ */
+.timeline { margin: 44px 0 8px; position: relative; padding-left: 26px; }
+.timeline::before {
+  content: '';
+  position: absolute;
+  left: 5px; top: 8px; bottom: 8px;
+  width: 1.5px;
+  background: var(--hairline-2);
+}
+.tl-item { position: relative; padding: 0 0 40px; }
+.tl-item:last-child { padding-bottom: 4px; }
+.tl-item::before {
+  content: '';
+  position: absolute;
+  left: -25px; top: 11px;
+  width: 9px; height: 9px;
+  border-radius: 50%;
+  background: var(--paper);
+  border: 2px solid var(--ink-3);
+}
+.tl-item.mark::before { border-color: var(--seal); background: var(--seal); }
+.tl-year {
+  font-family: var(--num);
+  font-style: italic;
+  font-size: 18px;
+  color: var(--seal);
+  margin-bottom: 4px;
+}
+.tl-title { font-weight: 700; font-size: 17px; margin-bottom: 6px; font-family: var(--serif); }
+.tl-body { font-size: 14.5px; color: var(--ink-2); line-height: 1.9; }
+.tl-body b { color: var(--ink); }
+.tl-body p + p { margin-top: 10px; }
+.tl-body .src { display: block; font-family: var(--mono); font-size: 11px; color: var(--ink-3); margin-top: 10px; }
+
+/* 手风琴卡（复用主模板 .item） */
+.item { border: 1px solid var(--hairline); border-radius: 6px; margin: 14px 0 0; overflow: hidden; background: var(--paper); }
+.item-head {
+  display: flex; align-items: center; gap: 12px; padding: 12px 16px; cursor: pointer;
+  background: var(--paper-panel); font-weight: 500; font-size: 14.5px; user-select: none;
+}
+.item-head:hover { color: var(--seal); }
+.item-head .sign { margin-left: auto; font-family: var(--mono); font-size: 16px; color: var(--ink-3); transition: transform .2s; flex-shrink: 0; }
+.item.open .item-head .sign { transform: rotate(45deg); }
+.badge { font-size: 11px; font-weight: 700; letter-spacing: 1px; border-radius: 3px; padding: 2px 8px; flex-shrink: 0; }
+.badge.good { background: var(--good); color: #fff; }
+.badge.warn { background: var(--tag-gold); color: #fff; }
+.badge.risk { background: var(--seal); color: #fff; }
+.badge.info { background: var(--tag-blue); color: #fff; }
+.item-body { display: none; padding: 14px 16px 16px; font-size: 14px; color: var(--ink-2); border-top: 1px solid var(--hairline); }
+.item.open .item-body { display: block; }
+.item-body b { color: var(--ink); }
+.item-body .src { display: block; font-family: var(--mono); font-size: 11px; color: var(--ink-3); margin-top: 10px; }
+
+/* 白名单流程链 */
+.flow { margin: 12px 0 0; display: flex; flex-wrap: wrap; align-items: center; gap: 8px; }
+.flow-step {
+  font-size: 12.5px; font-weight: 500; color: var(--ink-2);
+  background: var(--paper-panel); border: 1px solid var(--hairline-2);
+  border-radius: 4px; padding: 4px 10px; line-height: 1.6;
+}
+.flow-arrow { font-family: var(--mono); font-size: 13px; color: var(--ink-3); }
+
+/* 伤口→处方对照卡 */
+.rx-card { margin: 16px 0 0; border: 1px solid var(--hairline-2); border-radius: 6px; overflow: hidden; }
+.rx-head {
+  display: grid; grid-template-columns: 1fr 26px 1fr; gap: 10px;
+  padding: 10px 16px; background: var(--paper-deep); border-bottom: 1px solid var(--hairline);
+  font-family: var(--mono); font-size: 11px; letter-spacing: 1.5px; color: var(--ink-3);
+}
+.rx-head .h-cure { text-align: left; }
+.rx-row {
+  display: grid; grid-template-columns: 1fr 26px 1fr; gap: 10px; align-items: center;
+  padding: 13px 16px; font-size: 13.5px; line-height: 1.7;
+}
+.rx-row + .rx-row { border-top: 1px solid var(--hairline); }
+.rx-wound { color: var(--seal); font-weight: 500; }
+.rx-arrow { font-family: var(--mono); color: var(--ink-3); text-align: center; }
+.rx-cure { color: var(--good); font-weight: 500; }
+@media (max-width: 480px) {
+  .rx-head { display: none; }
+  .rx-row { grid-template-columns: 1fr; gap: 4px; padding: 14px 16px; }
+  .rx-arrow { text-align: left; transform: rotate(90deg); transform-origin: 10px center; width: 20px; }
+}
+
+/* 引语 */
+.pullquote {
+  margin: 22px 0 0; padding: 4px 0 4px 18px;
+  border-left: 3px solid var(--seal);
+  font-family: var(--serif); font-size: 16.5px; font-weight: 700; line-height: 1.85;
+  color: var(--ink);
+}
+
+/* 尾声 */
+.coda { margin: 40px 0 8px; border-top: 1px solid var(--hairline); padding-top: 30px; }
+.coda-head { font-family: var(--serif); font-size: 20px; font-weight: 700; margin-bottom: 14px; }
+.coda p { font-size: 15px; color: var(--ink-2); margin-bottom: 14px; }
+.coda p b { color: var(--ink); }
+.coda a { color: var(--tag-blue); text-decoration: none; border-bottom: 1px solid var(--tag-blue); }
+
+footer { border-top: 1px solid var(--hairline); margin-top: 46px; padding: 26px 0 60px; font-size: 12.5px; color: var(--ink-3); line-height: 1.8; }
+footer a { color: var(--tag-blue); text-decoration: none; }
+
+@media (max-width: 480px) {
+  .timeline { padding-left: 22px; }
+  .tl-item::before { left: -21px; }
+}
+</style>
+</head>
+<body>
+
+<nav class="top-nav">
+  <a href="../" class="brand">住房政策观察</a>
+  <div style="display:flex; align-items:center; gap:16px;">
+    <a href="../">← 返回主报告</a>
+    <button class="theme-toggle" id="themeBtn" aria-label="切换明暗主题">
+      <svg id="iconSun" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="12" cy="12" r="4.5"/><line x1="12" y1="2" x2="12" y2="4.5"/><line x1="12" y1="19.5" x2="12" y2="22"/><line x1="2" y1="12" x2="4.5" y2="12"/><line x1="19.5" y1="12" x2="22" y2="12"/><line x1="4.8" y1="4.8" x2="6.5" y2="6.5"/><line x1="17.5" y1="17.5" x2="19.2" y2="19.2"/><line x1="4.8" y1="19.2" x2="6.5" y2="17.5"/><line x1="17.5" y1="6.5" x2="19.2" y2="4.8"/></svg>
+      <svg id="iconMoon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" hidden><path d="M21 12.8A8.5 8.5 0 1 1 11.2 3a6.6 6.6 0 0 0 9.8 9.8z"/></svg>
+    </button>
+  </div>
+</nav>
+
+<div class="shell">
+
+<header class="hero">
+  <div class="kicker">小专题 · 制度前史</div>
+  <h1>保交楼往事</h1>
+  <p class="dek">从停贷潮到 828——每一条新规，都是从一个具体的伤口上长出来的。</p>
+</header>
+
+<div class="lede">
+  2026 年的购房者拿到了「能拿房、再还贷」的制度承诺。这份承诺不是凭空设计的——它背后是 <b>300 多个停工楼盘</b>、<b>2.31 亿平方米</b>烂尾面积、和一场自下而上的「停贷潮」。这个页面讲那五年发生了什么。
+</div>
+
+<div class="timeline">
+
+  <!-- 1. 2021 恒大爆雷 -->
+  <div class="tl-item">
+    <div class="tl-year">2021 · 下半年</div>
+    <div class="tl-title">恒大爆雷</div>
+    <div class="tl-body">
+      <p>「三道红线」收紧融资渠道后，靠高杠杆、高周转扩张的房企资金链相继断裂，恒大在 2021 年下半年爆雷。多年里预售资金被挪用留下的窟窿开始显形——购房者交给 A 楼盘的钱，早已被拿去盖 B 楼盘、还集团的债。用业内人士的话说：「转移去其他项目或者被集团抽走，都很常见。」</p>
+      <span class="src">出处：《财新周刊》2022年第29期《停工楼盘能停贷吗》</span>
+    </div>
+  </div>
+
+  <!-- 2. 2022.6-7 停贷潮 -->
+  <div class="tl-item mark">
+    <div class="tl-year">2022 · 6—7月</div>
+    <div class="tl-title">停贷潮</div>
+    <div class="tl-body">
+      <p>2022 年 6 月底起，全国多地购房人联名向住建局、银保监局和贷款银行发出「停贷告知书」：楼盘不复工，就不再还月供。截至 7 月 20 日，涉及维权的停工楼盘超过 <b>300 个</b>。易居研究院测算，全国烂尾楼面积约 <b>2.31 亿平方米</b>，涉及房贷约 <b>0.9 万亿元</b>——占全国房贷余额的 <b>1.7%</b>。</p>
+      <div class="item">
+        <div class="item-head"><span class="badge info">案例</span>名门翠园：1049 个人的投票<span class="sign">+</span></div>
+        <div class="item-body">
+          这个楼盘原定 2019 年 9 月交付，到 2022 年夏天已逾期近三年。2022 年 7 月 17 日，业主们组织了一场投票：<b>1049 人参与，167 人已经停贷，860 人表示将从 8 月起停贷</b>。停贷不是冲动，是投票之后的集体决定——旧制度把所有风险压给了链条上最没有议价能力的一环，这一环选择了掀桌子。
+          <span class="src">出处：《财新周刊》2022年第29期《停工楼盘能停贷吗》</span>
+        </div>
+      </div>
+      <span class="src">出处：《财新周刊》2022年第29期；易居研究院智库中心测算（2022年上半年）</span>
+    </div>
+  </div>
+
+  <!-- 3. 2022.7 三个漏洞 -->
+  <div class="tl-item">
+    <div class="tl-year">2022 · 7月</div>
+    <div class="tl-title">三个漏洞曝光</div>
+    <div class="tl-body">
+      <p>《财新周刊》逐案调查停工楼盘，把「钱是怎么没的」拆开给所有人看。预售资金监管制度纸面上一直存在，但在三个环节同时失灵——</p>
+      <div class="item">
+        <div class="item-head"><span class="badge risk">漏洞一</span>按揭贷款根本不进监管账户<span class="sign">+</span></div>
+        <div class="item-body">
+          按规定，购房款应进入政府监管的预售资金账户。但武汉、郑州等地此前监管宽松，往往只有首付款入账，<b>按揭贷款由银行直接打入开发商的非监管账户</b>。郑州融创中原大观的 300 余名业主自查后发现，<b>约 59.5% 的业主实际贷款支付账户与合同载明的监管账户不符</b>——钱从放款那一刻起，就没进过保险柜。
+          <span class="src">出处：《财新周刊》2022年第29期《停工楼盘能停贷吗》</span>
+        </div>
+      </div>
+      <div class="item">
+        <div class="item-head"><span class="badge risk">漏洞二</span>入了账的资金照样被挪走<span class="sign">+</span></div>
+        <div class="item-body">
+          进了监管账户也不安全。武汉绿地光谷星河绘项目的预售监管资金共 <b>7.6 亿元</b>，其中 <b>5.6 亿元已拨付给开发商</b>，剩余 2 亿元不足以覆盖完工所需——而全项目 <b>20 栋楼只有 2 栋结构封顶</b>。财新按《武汉细则》的拨付比例测算，「据此估算……项目超额提取了预售资金」。挪用的路径有两条：开发商借总承包商转移资金，或几方协调虚报工程进度、提前拨付。
+          <span class="src">出处：《财新周刊》2022年第29期《停工楼盘能停贷吗》</span>
+        </div>
+      </div>
+      <div class="item">
+        <div class="item-head"><span class="badge risk">漏洞三</span>未封顶放贷是「默认的做法」<span class="sign">+</span></div>
+        <div class="item-body">
+          央行和原银监会 <b>2007 年就规定</b>，银行只能对主体结构已封顶的住房发放个人贷款。但多份「停贷告知书」显示银行并未遵守。一名武汉房企人士称，楼盘未封顶即放贷是行业<b>「默认的做法」</b>；有银行回复购房者投诉时甚至表示，「当地银行均如此操作，并不影响贷款合同的执行」。一条写了十五年的规则，执行时形同虚设。
+          <span class="src">出处：《财新周刊》2022年第29期《停工楼盘能停贷吗》</span>
+        </div>
+      </div>
+      <p>出了事，谁负责？郑州一名银行人士回应业主：银行「是听招呼干活的」，最终审批权在房管局。而当地房企人士说，行业向好的年头里，房管局、银行、开发商「三方合作、加快周转」很常见。三方都有责任，等于三方都没有责任。</p>
+      <span class="src">出处：《财新周刊》2022年第29期《停工楼盘能停贷吗》</span>
+    </div>
+  </div>
+
+  <!-- 4. 2022.11 金融十六条 -->
+  <div class="tl-item">
+    <div class="tl-year">2022 · 11月</div>
+    <div class="tl-title">金融十六条：从救企业到救项目</div>
+    <div class="tl-body">
+      <p>政策转向「保项目、不保房企」，到期开发贷普遍获得一次甚至二次展期。另一侧，各地预售监管在危机中急速收紧——郑州从约 30%—40% 的监管比例收到<b>「几乎是全额监管」</b>。一名东北银行分行人士的回忆更能说明摆动的剧烈：「2021 年上半年要求降低房地产贷款增速，到下半年就开始督办我们保交楼」。<b>危机时收紧、行情好时放松</b>——这种摆动本身，正是旧制度的死结。</p>
+      <span class="src">出处：《财新周刊》2022年第29期、2025年第22期《房地产现售制渐进》</span>
+    </div>
+  </div>
+
+  <!-- 5. 2023 现房销售上桌 -->
+  <div class="tl-item">
+    <div class="tl-year">2023 · 年初</div>
+    <div class="tl-title">现房销售第一次被摆上桌面</div>
+    <div class="tl-body">
+      <p>住建部首次提出「有条件的地区开展现房销售」——1994 年从香港借鉴而来的预售制，第一次在最高主管部门的口径里有了替代方案。此后现售试点城市超过 <b>30 个</b>；全国商品住宅现售面积占比从 2021 年底的约 10.4% 升至 2025 年 4 月的约 32.5%。市场自己也在用脚投票：买过期房的人，开始只信看得见的房子。</p>
+      <span class="src">出处：《财新周刊》2025年第22期《房地产现售制渐进》；克而瑞、统计局口径</span>
+    </div>
+  </div>
+
+  <!-- 6. 2024 白名单 -->
+  <div class="tl-item">
+    <div class="tl-year">2024 · 年初</div>
+    <div class="tl-title">白名单与主办银行的雏形</div>
+    <div class="tl-body">
+      <p>「城市房地产融资协调机制」推出，一套战时资金管理流程就此成型：</p>
+      <div class="flow">
+        <span class="flow-step">住建部门提出白名单</span><span class="flow-arrow">→</span>
+        <span class="flow-step">协调机制确定一家主办银行</span><span class="flow-arrow">→</span>
+        <span class="flow-step">预售监管账户开在主办银行</span><span class="flow-arrow">→</span>
+        <span class="flow-step">单独建账、封闭管理</span>
+      </div>
+      <p>一个项目、一家银行、一本账、封闭运行——这正是两年半后 828 主办银行制的<b>战时原型</b>。制度创新往往先以应急面目出现，跑通了，才被写成正式规则。</p>
+      <span class="src">出处：《财新周刊》2025年第22期《房地产现售制渐进》</span>
+    </div>
+  </div>
+
+  <!-- 7. 2025 收官与预告 -->
+  <div class="tl-item">
+    <div class="tl-year">2025</div>
+    <div class="tl-title">收官，与一句预告</div>
+    <div class="tl-body">
+      <p>保交楼在官方口径下阶段性收官：已售难交付住房累计交付 <b>750 多万套</b>；白名单项目贷款审批金额超过 <b>7 万亿元</b>，支持近 <b>2000 万套</b>住房建设交付。5 月，金融监管总局局长李云泽在国新办发布会上预告：<b>「加快出台与房地产发展新模式相适配的系列融资制度」</b>。懂行的人都听明白了——一套替代旧预售资金链条的正式制度，已经在路上。</p>
+      <span class="src">出处：住建部、金融监管总局公开通报（截至2025年9—10月）；国新办发布会（2025-05-07）</span>
+    </div>
+  </div>
+
+  <!-- 8. 2026.1 展期五年 -->
+  <div class="tl-item">
+    <div class="tl-year">2026 · 1月</div>
+    <div class="tl-title">时间换空间</div>
+    <div class="tl-body">
+      <p>监管调整：白名单项目贷款获准<b>展期 5 年</b>。这个安排说明项目层面的现金流风险远未出清——风险没有消失，被推迟了。旧账用时间慢慢消化，新规则则要赶在下一个周期到来之前立起来。</p>
+      <span class="src">出处：金融监管总局2026年监管工作动向公开报道</span>
+    </div>
+  </div>
+
+  <!-- 9. 2026.8.28 制度定稿 -->
+  <div class="tl-item mark">
+    <div class="tl-year">2026 · 8月28日</div>
+    <div class="tl-title">制度定稿</div>
+    <div class="tl-body">
+      <p>九份文件同日落地：现房销售扩围、个人住房贷款新规、开发贷主办银行制…… 把这五年应急实践中被验证过的做法，写成了全国统一的正式制度。对照 2022 年曝光的三个漏洞，每一条设计都有明确的来处：</p>
+      <div class="rx-card">
+        <div class="rx-head"><span>2022 · 伤口</span><span></span><span class="h-cure">828 · 处方</span></div>
+        <div class="rx-row">
+          <div class="rx-wound">贷款绕开监管账户</div>
+          <div class="rx-arrow">→</div>
+          <div class="rx-cure">个贷受托支付 + 竣工备案后放款</div>
+        </div>
+        <div class="rx-row">
+          <div class="rx-wound">监管资金被挪用</div>
+          <div class="rx-arrow">→</div>
+          <div class="rx-cure">主办银行全资金封闭管理</div>
+        </div>
+        <div class="rx-row">
+          <div class="rx-wound">未封顶违规放贷</div>
+          <div class="rx-arrow">→</div>
+          <div class="rx-cure">预售须封顶 + 优先现房销售</div>
+        </div>
+      </div>
+      <div class="pullquote">828 的三项核心设计，是对着 2022 年验尸报告逐条开出的处方。</div>
+    </div>
+  </div>
+
+</div><!-- /timeline -->
+
+<section class="coda">
+  <div class="coda-head">故事还没有讲完</div>
+  <p>这不是一个已经闭合的故事。展期五年的白名单贷款意味着，存量风险的化解要以年为单位计算；那些买了房还在「等交付」的家庭，仍然活在旧规则里——新政的保护不溯及他们的项目。如果你正是其中之一，<a href="what-it-means.html">「828 新政与我有什么关系」</a>页面里「我买的房还没交付」一栏，写了三件现在就值得做的事。</p>
+  <p>再看一眼这五年的代价：300 多个楼盘的停工维权、2.31 亿平方米的烂尾面积、超 7 万亿元的白名单贷款、数以百万计家庭被改写的生活。用这样的代价换来的新规则，本质上做了一件事——<b>把「本不该由购房者承担的风险」，还给了有能力定价它的机构</b>：银行要在放款前掂量项目能不能盖完，开发商要用自己的资金成本为工期负责。这个纠正迟到了很多年，但方向是对的。制度很少诞生于先见之明，多数时候，它诞生于伤口。</p>
+</section>
+
+<footer>
+  本页为《风险重估：828 房地产新政研究》的子专题，内容为一般性信息梳理。主要依据：《财新周刊》2022年第29期《停工楼盘能停贷吗》、2025年第22期《房地产现售制渐进》，以及住建部、金融监管总局公开通报；详细数据与出处见主报告。<br>
+  <a href="../">← 返回《风险重估：828 房地产新政研究》</a> · <a href="what-it-means.html">828 新政与我有什么关系</a> · <a href="https://github.com/hemayou/housing-policy-watch">GitHub 仓库</a>
+</footer>
+
+</div>
+
+<script>
+(function () {
+  var root = document.documentElement;
+  var themeBtn = document.getElementById('themeBtn');
+  var iconSun = document.getElementById('iconSun');
+  var iconMoon = document.getElementById('iconMoon');
+  function currentTheme() {
+    var a = root.getAttribute('data-theme');
+    if (a) return a;
+    return matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light';
+  }
+  function renderIcon() {
+    var dark = currentTheme() === 'dark';
+    iconSun.hidden = !dark; iconMoon.hidden = dark;
+  }
+  themeBtn.addEventListener('click', function () {
+    var next = currentTheme() === 'dark' ? 'light' : 'dark';
+    root.setAttribute('data-theme', next);
+    try { localStorage.setItem('hpw-theme', next); } catch (e) {}
+    renderIcon();
+  });
+  renderIcon();
+
+  document.querySelectorAll('.item-head').forEach(function (h) {
+    h.addEventListener('click', function () {
+      h.parentElement.classList.toggle('open');
+    });
+  });
+})();
+</script>
+
+</body>
+</html>

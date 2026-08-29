@@ -7,8 +7,11 @@
 | 页面 | 说明 |
 |------|------|
 | **[风险重估：828 房地产新政研究](https://hemayou.github.io/housing-policy-watch/)** | 主报告，九章约 3 万字：制度史与财政史双线脉络 → 风险再分配框架 → 地方政府 / 开发商 / 买房人 / 租房人 / 银行五类主体逐一研判 → 三种情景与规范性判断 |
-| [40 年房贷计算器](https://hemayou.github.io/housing-policy-watch/topics/mortgage-40.html) | 小专题：拖动滑块，一分钟算清 40 年 vs 30 年方案的月供、利息与年龄账 |
-| [新政与我：按身份速查](https://hemayou.github.io/housing-policy-watch/topics/what-it-means.html) | 小专题：打算买房 / 背着房贷 / 等交付 / 租房 / 多套房——五种身份各自的利好、风险与行动清单 |
+| [40 年房贷计算器](https://hemayou.github.io/housing-policy-watch/topics/mortgage-40.html) | 工具：拖动滑块，一分钟算清 40 年 vs 30 年方案的月供、利息与年龄账 |
+| [租购大账：买还是租](https://hemayou.github.io/housing-policy-watch/topics/rent-or-buy.html) | 工具：同一笔钱，买房和「租房 + 理财」哪个更有利？九个变量自己调，含盈亏平衡涨幅 |
+| [新政与我：按身份速查](https://hemayou.github.io/housing-policy-watch/topics/what-it-means.html) | 速查：打算买房 / 背着房贷 / 等交付 / 租房 / 多套房——五种身份各自的利好、风险与行动清单 |
+| [土地财政三十年](https://hemayou.github.io/housing-policy-watch/topics/land-finance-30y.html) | 叙事：一根曲线讲完的故事——从 1994 分税制到 2026 地方附加税，滚动阅读 |
+| [保交楼往事](https://hemayou.github.io/housing-policy-watch/topics/baojiaolou.html) | 叙事：从停贷潮到 828 的五年时间轴——每一条新规都从一个具体的伤口上长出来 |
 
 报告支持明暗主题切换与移动端阅读；数据图表可悬停查看明细。
 
@@ -68,7 +71,7 @@ docs/        网站发布目录（GitHub Pages）
 ## 后续计划
 
 - [ ] v3：券商研报与银行业界反应补采（周一开盘后）；「土地财政缺口谁来填」的正面讨论跟踪
-- [ ] 子专题扩展：预售制 1994—2026 制度大事记（时间轴）、中美日房地产转型三国比较
+- [ ] 子专题扩展：银行的算盘（主办银行制专题）、中美日房地产转型三国比较、北京楼市月度仪表盘
 - [ ] 政策落地追踪：各地实施细则、现房销售地块占比、预售门槛实际执行
 
 ---

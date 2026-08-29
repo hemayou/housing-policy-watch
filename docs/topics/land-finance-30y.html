@@ -1,0 +1,555 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>土地财政三十年</title>
+<script>
+try {
+  var t = localStorage.getItem('hpw-theme');
+  if (t === 'dark' || t === 'light') document.documentElement.setAttribute('data-theme', t);
+} catch (e) {}
+</script>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Noto+Serif+SC:wght@400;700;900&family=Noto+Sans+SC:wght@300;400;500;700&family=Spectral:ital,wght@0,400;0,500;1,400&family=JetBrains+Mono:wght@400;500&display=swap">
+<style>
+:root {
+  --paper: #f7f4ee; --paper-deep: #efe9de; --paper-panel: #f1ede4;
+  --ink: #23201a; --ink-2: #4a453b; --ink-3: #7d766a;
+  --hairline: #d8d1c2; --hairline-2: #c5bca8;
+  --seal: #a03123; --seal-soft: #b8514419;
+  --tag-blue: #2c5f7c; --tag-blue-2: #6d98ad; --tag-gold: #9a7b2d;
+  --chart-grid: #dcd5c6;
+  --mono: 'JetBrains Mono', monospace;
+  --serif: 'Noto Serif SC', serif;
+  --sans: 'Noto Sans SC', sans-serif;
+  --num: 'Spectral', 'Noto Serif SC', serif;
+}
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) {
+    --paper: #201e19; --paper-deep: #262420; --paper-panel: #2a2722;
+    --ink: #e6e0d2; --ink-2: #b5ac99; --ink-3: #857c6b;
+    --hairline: #3d382f; --hairline-2: #4d463a;
+    --seal: #c9564a; --seal-soft: #c9564a1f;
+    --tag-blue: #7aa9c0; --tag-blue-2: #4a7d96; --tag-gold: #c0a054;
+    --chart-grid: #38342b;
+  }
+}
+:root[data-theme="dark"] {
+  --paper: #201e19; --paper-deep: #262420; --paper-panel: #2a2722;
+  --ink: #e6e0d2; --ink-2: #b5ac99; --ink-3: #857c6b;
+  --hairline: #3d382f; --hairline-2: #4d463a;
+  --seal: #c9564a; --seal-soft: #c9564a1f;
+  --tag-blue: #7aa9c0; --tag-blue-2: #4a7d96; --tag-gold: #c0a054;
+  --chart-grid: #38342b;
+}
+* { margin: 0; padding: 0; box-sizing: border-box; }
+[hidden] { display: none !important; }
+body {
+  font-family: var(--sans); background: var(--paper); color: var(--ink);
+  font-size: 16px; line-height: 1.9; -webkit-font-smoothing: antialiased;
+}
+.shell { max-width: 680px; margin: 0 auto; padding: 0 clamp(20px, 5vw, 40px); }
+.top-nav {
+  display: flex; align-items: center; justify-content: space-between;
+  padding: 18px clamp(24px, 6vw, 40px);
+  border-bottom: 1px solid var(--hairline);
+  background: var(--paper-deep);
+}
+.top-nav a { font-size: 13.5px; color: var(--ink-2); text-decoration: none; font-weight: 500; }
+.top-nav a:hover { color: var(--seal); }
+.top-nav .brand { font-family: var(--serif); font-weight: 700; letter-spacing: 1px; }
+.theme-toggle { background: none; border: 1px solid var(--hairline-2); border-radius: 50%; width: 34px; height: 34px; cursor: pointer; color: var(--ink-2); display: flex; align-items: center; justify-content: center; }
+.theme-toggle svg { width: 17px; height: 17px; }
+
+header.hero { padding: 56px 0 30px; }
+.kicker { font-family: var(--mono); font-size: 11.5px; letter-spacing: 3px; color: var(--seal); margin-bottom: 14px; }
+h1 { font-family: var(--serif); font-size: clamp(30px, 6.5vw, 44px); font-weight: 900; line-height: 1.3; margin-bottom: 14px; text-wrap: balance; }
+.dek { font-size: 15.5px; color: var(--ink-2); max-width: 560px; }
+.scroll-hint { font-family: var(--mono); font-size: 11px; letter-spacing: 2px; color: var(--ink-3); margin-top: 26px; }
+
+/* ===== 滚动叙事：粘性曲线 + 章节卡 ===== */
+.scrolly { position: relative; }
+.sticky-fig {
+  position: sticky; top: 0; z-index: 20;
+  height: 45vh; min-height: 300px;
+  display: flex; flex-direction: column;
+  background: var(--paper);
+  border-bottom: 1px solid var(--hairline-2);
+  padding: 12px 0 8px;
+}
+.lf-head { display: flex; justify-content: space-between; align-items: baseline; gap: 12px; }
+.lf-title { font-family: var(--serif); font-size: 14px; font-weight: 700; }
+.lf-unit { font-family: var(--mono); font-size: 10.5px; color: var(--ink-3); letter-spacing: .5px; white-space: nowrap; }
+.lf-readout { display: flex; align-items: baseline; gap: 12px; margin: 2px 0 4px; min-height: 30px; }
+.ro-year { font-family: var(--num); font-style: italic; font-size: 23px; color: var(--seal); line-height: 1.2; }
+.ro-val { font-family: var(--num); font-size: 15.5px; font-variant-numeric: tabular-nums; }
+.ro-note { font-size: 12px; color: var(--ink-3); overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+.lf-wrap { flex: 1; min-height: 0; position: relative; }
+.lf-wrap svg { display: block; width: 100%; height: 100%; overflow: visible; }
+.lf-note { font-family: var(--mono); font-size: 10px; color: var(--ink-3); letter-spacing: .3px; padding-top: 5px; line-height: 1.6; }
+
+.lf-grid { stroke: var(--chart-grid); stroke-width: 1; }
+.lf-grid.base { stroke: var(--hairline-2); }
+.lf-axis { fill: var(--ink-3); font-family: var(--mono); font-size: 10px; }
+.lf-area { fill: var(--tag-blue); opacity: .08; stroke: none; }
+.lf-line { fill: none; stroke: var(--tag-blue); stroke-width: 2; stroke-linejoin: round; stroke-linecap: round; }
+.lf-line.approx { stroke-dasharray: 4 5; }
+.lf-dot { fill: var(--paper); stroke: var(--tag-blue); stroke-width: 1.8; transition: r .2s; }
+.lf-dot.est { stroke-dasharray: 2 2; }
+.lf-dot.active { fill: var(--seal); stroke: var(--seal); stroke-dasharray: none; }
+.lf-hit { fill: transparent; cursor: crosshair; }
+.lf-guide { stroke: var(--seal); stroke-width: 1; stroke-dasharray: 3 4; opacity: 0; transition: opacity .2s; }
+.lf-label { font-family: var(--mono); font-size: 11px; font-weight: 500; fill: var(--seal); paint-order: stroke; stroke: var(--paper); stroke-width: 3px; stroke-linejoin: round; }
+.lf-label .sub { font-size: 9.5px; fill: var(--ink-3); }
+
+.steps { position: relative; z-index: 1; padding-top: 9vh; }
+.step {
+  background: var(--paper-panel);
+  border: 1px solid var(--hairline-2); border-left: 3px solid var(--hairline-2);
+  border-radius: 6px;
+  padding: 24px 24px 16px;
+  margin: 0 0 38vh;
+  opacity: .55;
+  transition: opacity .35s, border-left-color .35s;
+}
+.step.is-active { opacity: 1; border-left-color: var(--seal); }
+.step:last-child { margin-bottom: 12vh; }
+.step-era { font-family: var(--mono); font-size: 11px; letter-spacing: 2px; color: var(--seal); margin-bottom: 8px; }
+.step h3 { font-family: var(--serif); font-size: 19px; font-weight: 700; margin-bottom: 10px; line-height: 1.5; }
+.step p { font-size: 14.5px; color: var(--ink-2); line-height: 1.95; margin-bottom: 12px; }
+.step strong { color: var(--ink); }
+.step blockquote {
+  border-left: 3px solid var(--tag-gold); background: var(--paper);
+  padding: 14px 18px; margin: 14px 0 10px;
+  font-size: 13.5px; color: var(--ink-2); line-height: 1.95;
+}
+.step blockquote .src { display: block; font-family: var(--mono); font-size: 11px; color: var(--ink-3); margin-top: 8px; }
+.step .close-line {
+  font-family: var(--serif); font-size: 15.5px; font-weight: 700; color: var(--ink);
+  border-top: 1px solid var(--hairline); padding-top: 14px; margin-top: 4px;
+}
+
+/* 悬停提示（与主报告一致） */
+.chart-tip {
+  position: fixed; z-index: 120;
+  background: var(--ink); color: var(--paper);
+  font-family: var(--mono); font-size: 12px; line-height: 1.7;
+  padding: 8px 12px; border-radius: 5px;
+  pointer-events: none; opacity: 0; transition: opacity .12s;
+  max-width: 260px; box-shadow: 0 4px 16px rgba(0,0,0,.25);
+  white-space: pre-line;
+}
+.chart-tip.show { opacity: 1; }
+
+/* 数据表 */
+.data-details { margin: 34px 0 0; }
+.data-details summary {
+  font-family: var(--mono); font-size: 12px; letter-spacing: 1px; color: var(--ink-2);
+  cursor: pointer; padding: 10px 0; border-top: 1px solid var(--hairline); border-bottom: 1px solid var(--hairline);
+}
+.data-details summary:hover { color: var(--seal); }
+.table-wrap { overflow-x: auto; margin-top: 4px; }
+.mini-table { border-collapse: collapse; width: 100%; min-width: 460px; font-size: 13px; }
+.mini-table th {
+  font-family: var(--serif); text-align: left; font-weight: 700; font-size: 12.5px;
+  padding: 8px 12px; border-bottom: 1px solid var(--hairline-2); color: var(--ink-2); white-space: nowrap;
+}
+.mini-table td { padding: 7px 12px; border-bottom: 1px dashed var(--hairline); color: var(--ink-2); font-variant-numeric: tabular-nums; }
+.mini-table td:nth-child(2) { font-family: var(--num); }
+
+.sources-mini {
+  margin-top: 40px; border-top: 1px solid var(--hairline);
+  padding-top: 20px; font-size: 12.5px; color: var(--ink-3); line-height: 1.9;
+}
+.sources-mini b { color: var(--ink-2); font-weight: 500; }
+
+footer { border-top: 1px solid var(--hairline); margin-top: 32px; padding: 26px 0 60px; font-size: 12.5px; color: var(--ink-3); line-height: 1.8; }
+footer a { color: var(--tag-blue); text-decoration: none; }
+
+@media (max-width: 640px) {
+  .sticky-fig { height: 38vh; min-height: 235px; }
+  .ro-year { font-size: 18px; }
+  .ro-val { font-size: 13px; }
+  .ro-note { font-size: 11px; }
+  .lf-note { font-size: 9.5px; }
+  .step { padding: 20px 18px 12px; margin-bottom: 32vh; }
+  .step h3 { font-size: 17.5px; }
+  .step p { font-size: 14px; }
+}
+</style>
+</head>
+<body>
+
+<nav class="top-nav">
+  <a href="../" class="brand">住房政策观察</a>
+  <div style="display:flex; align-items:center; gap:16px;">
+    <a href="../">← 返回主报告</a>
+    <button class="theme-toggle" id="themeBtn" aria-label="切换明暗主题">
+      <svg id="iconSun" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="12" cy="12" r="4.5"/><line x1="12" y1="2" x2="12" y2="4.5"/><line x1="12" y1="19.5" x2="12" y2="22"/><line x1="2" y1="12" x2="4.5" y2="12"/><line x1="19.5" y1="12" x2="22" y2="12"/><line x1="4.8" y1="4.8" x2="6.5" y2="6.5"/><line x1="17.5" y1="17.5" x2="19.2" y2="19.2"/><line x1="4.8" y1="19.2" x2="6.5" y2="17.5"/><line x1="17.5" y1="6.5" x2="19.2" y2="4.8"/></svg>
+      <svg id="iconMoon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" hidden><path d="M21 12.8A8.5 8.5 0 1 1 11.2 3a6.6 6.6 0 0 0 9.8 9.8z"/></svg>
+    </button>
+  </div>
+</nav>
+
+<div class="shell">
+
+<header class="hero">
+  <div class="kicker">小专题 · 制度史</div>
+  <h1>土地财政三十年</h1>
+  <p class="dek">一根曲线讲完的故事——地方政府为什么离不开卖地，以及这条路走到头之后怎么办。</p>
+  <div class="scroll-hint">↓ 往下滚动，曲线会跟着故事走</div>
+</header>
+
+<section class="scrolly" aria-label="土地出让收入滚动叙事">
+
+  <div class="sticky-fig">
+    <div class="lf-head">
+      <div class="lf-title">全国土地出让收入 1994—2026</div>
+      <div class="lf-unit">单位：万亿元</div>
+    </div>
+    <div class="lf-readout">
+      <span class="ro-year" id="roYear">1994</span>
+      <span class="ro-val" id="roVal">约 0.06 万亿</span>
+      <span class="ro-note" id="roNote">起点 · 分税制</span>
+    </div>
+    <div class="lf-wrap" id="lfWrap">
+      <svg id="lfSvg" role="img" aria-label="全国土地出让收入曲线，1994 年约 0.06 万亿元，2021 年达峰值 8.71 万亿元，2025 年回落至 4.15 万亿元，2026 年上半年年化约 2.0 万亿元"></svg>
+      <noscript><p style="font-size:13px;color:var(--ink-3);padding:20px 0;">曲线需要 JavaScript 渲染，完整数据见页面下方数据表。</p></noscript>
+    </div>
+    <div class="lf-note">虚线段：1994—2013 为历史约数、2026 为上半年年化推算；实线段 2014 年起为财政部口径。悬停数据点可看逐年数值。</div>
+  </div>
+
+  <div class="steps">
+
+    <article class="step" data-year="1994" data-note="起点 · 分税制">
+      <div class="step-era">01 · 1994</div>
+      <h3>起点：分税制</h3>
+      <p>1994 年分税制改革，把增值税等大头税种上收中央，事权和支出责任留在地方——地方政府从此必须自己找钱。制度给它留的口子是土地：耕地占用税、契税等土地直接税收全部归地方，建筑业与房地产业营业税等间接税收的大头也归地方。周飞舟在《以利为利》中指出，这条财路对地方而言还格外「保险」：</p>
+      <blockquote>从地方政府的角度来看，财政上依赖于间接税收比依赖于直接税收更加“保险”，因为按照近年来财政改革的思路，直接税收如果增长过快，很可能被划分或者部分划分为中央税收。
+        <span class="src">——周飞舟《以利为利》</span>
+      </blockquote>
+    </article>
+
+    <article class="step" data-year="2003" data-note="第二财政 · 招拍挂">
+      <div class="step-era">02 · 2003</div>
+      <h3>第二财政成形</h3>
+      <p>2002—2003 年，经营性用地招拍挂全面推行，卖地从零散交易变成公开进账，规模立刻压过了预算内收入：金华一个地级市，2003 年土地出让金约 20 亿元，而全年预算内财政收入只有 10—11 亿元。土地开发同时带动建筑、房地产税收，成为预算内收入的主要增长点。</p>
+      <blockquote>地方政府流行的说法“第一财政靠工业、第二财政靠土地”说明了二元财政的收入来源……通过我们的调查来看，这个观点只有一部分是正确的。因为不但第二财政靠土地，第一财政也在越来越依靠土地而不是工业。
+        <span class="src">——周飞舟《以利为利》</span>
+      </blockquote>
+    </article>
+
+    <article class="step" data-year="2010" data-note="土地金融 · 四万亿">
+      <div class="step-era">03 · 2008—2010</div>
+      <h3>土地金融化</h3>
+      <p>2008 年金融危机后四万亿刺激开闸，地方融资平台（城投）拿土地作抵押向银行融资爆发式增长，卖地收入两年翻倍，2010 年冲到约 2.9 万亿元。按赵燕菁的框架，土地财政的真正产出从来不是卖地那笔钱，而是<strong>信用</strong>：城投抵押融资、开发商开发贷、居民按揭——三层杠杆架在同一块土地的估值上。</p>
+      <blockquote>政府卖地（使用权）的一次性收益本质上是一种融资——“土地金融”，用于“城市建设开发和对农民的征地补偿”。政府卖地（使用权）的持续性收益来自未来的税收——“土地财政”。
+        <span class="src">——赵燕菁《大崛起》</span>
+      </blockquote>
+    </article>
+
+    <article class="step" data-year="2017" data-note="全依赖时代">
+      <div class="step-era">04 · 2013—2018</div>
+      <h3>全依赖时代</h3>
+      <p>兰小欢在《置身事内》中测算：2018 年，土地出让金加上房地产相关税收构成的「土地财政」收入，相当于地方公共预算收入的 89%，「名副其实的第二财政」。支撑它的是一套双轨机制——工业用地压低价格招商引资，商住用地收紧供应赚取垄断溢价。</p>
+      <blockquote>商住用地面积只占出让土地的一半，却贡献了几乎所有的土地使用权转让收入。
+        <span class="src">——兰小欢《置身事内》</span>
+      </blockquote>
+    </article>
+
+    <article class="step" data-year="2021" data-note="顶点 · 8.71 万亿">
+      <div class="step-era">05 · 2021</div>
+      <h3>顶点</h3>
+      <p>2021 年，全国土地出让收入 8.71 万亿元——相当于当年 GDP 的 7.4%，相当于地方两本预算（一般公共预算＋政府性基金预算）收入之和的 35.9%。也是在这一年，三道红线收紧融资，房企开始成片爆雷。曲线的顶点和行业的裂缝，出现在同一个刻度上。</p>
+      <blockquote>经济增长、地方政府财政状况、银行信贷安全、房地产商和地价房价之间，形成了一荣俱荣一损俱损的奇特依赖关系，这也是这些年来的房地产市场虽然多次调控无功而返的原因。
+        <span class="src">——华生《城市化转型与土地陷阱》</span>
+      </blockquote>
+    </article>
+
+    <article class="step" data-year="2025" data-note="坍塌 · 四年腰斩">
+      <div class="step-era">06 · 2022—2025</div>
+      <h3>坍塌</h3>
+      <p>转折没有缓冲：2022 年 6.69 万亿、2023 年 5.80 万亿、2024 年 4.87 万亿、2025 年 4.15 万亿——四年腰斩，较峰值每年少进账 4.6 万亿元，降幅 52%。2026 年上半年同比再降 31.5%，跌势仍在加速而不是见底。</p>
+      <p>土地市场上残存的成交，相当一部分是城投公司托底拿地——左手卖地、右手接盘。撑住土地市场的隐形支柱，本身就是地方财政的延伸。</p>
+    </article>
+
+    <article class="step" data-year="2026" data-note="828 · 替代品登场">
+      <div class="step-era">07 · 2026</div>
+      <h3>828 与替代品</h3>
+      <p>2026 年 8 月 28 日，房地产新政落地：禁止贷款缴纳土地出让价款，现房销售拉长开发商回款周期——架在土地上的杠杆被进一步拆除。同一天，财政部、税务总局公布《地方附加税法（征求意见稿）》：把城市维护建设税、教育费附加、地方教育附加合并为一个地方税种，税率 11%—13% 由省级在幅度内决定，2025 年三项合计约 0.9 万亿元。</p>
+      <p>对照 8.71 万亿的峰值土地收入，补位量级只有一成。<strong>牌桌上有了第一张小牌，大牌还没影子。</strong></p>
+    </article>
+
+    <article class="step" data-year="2026" data-note="结语 · 三条出路">
+      <div class="step-era">08 · 结语</div>
+      <h3>三条出路</h3>
+      <p>曲线走完了，问题没走完。学界与政策界摆在桌面上的方向有三条：一是房地产税，2021 年试点授权后搁浅，至今无下文；二是消费税下划地方与转移支付重构，让地方从「卖地」转向「养税源」；三是政府角色转型，从「卖地方」变成服务存量的运营者。赵燕菁提醒，这条路没有捷径——资本型增长与运营型增长是两种收入，两种缺口不能互相弥补，用卖地的钱补日常运转的缺口，最终指向庞氏循环。</p>
+      <blockquote>笔者在一篇文章中就认为“土地财政”已经完成其历史使命，随着城市化进入2.0阶段，中国应当从资本型增长转向运营型增长。但这并不意味着“土地财政”不重要了。路径依赖理论告诉我们，新的增长模式一定要嫁接在现有的模式上才能成功。
+        <span class="src">——赵燕菁《大崛起》</span>
+      </blockquote>
+      <p class="close-line">不解决地方的钱从哪来，就没有真正解决地方为什么要配合任何改革。</p>
+    </article>
+
+  </div>
+</section>
+
+<details class="data-details">
+  <summary>查看曲线数据表</summary>
+  <div class="table-wrap">
+    <table class="mini-table">
+      <thead><tr><th>年份</th><th>土地出让收入（万亿元）</th><th>口径</th></tr></thead>
+      <tbody>
+        <tr><td>1994</td><td>约 0.06</td><td>历史约数</td></tr>
+        <tr><td>1998</td><td>约 0.05</td><td>历史约数</td></tr>
+        <tr><td>2001</td><td>约 0.13</td><td>历史约数</td></tr>
+        <tr><td>2003</td><td>约 0.54</td><td>历史约数</td></tr>
+        <tr><td>2007</td><td>约 1.2</td><td>历史约数</td></tr>
+        <tr><td>2009</td><td>约 1.4</td><td>历史约数</td></tr>
+        <tr><td>2010</td><td>约 2.9</td><td>历史约数</td></tr>
+        <tr><td>2013</td><td>约 4.1</td><td>历史约数</td></tr>
+        <tr><td>2015</td><td>3.25</td><td>财政部</td></tr>
+        <tr><td>2017</td><td>5.21</td><td>财政部</td></tr>
+        <tr><td>2019</td><td>7.26</td><td>财政部</td></tr>
+        <tr><td>2020</td><td>8.41</td><td>财政部</td></tr>
+        <tr><td>2021</td><td>8.71</td><td>财政部（峰值）</td></tr>
+        <tr><td>2022</td><td>6.69</td><td>财政部</td></tr>
+        <tr><td>2023</td><td>5.80</td><td>财政部</td></tr>
+        <tr><td>2024</td><td>4.87</td><td>财政部</td></tr>
+        <tr><td>2025</td><td>4.15</td><td>财政部</td></tr>
+        <tr><td>2026</td><td>年化约 2.0</td><td>上半年 0.98 万亿（同比 −31.5%）年化推算</td></tr>
+      </tbody>
+    </table>
+  </div>
+</details>
+
+<section class="sources-mini">
+  <b>数据与文献</b>：土地出让收入 2014—2026 年为财政部历年发布（全国国有土地使用权出让收入，地方本级）；1994—2013 年为公开资料整理约数，仅用于呈现趋势；2026 年为上半年（9,778 亿元、同比 −31.5%）年化推算。理论引用：周飞舟《以利为利：财政关系与地方政府行为》、兰小欢《置身事内：中国政府与经济发展》、华生《城市化转型与土地陷阱》、赵燕菁《大崛起：中国经济的增长与转型》。《地方附加税法（征求意见稿）》：财政部、税务总局 2026 年 8 月 28 日发布。
+</section>
+
+<footer>
+  本页为《风险重估：828 房地产新政研究》子专题。曲线为示意性重建，逐年精确数值请以财政部历年决算为准。<br>
+  <a href="../">← 返回《风险重估：828 房地产新政研究》</a> · <a href="https://github.com/hemayou/housing-policy-watch">GitHub 仓库</a>
+</footer>
+
+</div>
+
+<script>
+(function () {
+  /* ---- 主题切换 ---- */
+  var root = document.documentElement;
+  var themeBtn = document.getElementById('themeBtn');
+  var iconSun = document.getElementById('iconSun');
+  var iconMoon = document.getElementById('iconMoon');
+  function currentTheme() {
+    var a = root.getAttribute('data-theme');
+    if (a) return a;
+    return matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light';
+  }
+  function renderIcon() {
+    var dark = currentTheme() === 'dark';
+    iconSun.hidden = !dark; iconMoon.hidden = dark;
+  }
+  themeBtn.addEventListener('click', function () {
+    var next = currentTheme() === 'dark' ? 'light' : 'dark';
+    root.setAttribute('data-theme', next);
+    try { localStorage.setItem('hpw-theme', next); } catch (e) {}
+    renderIcon();
+  });
+  renderIcon();
+
+  /* ---- 数据 ---- */
+  var DATA = [
+    { y: 1994, v: 0.06, a: 1 },
+    { y: 1998, v: 0.05, a: 1 },
+    { y: 2001, v: 0.13, a: 1 },
+    { y: 2003, v: 0.54, a: 1 },
+    { y: 2007, v: 1.2,  a: 1 },
+    { y: 2009, v: 1.4,  a: 1 },
+    { y: 2010, v: 2.9,  a: 1 },
+    { y: 2013, v: 4.1,  a: 1 },
+    { y: 2015, v: 3.25 },
+    { y: 2017, v: 5.21 },
+    { y: 2019, v: 7.26 },
+    { y: 2020, v: 8.41 },
+    { y: 2021, v: 8.71, peak: 1 },
+    { y: 2022, v: 6.69 },
+    { y: 2023, v: 5.80 },
+    { y: 2024, v: 4.87 },
+    { y: 2025, v: 4.15 },
+    { y: 2026, v: 2.0,  est: 1 }
+  ];
+  var APPROX_END = 7;              /* DATA[0..7] 为约数段 */
+  var EST_START = DATA.length - 2; /* 最后一段为年化推算段 */
+
+  var wrap = document.getElementById('lfWrap');
+  var svg = document.getElementById('lfSvg');
+  var roYear = document.getElementById('roYear');
+  var roVal = document.getElementById('roVal');
+  var roNote = document.getElementById('roNote');
+
+  var PTS = [], CW = 0, BASE_Y = 0;
+  var activeYear = 1994, activeNote = '起点 · 分税制';
+
+  function byYear(y) {
+    for (var i = 0; i < DATA.length; i++) if (DATA[i].y === y) return DATA[i];
+    return null;
+  }
+  function valShort(d) {
+    if (d.est) return '年化约 2.0 万亿';
+    if (d.a) return '约 ' + d.v + ' 万亿';
+    return d.v.toFixed(2) + ' 万亿';
+  }
+  function tipFor(d) {
+    if (d.est) return '2026 年 · 年化约 2.0 万亿&#10;上半年 0.98 万亿，同比 −31.5%';
+    var t = d.y + ' 年 · ' + (d.a ? '约 ' + d.v : d.v.toFixed(2)) + ' 万亿';
+    if (d.peak) t += '（峰值）';
+    t += '&#10;' + (d.a ? '历史约数，用于呈现趋势' : '财政部口径');
+    return t;
+  }
+
+  function draw() {
+    var W = wrap.clientWidth, H = wrap.clientHeight;
+    if (!W || H < 90) return;
+    CW = W;
+    svg.setAttribute('viewBox', '0 0 ' + W + ' ' + H);
+    var padL = 26, padR = 16, padT = 34, padB = 20;
+    var vMax = 9;
+    function X(y) { return padL + (y - 1994) / (2026 - 1994) * (W - padL - padR); }
+    function Y(v) { return padT + (1 - v / vMax) * (H - padT - padB); }
+    BASE_Y = Y(0);
+    PTS = DATA.map(function (d) { return [X(d.y), Y(d.v)]; });
+
+    function pathOf(a, b) {
+      var p = '';
+      for (var i = a; i <= b; i++) p += (i === a ? 'M' : 'L') + PTS[i][0].toFixed(1) + ' ' + PTS[i][1].toFixed(1);
+      return p;
+    }
+
+    var s = '';
+    /* 网格与坐标 */
+    [0, 2, 4, 6, 8].forEach(function (g) {
+      var yy = Y(g).toFixed(1);
+      s += '<line class="lf-grid' + (g === 0 ? ' base' : '') + '" x1="' + padL + '" y1="' + yy + '" x2="' + (W - padR) + '" y2="' + yy + '"/>';
+      if (g > 0) s += '<text class="lf-axis" x="' + (padL - 7) + '" y="' + (Y(g) + 3.5).toFixed(1) + '" text-anchor="end">' + g + '</text>';
+    });
+    var ticks = W >= 560 ? [1994, 2000, 2005, 2010, 2015, 2020, 2026] : [1994, 2005, 2015, 2026];
+    ticks.forEach(function (t) {
+      var anchor = t === 1994 ? 'start' : (t === 2026 ? 'end' : 'middle');
+      s += '<text class="lf-axis" x="' + X(t).toFixed(1) + '" y="' + (H - 4) + '" text-anchor="' + anchor + '">' + t + '</text>';
+    });
+    /* 面积与曲线：约数段虚线，官方段实线，年化段虚线 */
+    s += '<path class="lf-area" d="' + pathOf(0, DATA.length - 1) + 'L' + PTS[DATA.length - 1][0].toFixed(1) + ' ' + BASE_Y.toFixed(1) + 'L' + PTS[0][0].toFixed(1) + ' ' + BASE_Y.toFixed(1) + 'Z"/>';
+    s += '<path class="lf-line approx" d="' + pathOf(0, APPROX_END) + '"/>';
+    s += '<path class="lf-line" d="' + pathOf(APPROX_END, EST_START) + '"/>';
+    s += '<path class="lf-line approx" d="' + pathOf(EST_START, DATA.length - 1) + '"/>';
+    /* 高亮引导线 */
+    s += '<line id="lfGuide" class="lf-guide" x1="0" y1="0" x2="0" y2="0"/>';
+    /* 数据点 + 命中区 */
+    DATA.forEach(function (d, i) {
+      s += '<circle class="lf-dot' + (d.est ? ' est' : '') + '" data-i="' + i + '" cx="' + PTS[i][0].toFixed(1) + '" cy="' + PTS[i][1].toFixed(1) + '" r="3.5"/>';
+    });
+    DATA.forEach(function (d, i) {
+      s += '<circle class="lf-hit" cx="' + PTS[i][0].toFixed(1) + '" cy="' + PTS[i][1].toFixed(1) + '" r="13" data-tip="' + tipFor(d) + '"/>';
+    });
+    s += '<text id="lfLabel" class="lf-label" hidden></text>';
+    svg.innerHTML = s;
+    applyActive();
+  }
+
+  function applyActive() {
+    if (!PTS.length) return;
+    var idx = -1;
+    for (var i = 0; i < DATA.length; i++) if (DATA[i].y === activeYear) idx = i;
+    var dots = svg.querySelectorAll('.lf-dot');
+    for (var j = 0; j < dots.length; j++) {
+      var on = +dots[j].getAttribute('data-i') === idx;
+      dots[j].setAttribute('r', on ? 6.5 : 3.5);
+      dots[j].classList[on ? 'add' : 'remove']('active');
+    }
+    var guide = svg.querySelector('#lfGuide');
+    var label = svg.querySelector('#lfLabel');
+    if (idx < 0) { guide.style.opacity = 0; label.setAttribute('hidden', ''); return; }
+    var px = PTS[idx][0], py = PTS[idx][1];
+    guide.setAttribute('x1', px.toFixed(1)); guide.setAttribute('x2', px.toFixed(1));
+    guide.setAttribute('y1', (py + 8).toFixed(1)); guide.setAttribute('y2', BASE_Y.toFixed(1));
+    guide.style.opacity = .55;
+
+    var d = DATA[idx];
+    var lines = [d.y + ' · ' + valShort(d)];
+    if (d.est) lines.push('H1 同比 −31.5%');
+    else if (d.peak) lines.push('峰值');
+    var lh = 13;
+    var below = py - 10 - (lines.length - 1) * lh < 14;
+    var startY = below ? py + 22 : py - 12 - (lines.length - 1) * lh;
+    var anchor = px < CW * 0.14 ? 'start' : (px > CW * 0.86 ? 'end' : 'middle');
+    label.removeAttribute('hidden');
+    label.setAttribute('text-anchor', anchor);
+    var t = '';
+    for (var k = 0; k < lines.length; k++) {
+      t += '<tspan' + (k > 0 ? ' class="sub"' : '') + ' x="' + px.toFixed(1) + '" y="' + (startY + k * lh).toFixed(1) + '">' + lines[k] + '</tspan>';
+    }
+    label.innerHTML = t;
+  }
+
+  /* ---- 滚动章节联动 ---- */
+  var steps = [].slice.call(document.querySelectorAll('.step'));
+  function activate(step) {
+    steps.forEach(function (s) { s.classList.toggle('is-active', s === step); });
+    activeYear = +step.getAttribute('data-year');
+    activeNote = step.getAttribute('data-note') || '';
+    var d = byYear(activeYear);
+    roYear.textContent = step.getAttribute('data-year');
+    roVal.textContent = d ? valShort(d) : '';
+    roNote.textContent = activeNote;
+    applyActive();
+  }
+  if ('IntersectionObserver' in window) {
+    var io = new IntersectionObserver(function (entries) {
+      entries.forEach(function (en) { if (en.isIntersecting) activate(en.target); });
+    }, { rootMargin: '-55% 0px -30% 0px', threshold: 0 });
+    steps.forEach(function (s) { io.observe(s); });
+  } else {
+    steps.forEach(function (s) { s.classList.add('is-active'); });
+  }
+
+  draw();
+  activate(steps[0]);
+
+  var resizeTimer = null;
+  window.addEventListener('resize', function () {
+    clearTimeout(resizeTimer);
+    resizeTimer = setTimeout(draw, 150);
+  });
+
+  /* ---- 图表数据点提示（悬停 / 触屏点按，与主报告一致） ---- */
+  var tip = document.createElement('div');
+  tip.className = 'chart-tip';
+  document.body.appendChild(tip);
+  function showTip(el, x, y) {
+    tip.textContent = el.getAttribute('data-tip');
+    tip.classList.add('show');
+    var w = tip.offsetWidth, h = tip.offsetHeight;
+    var left = Math.min(Math.max(8, x - w / 2), window.innerWidth - w - 8);
+    var top = y - h - 14;
+    if (top < 8) top = y + 18;
+    tip.style.left = left + 'px';
+    tip.style.top = top + 'px';
+  }
+  function hideTip() { tip.classList.remove('show'); }
+  document.addEventListener('mousemove', function (e) {
+    var t = e.target.closest && e.target.closest('[data-tip]');
+    if (t) showTip(t, e.clientX, e.clientY); else hideTip();
+  }, { passive: true });
+  document.addEventListener('click', function (e) {
+    var t = e.target.closest && e.target.closest('[data-tip]');
+    if (t) { showTip(t, e.clientX, e.clientY); e.stopPropagation(); }
+    else hideTip();
+  });
+  window.addEventListener('scroll', hideTip, { passive: true });
+})();
+</script>
+
+</body>
+</html>
