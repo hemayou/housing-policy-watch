@@ -4,6 +4,13 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>风险重估：828房地产新政研究</title>
+<script>
+/* 提前应用已保存的主题，避免首屏闪烁 */
+try {
+  var t = localStorage.getItem('hpw-theme');
+  if (t === 'dark' || t === 'light') document.documentElement.setAttribute('data-theme', t);
+} catch (e) {}
+</script>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Noto+Serif+SC:wght@400;500;600;700;900&family=Noto+Sans+SC:wght@300;400;500;700&family=Spectral:ital,wght@0,400;0,500;1,400&family=JetBrains+Mono:wght@400;500&display=swap">
@@ -68,6 +75,7 @@
 }
 
 * { margin: 0; padding: 0; box-sizing: border-box; }
+[hidden] { display: none !important; }
 html { scroll-behavior: smooth; }
 body {
   font-family: var(--sans);
@@ -603,6 +611,142 @@ figure.chart svg { width: 100%; height: auto; display: block; overflow: visible;
   border-top: 1px solid var(--hairline);
   padding: 24px 0 60px;
 }
+
+/* ============ 浮动工具栏：目录 + 主题切换 ============ */
+.float-tools {
+  position: fixed;
+  right: 18px;
+  bottom: 22px;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  z-index: 90;
+}
+.ft-btn {
+  width: 44px;
+  height: 44px;
+  border-radius: 50%;
+  border: 1px solid var(--hairline-2);
+  background: var(--paper-panel);
+  color: var(--ink-2);
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 0 2px 10px rgba(0,0,0,.12);
+  transition: transform .15s, color .15s;
+  padding: 0;
+}
+.ft-btn:hover { transform: translateY(-2px); color: var(--seal); }
+.ft-btn svg { width: 20px; height: 20px; display: block; }
+.ft-btn:focus-visible { outline: 2px solid var(--seal); outline-offset: 2px; }
+
+/* 目录抽屉 */
+.toc-drawer {
+  position: fixed;
+  top: 0; right: 0; bottom: 0;
+  width: min(320px, 86vw);
+  background: var(--paper-deep);
+  border-left: 1px solid var(--hairline-2);
+  box-shadow: -8px 0 30px rgba(0,0,0,.18);
+  z-index: 100;
+  transform: translateX(105%);
+  transition: transform .28s cubic-bezier(.4,0,.2,1);
+  display: flex;
+  flex-direction: column;
+  overscroll-behavior: contain;
+}
+.toc-drawer.open { transform: translateX(0); }
+.toc-drawer-head {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 20px 22px 14px;
+  border-bottom: 1px solid var(--hairline);
+}
+.toc-drawer-head .t {
+  font-family: var(--serif);
+  font-size: 14px;
+  font-weight: 700;
+  letter-spacing: 4px;
+  color: var(--ink-2);
+}
+.toc-close {
+  background: none; border: none; cursor: pointer;
+  color: var(--ink-3); font-size: 22px; line-height: 1; padding: 4px 8px;
+}
+.toc-close:hover { color: var(--seal); }
+.toc-drawer-list { overflow-y: auto; padding: 10px 8px 30px; flex: 1; }
+.toc-drawer-list a {
+  display: flex;
+  align-items: baseline;
+  gap: 12px;
+  padding: 12px 14px;
+  text-decoration: none;
+  color: var(--ink);
+  font-size: 14px;
+  border-radius: 6px;
+  line-height: 1.6;
+}
+.toc-drawer-list a:hover { background: var(--paper-panel); }
+.toc-drawer-list a.active { background: var(--seal-soft); color: var(--seal); font-weight: 700; }
+.toc-drawer-list a .no {
+  font-family: var(--num);
+  font-style: italic;
+  font-size: 14px;
+  color: var(--seal);
+  min-width: 22px;
+  flex-shrink: 0;
+}
+.toc-mask {
+  position: fixed;
+  inset: 0;
+  background: rgba(0,0,0,.32);
+  z-index: 95;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity .25s;
+}
+.toc-mask.show { opacity: 1; pointer-events: auto; }
+
+/* 阅读进度条 */
+.progress-bar {
+  position: fixed;
+  top: 0; left: 0;
+  height: 2.5px;
+  width: 0;
+  background: var(--seal);
+  z-index: 110;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .toc-drawer, .toc-mask, .ft-btn { transition: none; }
+  html { scroll-behavior: auto; }
+}
+
+/* ============ 移动端阅读优化 ============ */
+@media (max-width: 640px) {
+  body { font-size: 15.5px; line-height: 1.95; }
+  .shell { padding: 0 22px; }
+  .cover-inner { padding: 72px 22px 56px; }
+  .chapter { margin-top: 64px; padding: 44px 0 28px; }
+  .prose { padding: 32px 0 6px; }
+  .prose p { text-align: left; margin-bottom: 22px; }
+  .prose > p:first-of-type::first-letter { font-size: 2.6em; }
+  .pull { font-size: 18px; padding: 24px 2px; margin: 38px 0; }
+  blockquote.doc { padding: 18px 18px; margin: 26px 0; font-size: 14.5px; }
+  .stat .v { font-size: 26px; }
+  .stat { padding: 18px 16px 14px; }
+  figure.chart { padding: 18px 14px 14px; margin: 34px 0; }
+  .gap-card .gc-head { padding: 12px 16px; }
+  .gap-card .gc-body { padding: 4px 16px 6px; }
+  .repealed-vault { padding: 24px 18px 18px; }
+  .repealed-vault::after { font-size: 20px; top: 16px; right: 14px; letter-spacing: 4px; }
+  .timeline { padding-left: 22px; }
+  .divider { margin: 52px 0; }
+  .sources { padding: 32px 0 60px; }
+  .float-tools { right: 14px; bottom: 18px; }
+}
 </style>
 </head>
 <body>
@@ -1078,8 +1222,117 @@ figure.chart svg { width: 100%; height: auto; display: block; overflow: visible;
 
 
 <div class="shell footer-note">
-  本报告为《住房政策观察》(Housing Policy Watch) 独立研究，基于公开政策文件、官方统计数据与公开报道写成；引用均注明出处，不构成投资建议。数据核对口径见文末索引。仓库：github.com/youhong/housing-policy-watch（持续迭代）。
+  本报告为《住房政策观察》(Housing Policy Watch) 独立研究，基于公开政策文件、官方统计数据与公开报道写成；引用均注明出处，不构成投资建议。数据核对口径见文末索引。仓库：github.com/hemayou/housing-policy-watch（持续迭代）。
 </div>
+
+<!-- 阅读进度条 -->
+<div class="progress-bar" id="progressBar" aria-hidden="true"></div>
+
+<!-- 浮动工具栏 -->
+<div class="float-tools">
+  <button class="ft-btn" id="tocBtn" aria-label="打开目录" title="目录">
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><line x1="4" y1="6" x2="20" y2="6"/><line x1="4" y1="12" x2="16" y2="12"/><line x1="4" y1="18" x2="20" y2="18"/></svg>
+  </button>
+  <button class="ft-btn" id="themeBtn" aria-label="切换明暗主题" title="明暗切换">
+    <svg id="iconSun" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="12" cy="12" r="4.5"/><line x1="12" y1="2" x2="12" y2="4.5"/><line x1="12" y1="19.5" x2="12" y2="22"/><line x1="2" y1="12" x2="4.5" y2="12"/><line x1="19.5" y1="12" x2="22" y2="12"/><line x1="4.8" y1="4.8" x2="6.5" y2="6.5"/><line x1="17.5" y1="17.5" x2="19.2" y2="19.2"/><line x1="4.8" y1="19.2" x2="6.5" y2="17.5"/><line x1="17.5" y1="6.5" x2="19.2" y2="4.8"/></svg>
+    <svg id="iconMoon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" hidden><path d="M21 12.8A8.5 8.5 0 1 1 11.2 3a6.6 6.6 0 0 0 9.8 9.8z"/></svg>
+  </button>
+</div>
+
+<!-- 目录抽屉 -->
+<div class="toc-mask" id="tocMask"></div>
+<nav class="toc-drawer" id="tocDrawer" aria-label="章节目录">
+  <div class="toc-drawer-head">
+    <span class="t">目 录</span>
+    <button class="toc-close" id="tocClose" aria-label="关闭目录">&times;</button>
+  </div>
+  <div class="toc-drawer-list" id="tocDrawerList">
+    <a href="#c1"><span class="no">Ⅰ</span>一夜九文：发生了什么</a>
+    <a href="#c2"><span class="no">Ⅱ</span>两条线走到尽头</a>
+    <a href="#c3"><span class="no">Ⅲ</span>风险的重新分配</a>
+    <a href="#c4"><span class="no">Ⅳ</span>地方政府：发动机熄火之后</a>
+    <a href="#c5"><span class="no">Ⅴ</span>开发商：五种命运</a>
+    <a href="#c6"><span class="no">Ⅵ</span>买房的人：信任的重建与代价</a>
+    <a href="#c7"><span class="no">Ⅶ</span>租房的人：照进来的与照不到的</a>
+    <a href="#c8"><span class="no">Ⅷ</span>银行：最后的承接者</a>
+    <a href="#c9"><span class="no">Ⅸ</span>向何处去：三种情景与两个根子</a>
+    <a href="#sources"><span class="no">＊</span>数据与观点来源</a>
+  </div>
+</nav>
+
+<script>
+(function () {
+  var root = document.documentElement;
+  var themeBtn = document.getElementById('themeBtn');
+  var iconSun = document.getElementById('iconSun');
+  var iconMoon = document.getElementById('iconMoon');
+  var tocBtn = document.getElementById('tocBtn');
+  var tocDrawer = document.getElementById('tocDrawer');
+  var tocMask = document.getElementById('tocMask');
+  var tocClose = document.getElementById('tocClose');
+  var tocLinks = Array.prototype.slice.call(document.querySelectorAll('#tocDrawerList a'));
+  var progressBar = document.getElementById('progressBar');
+
+  /* ---- 主题切换：跟随系统 → 手动覆盖，覆盖值存 localStorage ---- */
+  function currentTheme() {
+    var attr = root.getAttribute('data-theme');
+    if (attr) return attr;
+    return window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light';
+  }
+  function renderIcon() {
+    var dark = currentTheme() === 'dark';
+    /* 深色下显示太阳（点击回到亮色），亮色下显示月亮 */
+    iconSun.hidden = !dark;
+    iconMoon.hidden = dark;
+  }
+  themeBtn.addEventListener('click', function () {
+    var next = currentTheme() === 'dark' ? 'light' : 'dark';
+    root.setAttribute('data-theme', next);
+    try { localStorage.setItem('hpw-theme', next); } catch (e) {}
+    renderIcon();
+  });
+  renderIcon();
+
+  /* ---- 目录抽屉 ---- */
+  function openToc() {
+    tocDrawer.classList.add('open');
+    tocMask.classList.add('show');
+  }
+  function closeToc() {
+    tocDrawer.classList.remove('open');
+    tocMask.classList.remove('show');
+  }
+  tocBtn.addEventListener('click', openToc);
+  tocClose.addEventListener('click', closeToc);
+  tocMask.addEventListener('click', closeToc);
+  document.addEventListener('keydown', function (e) { if (e.key === 'Escape') closeToc(); });
+  tocLinks.forEach(function (a) { a.addEventListener('click', closeToc); });
+
+  /* ---- 滚动进度 + 当前章节高亮 ---- */
+  var sections = tocLinks.map(function (a) {
+    return document.getElementById(a.getAttribute('href').slice(1));
+  });
+  var ticking = false;
+  function onScroll() {
+    if (ticking) return;
+    ticking = true;
+    requestAnimationFrame(function () {
+      var doc = document.documentElement;
+      var max = doc.scrollHeight - doc.clientHeight;
+      progressBar.style.width = (max > 0 ? (doc.scrollTop / max) * 100 : 0) + '%';
+      var mark = doc.scrollTop + doc.clientHeight * 0.3;
+      var idx = -1;
+      for (var i = 0; i < sections.length; i++) {
+        if (sections[i] && sections[i].offsetTop <= mark) idx = i;
+      }
+      tocLinks.forEach(function (a, i) { a.classList.toggle('active', i === idx); });
+      ticking = false;
+    });
+  }
+  window.addEventListener('scroll', onScroll, { passive: true });
+  onScroll();
+})();
+</script>
 
 </body>
 </html>
