@@ -182,6 +182,26 @@ body {
 }
 
 /* 档案编号章 */
+/* ===== 探索版入口：一张翻开的纸屋 ===== */
+.x-entry {
+  position: absolute; right: 42px; bottom: 70px; z-index: 5;
+  display: inline-flex; align-items: center; gap: 12px; text-decoration: none;
+  border: 1px solid var(--hairline-2); border-radius: 3px; background: var(--paper-panel);
+  padding: 11px 16px 11px 13px; color: var(--ink-2);
+  transition: border-color .35s, box-shadow .35s, transform .35s, background .35s;
+  box-shadow: 0 1px 2px rgba(20,22,30,.05);
+}
+.x-entry:hover { border-color: var(--seal); color: var(--ink); transform: translateY(-2px); box-shadow: 0 10px 26px rgba(20,22,30,.1); }
+.x-entry svg { width: 30px; height: 26px; flex: 0 0 auto; overflow: visible; }
+.x-entry svg .roof { transform-origin: 15px 13px; transition: transform .5s cubic-bezier(.2,.9,.3,1); }
+.x-entry:hover svg .roof { transform: rotate(-24deg) translateY(-1px); }
+.x-entry svg .wall { transition: opacity .4s; }
+.x-entry .lbl { display: block; line-height: 1.45; }
+.x-entry .lbl b { display: block; font-family: var(--serif); font-size: 13.5px; font-weight: 700; color: var(--ink); letter-spacing: .5px; }
+.x-entry .lbl span { display: block; font-family: var(--mono); font-size: 10px; letter-spacing: 1.6px; color: var(--ink-3); margin-top: 3px; }
+@media (max-width: 720px) {
+  .x-entry { position: static; margin: 26px 24px 0; }
+}
 .file-stamp {
   position: absolute;
   top: 42px;
@@ -852,6 +872,13 @@ figure.chart .bar:hover { opacity: .8; }
       <span>housing-policy-watch</span>
     </div>
   </div>
+  <a class="x-entry" href="x/index.html">
+    <svg viewBox="0 0 30 26" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linejoin="round" aria-hidden="true">
+      <g class="roof"><path d="M3 13 L15 3 L27 13 Z" fill="var(--seal-soft)" stroke="var(--seal)"/></g>
+      <g class="wall"><rect x="6.5" y="13" width="17" height="10.5" stroke="currentColor"/><path d="M6.5 17H23.5M6.5 20.2H23.5" stroke="var(--hairline-2)" stroke-width="1"/></g>
+    </svg>
+    <span class="lbl"><b>探索版：走进账本宇宙</b><span>《纸屋》· 15 分钟 · 四条角色线</span></span>
+  </a>
 </header>
 
 <!-- ================= 目录 ================= -->

@@ -7,6 +7,7 @@
 | 页面 | 说明 |
 |------|------|
 | **[风险重估：828 房地产新政研究](https://hemayou.github.io/housing-policy-watch/)** | 主报告，九章约 3 万字：制度史与财政史双线脉络 → 风险再分配框架 → 地方政府 / 开发商 / 买房人 / 租房人 / 银行五类主体逐一研判 → 三种情景与规范性判断 |
+| **[《纸屋》：828 新政的四本账](https://hemayou.github.io/housing-policy-watch/x/)**（探索版） | 沉浸式交互：九十秒快闪走完 1994—2026，选一个身份（买房家庭 / 市长 / 房企 CFO / 银行行长）走完他那本账，再拨动五个开关的资金流沙盘看四方账本同时变化。人物为基于真实数据的合成案例 |
 | [40 年房贷计算器](https://hemayou.github.io/housing-policy-watch/topics/mortgage-40.html) | 工具：拖动滑块，一分钟算清 40 年 vs 30 年方案的月供、利息与年龄账 |
 | [租购大账：买还是租](https://hemayou.github.io/housing-policy-watch/topics/rent-or-buy.html) | 工具：同一笔钱，买房和「租房 + 理财」哪个更有利？九个变量自己调，含盈亏平衡涨幅 |
 | [新政与我：按身份速查](https://hemayou.github.io/housing-policy-watch/topics/what-it-means.html) | 速查：打算买房 / 背着房贷 / 等交付 / 租房 / 多套房——五种身份各自的利好、风险与行动清单 |

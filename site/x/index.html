@@ -1,0 +1,593 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>纸屋 · 828 新政的四本账</title>
+<meta name="description" content="《住房政策观察》探索版：15 分钟走进账本宇宙，看懂 2026 年 8 月 28 日那一夜的九份文件，怎样改写家庭、房企、地方政府与银行的四本账。">
+<script>
+try { var t = localStorage.getItem('hpw-theme'); if (t === 'dark' || t === 'light') document.documentElement.setAttribute('data-theme', t); } catch (e) {}
+</script>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Noto+Serif+SC:wght@400;500;600;700;800;900&family=Noto+Sans+SC:wght@300;400;500;600;700&family=Spectral:ital,wght@0,400;0,500;1,400&family=JetBrains+Mono:wght@400;500&family=ZCOOL+QingKe+HuangYou&display=swap">
+<link rel="stylesheet" href="paper.css">
+</head>
+<body class="grain">
+
+<div class="rail" id="rail" aria-hidden="true"></div>
+<div class="hud" id="hud">
+  <div class="brand">纸屋<small>828 新政的四本账</small></div>
+  <div class="sp"></div>
+  <button id="restartBtn" type="button">换个身份</button>
+  <a class="btn-mini" href="../index.html">完整报告</a>
+  <button class="icon" id="themeBtn" type="button" aria-label="切换深浅色"></button>
+</div>
+
+<!-- ══════════════════ 第〇幕 · 封面 ══════════════════ -->
+<section id="act0">
+  <canvas id="rainCanvas" aria-hidden="true"></canvas>
+  <div class="seal-stamp seal-1" aria-hidden="true">废<br>止</div>
+  <div class="seal-stamp seal-2" aria-hidden="true">现房销售</div>
+  <div class="cover">
+    <div class="cover-date">2026 · 08 · 28　二十二时</div>
+    <h1 aria-label="纸屋"><span class="zi">纸</span><span class="zi">屋</span></h1>
+    <div class="sub">828 新政的四本账</div>
+    <p class="lead">这一夜，九份文件同时落地，<em>十份从 1998 年排到 2016 年的旧文件当场作废</em>。<br>
+      要看懂这个夜晚，得先回到 1994。</p>
+    <button class="enter" id="enterBtn" type="button">
+      推门进去
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
+    </button>
+    <div class="cover-foot">约 15 分钟 · 四条角色线 · 一台可拨的沙盘</div>
+  </div>
+</section>
+
+<!-- ══════════════════ 第一幕 · 90 秒快闪 ══════════════════ -->
+<section class="act" id="act1">
+  <div class="wrap">
+    <div class="act-head">
+      <div class="kicker">Act Ⅰ · 九十秒</div>
+      <h2>三十二年，两条线，一起走到尽头</h2>
+      <p>828 不是起点。它是 1994 年同时开工的两件事——从香港学来的预售制、分税制催生的土地财政——在 2026 年被一起收走。往下滑，用九十秒把这条路走完。</p>
+    </div>
+
+    <div class="beat"><div class="beat-year">1994<span>分税制</span></div><div>
+      <h3>财权上收，事权下沉</h3>
+      <p>中央与地方重新分账，地方留下了要花钱的事，却少了收钱的口子。土地出让金不进分成，成了地方能自己攥住的那一笔——「第二财政」由此开始。</p>
+    </div></div>
+
+    <div class="beat"><div class="beat-year">1994<span>预售制</span></div><div>
+      <h3>把房子卖在盖起来之前</h3>
+      <p>同一年，商品房预售写进法律：投入资金达工程总投资 25% 以上即可开卖。开发商拿到的不再是自己的钱，而是买房人的钱和银行的钱——高周转的燃料罐装上了。</p>
+      <div class="big">25%<i>预售所需的最低投资比例，《城市房地产管理法》</i></div>
+    </div></div>
+
+    <div class="beat"><div class="beat-year">2021<span>双峰</span></div><div>
+      <h3>两条线在同一年见顶</h3>
+      <p>销售面积 17.94 亿㎡、销售额 18.19 万亿元；土地出让收入 8.71 万亿元，约当名义 GDP 的 8%。此后每一年都在往下。</p>
+      <div class="big">8.71 万亿<i>2021 年全国土地出让收入 · 峰值</i></div>
+      <div class="cite"><b>来源</b> 财政部历年财政收支情况；统计局年度发布</div>
+    </div></div>
+
+    <div class="beat"><div class="beat-year">2021<span>爆雷</span></div><div>
+      <h3>燃料罐先炸了</h3>
+      <p>头部房企平均资产负债率约 80%，前五家 85.3%。三条红线加上销售冻结，2022 年境内债违约 115 只、1353 亿元，是上一年的六倍；美元债 92 只、310 亿美元，3.4 倍。</p>
+      <div class="cite"><b>来源</b> Huang (2023), PIIE WP23-5, §2.1/§2.2</div>
+    </div></div>
+
+    <div class="beat" id="beatStop"><div class="beat-year">2022<span>停贷潮</span></div><div>
+      <h3>账本从中间裂开</h3>
+      <p>2022 年 6 月底起，多地购房人联名发出「停贷告知书」。到 7 月 20 日，涉及维权的停工楼盘超过 300 个。裂缝在这里第一次被所有人看见——房子没盖完，月供已经还了两年。</p>
+      <div class="shatter">
+        <canvas id="shatterCanvas" aria-hidden="true"></canvas>
+        <div class="shatter-cap">易居研究院测算：2022 年上半年全国住房市场烂尾率 <b>3.85%</b>，对应烂尾楼面积 <b>2.31 亿㎡</b>，涉及房贷规模 <b>0.9 万亿元</b>，占全国房贷余额 1.7%。</div>
+      </div>
+      <div class="cite"><b>来源</b> 《财新周刊》2022 年第 29 期《停工楼盘能停贷吗》</div>
+    </div></div>
+
+    <div class="beat"><div class="beat-year">2026<span>八月二十八日</span></div><div>
+      <h3>一夜九文</h3>
+      <p>住建部、自然资源部、金融监管总局、央行、证监会在同一个晚上放出九份文件，把房地产的开发、融资、销售三套基础制度整体换掉。1998 年的《个人住房贷款管理办法》当场废止。</p>
+      <div class="abolish">废　止</div>
+      <p>接下来的十分钟，你可以选一个身份，看这一夜落在他那本账上是什么样子。</p>
+    </div></div>
+  </div>
+</section>
+
+<!-- ══════════════════ 第二幕 · 选身份 ══════════════════ -->
+<section class="act" id="act2" style="padding-top:0">
+  <div class="wrap">
+    <div class="act-head">
+      <div class="kicker">Act Ⅱ · 四本账</div>
+      <h2>同一个夜晚，四个人在算完全不同的账</h2>
+      <p>九份文件回答的是同一个问题：谁出钱、谁担风险、谁兜底。答案取决于你站在哪一本账后面。建议从「买房家庭」开始——那是这套制度最长的一条链条的末端。</p>
+    </div>
+    <div class="roles" id="roles">
+      <button class="role-card main" data-role="family" type="button">
+        <div class="tag">主线 · 约 5 分钟</div>
+        <h3>买房家庭</h3>
+        <div class="meta">2019 签约 → 2026 落款</div>
+        <p>你在 2019 年秋天签下一套期房。楼还没封顶，贷款已经放了。七年之后，一份文件说「能拿房、再还贷」。</p>
+      </button>
+      <button class="role-card" data-role="mayor" type="button">
+        <div class="tag">辅线 · 约 2 分钟</div>
+        <h3>市　长</h3>
+        <div class="meta">土地财政 · 城投 · 化债</div>
+        <p>你的第二财政缩水了一半。你手上还有一台托市机器——828 正是冲着它来的。</p>
+      </button>
+      <button class="role-card" data-role="cfo" type="button">
+        <div class="tag">辅线 · 约 2 分钟</div>
+        <h3>房企 CFO</h3>
+        <div class="meta">高周转 · 违约 · 削债</div>
+        <p>你的资金表是靠预售款转起来的。现在回款要等到竣工之后，买地只能用自有资金。</p>
+      </button>
+      <button class="role-card" data-role="banker" type="button">
+        <div class="tag">辅线 · 约 2 分钟</div>
+        <h3>银行行长</h3>
+        <div class="meta">中转站 → 终点站</div>
+        <p>过去风险从你这里流过去。现在，一个项目一家主办银行，结清前不得更换。</p>
+      </button>
+    </div>
+  </div>
+</section>
+
+<!-- ══════════════════ 第三幕 · 角色线 ══════════════════ -->
+<section class="act" id="act3">
+  <div class="wrap">
+    <div class="line-head">
+      <div class="kicker" id="lineKicker">Act Ⅲ</div>
+      <h2 id="lineTitle"></h2>
+      <p class="who" id="lineWho"></p>
+      <div class="line-prog" id="lineProg" aria-hidden="true"></div>
+    </div>
+
+    <!-- ─── 买房家庭线（主线，9 节点） ─── -->
+    <div class="line" id="line-family" hidden>
+      <div class="node"><div class="node-when">2019 · 秋 · 签约</div>
+        <h3>你买下的是一张纸</h3>
+        <p>售楼处的沙盘做得很好。合同上写着交付日期，写着容积率，写着幼儿园。你签字的时候，工地上只有一个基坑。你买的不是房子，是一张承诺在两年后变成房子的纸。</p>
+        <p>首付掏空了两代人的存折，剩下的部分由银行接手，分三百六十期还完。</p>
+        <div class="slip">
+          <div class="slip-t">购房资金分录 · 合成案例</div>
+          <div class="slip-row"><span>购房方式</span><b>期房预售</b></div>
+          <div class="slip-row"><span>首付来源</span><b>自有 + 父母</b></div>
+          <div class="slip-row"><span>贷款期限</span><b>30 年</b></div>
+          <div class="slip-row"><span>合同交付</span><b class="red">2021 年 9 月</b></div>
+        </div>
+        <span class="synth">人物与家庭数字为合成案例</span>
+        <div class="cite"><b>制度背景</b>《城市房地产管理法》预售条件：投入资金达工程总投资 25% 以上</div>
+      </div>
+
+      <div class="node"><div class="node-when">2019 · 冬 · 放款</div>
+        <h3>楼没封顶，钱已经放了</h3>
+        <p>按 2007 年央行与原银监会的规定，银行只能对<strong>主体结构已封顶</strong>的住房发放个人贷款。但这条规则在很多地方是纸面的。</p>
+        <p>河南银保监局曾就工商银行郑州花园路支行 2018 年 2 月发放贷款、对应楼栋当年 6 月才封顶一事问责相关责任人。一名武汉房企人士说得更直白——楼盘未封顶即放贷是行业「默认的做法」。</p>
+        <blockquote>当地银行均如此操作，并不影响贷款合同的执行。<cite>银行回复购房者投诉 · 《财新周刊》2022 年第 29 期</cite></blockquote>
+      </div>
+
+      <div class="node"><div class="node-when">2020 · 月供开始</div>
+        <h3>还款日比交付日先到</h3>
+        <p>房子还是一片工地，月供已经从工资卡里划走。这就是预售制最核心的那句设计：<strong>购房人的钱，为开发建设提供融资</strong>。你不是消费者，你是这个项目最没有议价能力的债权人——而且是没有抵押物的那种。</p>
+      </div>
+
+      <div class="node"><div class="node-when">2021 · 秋 · 逾期</div>
+        <h3>合同上的那一天过去了</h3>
+        <p>没有电话，没有短信。业主群里开始有人贴现场照片：塔吊停了，工人撤了，售楼处的沙盘还亮着灯。</p>
+        <p>这一年，全国销售面积和土地出让收入双双见顶。你的楼盘在顶点的背面。</p>
+      </div>
+
+      <div class="node hot"><div class="node-when">2022 · 春 · 查账</div>
+        <h3>钱没进它该进的账户</h3>
+        <p>业主们开始自己查账。郑州融创中原大观，300 余名业主自查的结果是——</p>
+        <div class="hit-num">59.5%<i>业主的实际贷款支付账户，与合同载明的监管账户不符</i></div>
+        <p class="hit-cap">武汉、郑州此前的预售资金监管普遍宽松：只有首付款进监管账户，购房贷款由银行直接打入开发商的非监管账户。武汉绿地光谷星河绘的 7.6 亿元监管资金中，5.6 亿元已拨付给开发商，而 20 栋楼只有 2 栋结构封顶。</p>
+        <div class="cite"><b>来源</b>《财新周刊》2022 年第 29 期《停工楼盘能停贷吗》</div>
+      </div>
+
+      <div class="node hot"><div class="node-when">2022 · 夏 · 停贷</div>
+        <h3>一千零四十九个人的投票</h3>
+        <p>2022 年 6 月底起，全国多地购房人联名向住建局、银保监局和贷款银行发出「停贷告知书」。到 7 月 20 日，涉及维权的停工楼盘超过 300 个。</p>
+        <div class="slip">
+          <div class="slip-t">名门翠园 · 2022-07-17 业主投票</div>
+          <div class="slip-row"><span>原定交付</span><b class="red">2019 年 9 月</b></div>
+          <div class="slip-row"><span>逾期</span><b class="red">近三年</b></div>
+          <div class="slip-row"><span>参与投票</span><b>1049 人</b></div>
+          <div class="slip-row"><span>已停贷</span><b class="red">167 人</b></div>
+          <div class="slip-row"><span>称 8 月起停贷</span><b class="red">860 人</b></div>
+        </div>
+        <p>而在银行那一侧，这件事的规模是另一个数量级：截至 2022 年 7 月 14 日，16 家上市银行披露的涉保交楼风险逾期按揭贷款总额<strong>仅 25.294 亿元</strong>，同期全国个人住房贷款余额 38.32 万亿元——占比在 0.01% 以下，「总体风险可控」。</p>
+        <p>同一件事，在两本账上是两个世界。</p>
+        <div class="cite"><b>来源</b>《财新周刊》2022 年第 29 期；央行贷款投向报告</div>
+      </div>
+
+      <div class="node"><div class="node-when">2022 — 2025 · 保交楼</div>
+        <h3>七百五十万套，和被展期的五年</h3>
+        <p>国家机器转了过来。截至 2025 年 10 月，已售难交付住房实现交付 <strong>750 多万套</strong>；「白名单」项目贷款审批金额超过 <strong>7 万亿元</strong>，支持住房建设交付近 2000 万套。2026 年 3 月，住建部宣布「十四五」保交楼、保交房任务全面完成。</p>
+        <p>但同年 1 月的另一条监管调整没有上头条：白名单项目贷款<strong>可展期 5 年</strong>。项目层面的现金流风险没有出清，只是被时间换了空间。</p>
+        <div class="cite"><b>来源</b> 住建部、金融监管总局通报（21 经济网、腾讯新闻转引）</div>
+      </div>
+
+      <div class="node hot"><div class="node-when">2026 · 08 · 28 · 落款</div>
+        <h3>「能拿房、再还贷」</h3>
+        <p>七年之后，这句话被写进了一份部门规章。它是这套文件里最接近道歉的表述。</p>
+        <div class="slip">
+          <div class="slip-t">《个人住房贷款管理办法（试行）》 第二十二条</div>
+          <div class="slip-row"><span>买现房</span><b class="good">销售备案后放款</b></div>
+          <div class="slip-row"><span>买预售房</span><b class="good">竣工备案后放款</b></div>
+          <div class="slip-row"><span>原规则</span><b>主体结构封顶时放款</b></div>
+          <div class="slip-row"><span>支付方式</span><b>受托支付至监管账户</b></div>
+        </div>
+        <p>与之配套的还有两条：贷款期限最长从 30 年延到 <strong>40 年</strong>，月所有债务支出与收入比上限从 2004 年定的 55% 提到 <strong>60%</strong>。一条降月供，一条推迟风险敞口开始的时点。</p>
+        <div class="cite"><b>出处</b>《个人住房贷款管理办法（试行）》第十三条、第十条、第二十二条</div>
+        <div class="cite"><b>并同时</b> 废止 1998 年《个人住房贷款管理办法》</div>
+      </div>
+
+      <div class="node"><div class="node-when">尾声</div>
+        <h3>但是</h3>
+        <p>新政保护的是<strong>未来</strong>的购房者。放款时点后移、资金全额入监管账户、现房销售「所见即所得」——这些条款对 2027 年才签约的人是真实的。</p>
+        <p>对 2019 年签约、2022 年停贷、至今还在还一套没交付的房子的月供的那批人，九份文件里，一个字也没有提。</p>
+        <p>制度可以重新分配风险。已经发生的损失，不能。</p>
+      </div>
+    </div>
+
+    <!-- ─── 市长线 ─── -->
+    <div class="line" id="line-mayor" hidden>
+      <div class="node"><div class="node-when">1994 · 开局</div>
+        <h3>你手上只剩一块地</h3>
+        <p>分税制之后，财权上收、事权下沉。你要办教育、办医院、修路、发工资，而能自己攥住不用分成的大宗收入，是土地出让金。</p>
+        <p>三十年里，这块地不只是收入，还是抵押品。它注入城投，城投拿它去借钱，借来的钱修基础设施，设施抬高地价，地价再抬高抵押品估值——这台机器只要地价在涨，就一直能转。</p>
+        <div class="cite"><b>机制</b> Li &amp; Kohl (2026) §2.2「pseudo-collateral」循环</div>
+      </div>
+
+      <div class="node hot"><div class="node-when">2021 → 2026 · 坍塌</div>
+        <h3>第二财政蒸发了四万六千亿</h3>
+        <div class="hit-num">−52.3%<i>2025 年土地出让收入较 2021 年峰值的降幅</i></div>
+        <div class="slip">
+          <div class="slip-t">国有土地使用权出让收入 · 财政部口径</div>
+          <div class="slip-row"><span>2021（峰值）</span><b>87,051 亿元</b></div>
+          <div class="slip-row"><span>2023</span><b>57,996 亿元</b></div>
+          <div class="slip-row"><span>2025</span><b class="red">41,518 亿元</b></div>
+          <div class="slip-row"><span>2026 上半年同比</span><b class="red">−31.5%</b></div>
+          <div class="slip-row"><span>2025 依存度</span><b>78.9%</b></div>
+        </div>
+        <p>连续四年两位数下滑，2026 年上半年降幅重新扩大到三成——不是企稳，是加速。而政府性基金预算里，仍有近八成靠它。</p>
+        <div class="cite"><b>来源</b> 财政部国库司 2026-07-22、2026-01-30 发布</div>
+      </div>
+
+      <div class="node hot"><div class="node-when">2020 — 2022 · 托市</div>
+        <h3>于是你启动了那台机器</h3>
+        <p>抵押品不能跌。地价一跌，城投的债就展不了期。所以在成交量崩塌的那三年里，你做了一件反常识的事——让城投自己下场买地，把价格托住。</p>
+        <div class="slip">
+          <div class="slip-t">量价背离 · Chang, Wang &amp; Xiong (RFS 2026)</div>
+          <div class="slip-row"><span>2022 土地成交面积（vs 2019）</span><b class="red">−43.1%</b></div>
+          <div class="slip-row"><span>同期地价</span><b class="good">+11.0%</b></div>
+          <div class="slip-row"><span>城投购地占比 2019</span><b>14.1%</b></div>
+          <div class="slip-row"><span>城投购地占比 2022</span><b class="red">31.8%</b></div>
+          <div class="slip-row"><span>城投出价 2019</span><b>低于市场 9.0%</b></div>
+          <div class="slip-row"><span>城投出价 2022</span><b class="red">高出市场 11.7%</b></div>
+        </div>
+        <p>代价是有人替你付的：城投债务每高一个标准差，当地开发商的销售额外少 <strong>10.33%</strong>。你保住了账面，开发商替你承担了现金流。</p>
+        <div class="cite"><b>来源</b> Chang, Wang &amp; Xiong, <i>Price and Volume Divergence in China's Real Estate Markets</i>, RFS 2026 / NBER w34303, Tables 5/7/8/11/13</div>
+      </div>
+
+      <div class="node"><div class="node-when">压力表</div>
+        <h3>有些地方的表已经打到红区</h3>
+        <p>重庆、天津、赣州、镇江——这几个样本的城投债务达到财政收入的 <strong>785%—990%</strong>，利息一项就吃掉一般公共预算收入的 <strong>39%—49%</strong>。全国口径下，城投债务规模超过 GDP 的 50%，综合收入仅勉强够付利息。</p>
+        <div class="cite"><b>来源</b> CWX 2026, Appendix Table IA2；Rogoff &amp; Yang (2024) §I</div>
+      </div>
+
+      <div class="node hot"><div class="node-when">2026 · 08 · 28 · 拆机器</div>
+        <h3>两句话，拆掉了托市的燃料线</h3>
+        <blockquote>银行业金融机构不得发放用于缴交土地出让价款及相关税费的贷款。<cite>中国人民银行 171 号文《关于改革完善房地产信贷管理的意见》第五条</cite></blockquote>
+        <blockquote>房地产开发企业须用自有资金购地。<cite>建房规〔2026〕3 号《关于完善商品住房销售制度的通知》 三（一）</cite></blockquote>
+        <p>「以地抵押 → 借款 → 买地 → 再抵押」的循环，在缴款这一环被掐断。推论很直接：地价失去城投与行政的托举之后，此前被拖住的价格调整会集中显性化——<strong>量价背离切换为价跌量现</strong>。抵押品先重估，再融资随后收缩。</p>
+        <p>方向上文献是一致的：这是在拆病根。警告全部集中在过渡期的量级与节奏——化债置换是否按城投暴露定向分配、一般债与转移支付能否补位、地方支出效率跟不跟得上。</p>
+        <div class="cite"><b>来源</b> 见专题《地方债务：七篇文献》· 对 828 的含义</div>
+      </div>
+    </div>
+
+    <!-- ─── 房企 CFO 线 ─── -->
+    <div class="line" id="line-cfo" hidden>
+      <div class="node"><div class="node-when">旧模式</div>
+        <h3>你的资金表靠别人的钱转</h3>
+        <p>高周转的算法很简单：拿地用贷款，开工到封顶用预售款，回款再去拿下一块地。自有资金在这条链上只是一个启动扭矩。</p>
+        <div class="hit-num">85.3%<i>2020 年末头部五家房企平均资产负债率（行业平均约 80%）</i></div>
+        <div class="cite"><b>来源</b> Huang (2023), PIIE WP23-5, §2.1</div>
+      </div>
+
+      <div class="node hot"><div class="node-when">2022 · 断裂</div>
+        <h3>燃料断供的那一年</h3>
+        <div class="slip">
+          <div class="slip-t">2022 年违约</div>
+          <div class="slip-row"><span>境内债违约</span><b class="red">115 只 / 1,353 亿元</b></div>
+          <div class="slip-row"><span>较上年</span><b class="red">6 倍</b></div>
+          <div class="slip-row"><span>美元债违约</span><b class="red">92 只 / 310 亿美元</b></div>
+          <div class="slip-row"><span>较上年</span><b class="red">3.4 倍</b></div>
+        </div>
+        <div class="cite"><b>来源</b> Huang (2023), §2.2</div>
+      </div>
+
+      <div class="node"><div class="node-when">2025 · 清算桌</div>
+        <h3>削债 40% 到 70%</h3>
+        <p>截至 2025 年末，累计出险房企 <strong>74 家</strong>，涉及债券 466 只，违约规模超 <strong>4,500 亿元</strong>。首次出险的类型里，实质性违约 18 家、展期或债务重组 51 家。</p>
+        <p>到 2025 年 10 月，约 21 家出险房企的重组方案获批或完成，累计化债约 1.2 万亿元，涉及有息负债近 2 万亿元——削债比例普遍在 <strong>40% 到 70%</strong> 之间。「展期换时间」的阶段结束了，进入真正的实质重组。</p>
+        <div class="cite"><b>来源</b> 金杜《2025 年度债务重组市场观察：房地产篇》；方达《破产年度观察（2025）》</div>
+      </div>
+
+      <div class="node"><div class="node-when">2026 · 土地市场</div>
+        <h3>你所在的那个物种，已经退场</h3>
+        <div class="slip">
+          <div class="slip-t">2026 上半年百强拿地 · 中指研究院</div>
+          <div class="slip-row"><span>拿地总额</span><b>3,360 亿元 <span style="font-size:12px">（−33.7%）</span></b></div>
+          <div class="slip-row"><span>央国企合计占比</span><b class="blue">85.1%</b></div>
+          <div class="slip-row"><span>民企占比</span><b class="red">13%（−48%）</b></div>
+        </div>
+        <p>「开发商」这个词在 2026 年已经指不了单一物种：央企在核心城市高溢价抢地，民企作为一个群体退出土地市场，城投托底拿地却不盖房，出险房企在重组桌上，少数运营商在 REITs 通道里排队。同一套新政落在五种企业身上，是五份不同的判决书。</p>
+      </div>
+
+      <div class="node hot"><div class="node-when">2026 · 08 · 28 · 新账本</div>
+        <h3>回款推到竣工之后，买地只能用自己的钱</h3>
+        <div class="slip">
+          <div class="slip-t">新规则对你的资金表做了什么</div>
+          <div class="slip-row"><span>预售条件</span><b class="red">主体结构封顶</b></div>
+          <div class="slip-row"><span>购房资金</span><b class="red">首付 + 个贷全额入监管账户</b></div>
+          <div class="slip-row"><span>个贷放款</span><b class="red">竣工备案后</b></div>
+          <div class="slip-row"><span>购地资金</span><b class="red">须自有资金</b></div>
+          <div class="slip-row"><span>开发贷 · 预售项目</span><b>原则 ≤3 年，最长 5 年</b></div>
+          <div class="slip-row"><span>开发贷 · 现售项目</span><b class="good">原则 ≤5 年，最长 7 年</b></div>
+        </div>
+        <p>补偿是有的：现售项目贷款期限拉长到七年，就是为了匹配被拉长的销售周期；主办银行制让开发贷成为项目的主要融资渠道。但补偿的前提是你借得到。</p>
+        <blockquote>短期房企资金进一步承压，高融资成本的房企就彻底「没戏了」。<cite>华东区域房企人士 · 第一财经 2026-08-28</cite></blockquote>
+        <blockquote>开发企业应摆脱过去过度负债、快速扩张的高风险旧模式，通过滚动开发等方式降低资金成本与投资风险。<cite>浦湛，住房和城乡建设部政策研究中心副主任 · 财新 2026-08-28</cite></blockquote>
+        <div class="cite"><b>出处</b> 建房规〔2026〕3 号；《商品住房开发贷款管理办法（试行）》；171 号文第五条</div>
+      </div>
+    </div>
+
+    <!-- ─── 银行行长线 ─── -->
+    <div class="line" id="line-banker" hidden>
+      <div class="node"><div class="node-when">旧角色</div>
+        <h3>你是中转站，不是终点站</h3>
+        <p>钱从储户来，经你手放给购房人，再流向开发商。风险在这条链上流过去，最终落在买房的家庭身上。2007 年的规定要求你只对封顶住房放款，但那条线在很多地方是软的。</p>
+        <blockquote>2021 年上半年要求降低房地产贷款增速，到下半年就开始督办我们保交楼。<cite>东北某分行人士 · 《财新周刊》2022 年第 29 期</cite></blockquote>
+      </div>
+
+      <div class="node hot"><div class="node-when">2026 · 资产端</div>
+        <h3>三张表同时在缩</h3>
+        <div class="slip">
+          <div class="slip-t">2026 年二季度末 · 央行贷款投向统计</div>
+          <div class="slip-row"><span>个人住房贷款余额</span><b class="red">36.29 万亿（−3.8%）</b></div>
+          <div class="slip-row"><span>上半年净减少</span><b class="red">7,163 亿元</b></div>
+          <div class="slip-row"><span>2025 全年净减少</span><b>6,768 亿元</b></div>
+          <div class="slip-row"><span>房地产开发贷</span><b class="red">12.65 万亿（−8.5%）</b></div>
+          <div class="slip-row"><span>房地产贷款合计</span><b class="red">50.74 万亿（−4.9%）</b></div>
+        </div>
+        <p>今年<strong>半年</strong>减少的房贷，已经超过去年<strong>全年</strong>。居民部门连续 13 个季度贷款负增长，杠杆率从峰值回落约 6 个百分点到 57.7%。你面对的不是「被压抑的加杠杆意愿」，是资产负债表收缩。</p>
+        <div class="cite"><b>来源</b> 央行 2026 年二季度贷款投向报告；NIFD 2026Q2 宏观杠杆率报告</div>
+      </div>
+
+      <div class="node"><div class="node-when">价格工具</div>
+        <h3>利率已经没有下调的空间了</h3>
+        <div class="hit-num">3.06%<i>2026 年一季度新发放个人住房贷款加权平均利率 · 有统计以来最低</i></div>
+        <p class="hit-cap">较 2021 年高点累计下降约 245 个基点，并已横盘约一年。历史最高是 2011 年 12 月的 7.62%。价格工具用尽——这正是 828 转向其他工具箱的直接背景。</p>
+        <div class="cite"><b>来源</b> 央行《2026 年第二季度中国货币政策执行报告》</div>
+      </div>
+
+      <div class="node hot"><div class="node-when">2026 · 08 · 28 · 新角色</div>
+        <h3>一个项目，一家主办银行，结清前不得更换</h3>
+        <div class="slip">
+          <div class="slip-t">《商品住房开发贷款管理办法（试行）》</div>
+          <div class="slip-row"><span>第四条</span><b>主办银行模式</b></div>
+          <div class="slip-row"><span>第七条</span><b>一个项目仅一家主办银行</b></div>
+          <div class="slip-row"><span>第八条</span><b>项目全部资金纳入资金账户</b></div>
+          <div class="slip-row"><span>第八条</span><b>结清前原则上不得变更</b></div>
+          <div class="slip-row"><span>第六条（五）</span><b>单独建账、封闭管理、不得混同</b></div>
+        </div>
+        <p>这套机制不是新发明的。它首见于 2024 年住建部与金融监管总局的「白名单」——为保交房精准支持项目融资的应急安排：单独建账、指定一家主办银行、防止多家银行同时抽贷。828 把应急机制改成了常态制度。</p>
+        <p>同时，个贷放款推迟到竣工备案后，期限最长拉到 40 年。你的久期在变长，你的敞口开始得更晚，而你对单一项目的绑定变得不可解除。</p>
+        <div class="cite"><b>制度渊源</b> 2024 年城市房地产融资协调机制「白名单」（金融监管总局答记者问）</div>
+      </div>
+
+      <div class="node"><div class="node-when">终点站</div>
+        <h3>每一条保护购房者的条款，另一端都拴着你</h3>
+        <p>按揭晚放两年、开发贷拉长到七年、单项目绑定单一银行——新政把银行从风险传递链的中转站，改造成了风险的终点站。</p>
+        <p>而这发生在房地产贷款全面负增长、息差处于历史最低的时刻。文件假设银行愿意接。这个假设本身，就是整套制度最大的执行悬念。</p>
+      </div>
+    </div>
+
+    <div class="line-end" id="lineEnd">
+      <h3 id="endTitle">这条线走完了</h3>
+      <p id="endDesc"></p>
+      <div class="btn-row">
+        <button class="btn" id="toSandbox" type="button">解锁资金流沙盘</button>
+        <button class="btn ghost" id="backRoles" type="button">换一个身份</button>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ══════════════════ 第四幕 · 资金流沙盘 ══════════════════ -->
+<section id="act4">
+ <div class="stage" id="stage">
+  <div class="wrap wrap-wide">
+    <div class="stage-head">
+      <div class="kicker">Act Ⅳ · 沙盘</div>
+      <h2>五个开关，四本账</h2>
+      <p>纸和墨到这里为止。下面是一台装置：828 的五个真实抓手做成五个开关，管道里流的是购房款、信贷和土地金。随便拨——包括只拨一个，看看会发生什么。方向与量级锚定研究结论，每个开关都注明了出处；这里<strong>不做时间推演</strong>，因为那种精确是假的。</p>
+    </div>
+
+    <div class="rig">
+     <div class="rig-inner">
+      <svg viewBox="0 0 800 470" role="img" aria-label="资金流管道示意：银行、家庭、项目公司、地方政府、城投平台之间的资金管道">
+        <!-- 管道（玻璃底 + 流量层） -->
+        <g id="pipes" fill="none">
+          <path id="p1" class="pipe pipe-glass" d="M220,379 C280,379 290,300 330,250" stroke-width="16"/>
+          <path id="p2" class="pipe pipe-glass" d="M220,69 C280,69 290,110 330,150" stroke-width="16"/>
+          <path id="p3" class="pipe pipe-glass" d="M140,98 L140,350" stroke-width="16"/>
+          <path id="p4" class="pipe pipe-glass" d="M470,160 C520,140 550,100 600,69" stroke-width="16"/>
+          <path id="p5" class="pipe pipe-glass" d="M200,98 C200,300 200,435 340,435 L640,435 C690,435 690,420 690,388" stroke-width="16"/>
+          <path id="p6" class="pipe pipe-glass" d="M690,330 L690,98" stroke-width="16"/>
+          <!-- 流量层：JS 控制 stroke-width / opacity -->
+          <path id="f1" class="pipe flow" d="M220,379 C280,379 290,300 330,250" stroke="var(--fluid-money)" stroke-width="9" opacity=".55"/>
+          <path id="f2" class="pipe flow" d="M220,69 C280,69 290,110 330,150" stroke="var(--fluid-credit)" stroke-width="9" opacity=".55"/>
+          <path id="f3" class="pipe flow" d="M140,98 L140,350" stroke="var(--fluid-credit)" stroke-width="9" opacity=".55"/>
+          <path id="f4" class="pipe flow" d="M470,160 C520,140 550,100 600,69" stroke="var(--fluid-land)" stroke-width="9" opacity=".55"/>
+          <path id="f5" class="pipe flow" d="M200,98 C200,300 200,435 340,435 L640,435 C690,435 690,420 690,388" stroke="var(--fluid-credit)" stroke-width="9" opacity=".55"/>
+          <path id="f6" class="pipe flow" d="M690,330 L690,98" stroke="var(--fluid-land)" stroke-width="9" opacity=".55"/>
+        </g>
+
+        <!-- 节点 -->
+        <g class="node-box"><rect x="60" y="40" width="160" height="58" rx="4"/>
+          <text class="nm" x="140" y="66" text-anchor="middle">银　行</text>
+          <text class="sm" x="140" y="84" text-anchor="middle">BANK</text></g>
+        <g class="node-box"><rect x="60" y="350" width="160" height="58" rx="4"/>
+          <text class="nm" x="140" y="376" text-anchor="middle">买房家庭</text>
+          <text class="sm" x="140" y="394" text-anchor="middle">HOUSEHOLD</text></g>
+        <g class="node-box"><rect x="600" y="40" width="160" height="58" rx="4"/>
+          <text class="nm" x="680" y="66" text-anchor="middle">地方政府</text>
+          <text class="sm" x="680" y="84" text-anchor="middle">LOCAL GOV</text></g>
+        <g class="node-box"><rect x="600" y="330" width="160" height="58" rx="4"/>
+          <text class="nm" x="680" y="356" text-anchor="middle">城投平台</text>
+          <text class="sm" x="680" y="374" text-anchor="middle">LGFV</text></g>
+
+        <!-- 中心：资产负债表折成的纸屋 -->
+        <g class="house-fold" id="houseFold">
+          <path d="M330,190 L400,132 L470,190 Z" fill="var(--paper-panel)" stroke="var(--glass-line)" stroke-width="1.4"/>
+          <path d="M400,132 L400,190" stroke="var(--fold)" stroke-width="1"/>
+          <rect x="342" y="190" width="116" height="72" fill="var(--paper)" stroke="var(--glass-line)" stroke-width="1.4"/>
+          <path d="M342,214 H458 M342,238 H458" stroke="var(--fold)" stroke-width="1"/>
+          <rect x="386" y="226" width="28" height="36" fill="var(--paper-panel)" stroke="var(--glass-line)" stroke-width="1"/>
+          <text class="nm" x="400" y="292" text-anchor="middle" style="font-size:21px">项目公司</text>
+          <text class="sm" x="400" y="309" text-anchor="middle">SPV · 单独建账</text>
+        </g>
+
+        <!-- 管道标签 -->
+        <text class="pipe-label" x="252" y="330" text-anchor="middle">购房款</text>
+        <text class="pipe-label" x="252" y="112" text-anchor="middle">开发贷</text>
+        <text class="pipe-label" x="152" y="230">个人房贷</text>
+        <text class="pipe-label" x="548" y="108" text-anchor="middle">土地出让价款</text>
+        <text class="pipe-label" x="430" y="455" text-anchor="middle">城投融资（贷款 / 土地抵押）</text>
+        <text class="pipe-label" x="700" y="220">城投购地</text>
+        <text class="sm" x="400" y="30" text-anchor="middle" style="font-family:var(--mono);font-size:14px;fill:var(--ink-3);letter-spacing:3px">资金流沙盘 · FUND FLOW RIG</text>
+        <path d="M60,20 L740,20" stroke="var(--glass-line)" stroke-width=".6" opacity=".4"/>
+      </svg>
+      <canvas id="fluidCanvas" aria-hidden="true"></canvas>
+     </div>
+    </div>
+    <div class="rig-hint">← 左右滑动看完整管道 →</div>
+
+    <div class="switches" id="switches">
+      <button class="sw" data-sw="s1" type="button">
+        <div class="sw-top"><span class="sw-knob"></span><span class="sw-no">①</span><span class="sw-name">现房销售 · 预售须封顶</span></div>
+        <div class="sw-src">建房规〔2026〕3 号 一（一）：预售须单体建筑主体结构封顶；二（一）：新出让土地项目优先现房销售</div>
+      </button>
+      <button class="sw" data-sw="s2" type="button">
+        <div class="sw-top"><span class="sw-knob"></span><span class="sw-no">②</span><span class="sw-name">禁止贷款缴地价</span></div>
+        <div class="sw-src">央行 171 号文第五条：不得发放用于缴交土地出让价款及相关税费的贷款；建房规〔2026〕3 号 三（一）：须用自有资金购地</div>
+      </button>
+      <button class="sw" data-sw="s3" type="button">
+        <div class="sw-top"><span class="sw-knob"></span><span class="sw-no">③</span><span class="sw-name">主办银行 · 资金封闭</span></div>
+        <div class="sw-src">《商品住房开发贷款管理办法（试行）》第四条、第七条、第八条；第六条（五）项目单独建账、资金封闭管理、不得混同</div>
+      </button>
+      <button class="sw" data-sw="s4" type="button">
+        <div class="sw-top"><span class="sw-knob"></span><span class="sw-no">④</span><span class="sw-name">个贷竣工备案后放款</span></div>
+        <div class="sw-src">《个人住房贷款管理办法（试行）》第二十二条：现房销售备案后放款、预售竣工备案后放款，受托支付至监管账户</div>
+      </button>
+      <button class="sw" data-sw="s5" type="button">
+        <div class="sw-top"><span class="sw-knob"></span><span class="sw-no">⑤</span><span class="sw-name">40 年期限 · 偿债比 60%</span></div>
+        <div class="sw-src">《个人住房贷款管理办法（试行）》第十三条：期限最长 40 年；第十条：月房贷／收入 ≤50%、月所有债务／收入 ≤60%</div>
+      </button>
+    </div>
+
+    <div class="preset-row">
+      <span>试试</span>
+      <button class="preset" data-preset="none" type="button">全关（828 之前）</button>
+      <button class="preset" data-preset="s2" type="button">只开 ②</button>
+      <button class="preset" data-preset="s1s4" type="button">只开 ① + ④</button>
+      <button class="preset" data-preset="all" type="button">全开（828 之后）</button>
+    </div>
+
+    <div class="books" id="books">
+      <div class="book" style="--c:var(--seal)" data-book="family">
+        <h4>买房家庭</h4><div class="sub">HOUSEHOLD</div>
+        <div class="metric"><span class="k">交付风险</span><span class="v" data-m="deliver"></span></div>
+        <div class="metric"><span class="k">月供压力</span><span class="v" data-m="pay"></span></div>
+        <div class="metric"><span class="k">可贷额度</span><span class="v" data-m="quota"></span></div>
+        <div class="book-note" data-note></div>
+      </div>
+      <div class="book" style="--c:var(--tag-gold)" data-book="cfo">
+        <h4>房　企</h4><div class="sub">DEVELOPER</div>
+        <div class="metric"><span class="k">回款时点</span><span class="v" data-m="cash"></span></div>
+        <div class="metric"><span class="k">拿地杠杆</span><span class="v" data-m="lev"></span></div>
+        <div class="metric"><span class="k">融资久期</span><span class="v" data-m="dur"></span></div>
+        <div class="book-note" data-note></div>
+      </div>
+      <div class="book" style="--c:var(--tag-blue)" data-book="mayor">
+        <h4>地方政府</h4><div class="sub">LOCAL GOV</div>
+        <div class="metric"><span class="k">土地收入预期</span><span class="v" data-m="land"></span></div>
+        <div class="metric"><span class="k">城投融资管道</span><span class="v" data-m="lgfv"></span></div>
+        <div class="metric"><span class="k">抵押品估值</span><span class="v" data-m="coll"></span></div>
+        <div class="book-note" data-note></div>
+      </div>
+      <div class="book" style="--c:var(--good)" data-book="banker">
+        <h4>银　行</h4><div class="sub">BANK</div>
+        <div class="metric"><span class="k">单项目集中度</span><span class="v" data-m="conc"></span></div>
+        <div class="metric"><span class="k">贷款久期</span><span class="v" data-m="tenor"></span></div>
+        <div class="metric"><span class="k">敞口开始时点</span><span class="v" data-m="expo"></span></div>
+        <div class="book-note" data-note></div>
+      </div>
+    </div>
+
+    <div class="margin-note" id="marginNote"></div>
+  </div>
+ </div>
+</section>
+
+<!-- ══════════════════ 第五幕 · 结尾 ══════════════════ -->
+<section class="act" id="act5">
+  <div class="wrap">
+    <div class="act-head">
+      <div class="kicker">Act Ⅴ · 出口</div>
+      <h2>你现在应该能向朋友复述这件事了</h2>
+      <p>828 是在拆一台运转了三十年的机器：预售制让买房人替开发商融资，土地财政让地价替地方政府背书，两者靠一条信贷链条焊在一起。九份文件把这条链条从三个地方剪断，然后把风险沿着原路推回给出借方。方向上没有争议，争议全在过渡期的量级和节奏。</p>
+    </div>
+
+    <div class="btn-row" style="justify-content:flex-start;margin-bottom:8px">
+      <button class="btn ghost" id="againBtn" type="button">换个身份重走一遍</button>
+      <button class="btn ghost" id="rigBtn" type="button">回到沙盘</button>
+    </div>
+
+    <h3 style="font-family:var(--serif);font-size:20px;font-weight:800;margin:44px 0 4px">四条线，各自对应报告的哪一章</h3>
+    <div class="links">
+      <a class="link-card" href="../index.html#c6"><div class="t">买房家庭 →</div><h4>第六章 · 买房的人</h4><p>三十年信任的重建与代价：新政保护了谁，又对谁只字未提。</p></a>
+      <a class="link-card" href="../index.html#c4"><div class="t">市　长 →</div><h4>第四章 · 地方政府</h4><p>发动机熄火之后：土地财政坍塌与化债、保交楼、发工资的三重挤压。</p></a>
+      <a class="link-card" href="../index.html#c5"><div class="t">房企 CFO →</div><h4>第五章 · 开发商</h4><p>五种命运：央企、民企、城投、出险房企与运营商拿到的是五份判决书。</p></a>
+      <a class="link-card" href="../index.html#c8"><div class="t">银行行长 →</div><h4>第八章 · 银行</h4><p>最后的承接者：文件假设银行愿意接，这个假设是最大的执行悬念。</p></a>
+    </div>
+
+    <h3 style="font-family:var(--serif);font-size:20px;font-weight:800;margin:44px 0 4px">继续读下去</h3>
+    <div class="links">
+      <a class="link-card" href="../index.html"><div class="t">主报告</div><h4>风险重估：828 房地产新政研究</h4><p>九章全文，本作品所有事实的底座。</p></a>
+      <a class="link-card" href="../topics/in-charts.html"><div class="t">专题</div><h4>数据里的十年</h4><p>用图表把销售、土地、信贷、人口四条曲线放在一起看。</p></a>
+      <a class="link-card" href="../topics/debt-literature.html"><div class="t">专题</div><h4>地方债务：七篇文献</h4><p>沙盘开关②的机制依据，包括 CWX（RFS 2026）的托市实证。</p></a>
+      <a class="link-card" href="../topics/baojiaolou.html"><div class="t">专题</div><h4>保交楼往事</h4><p>停贷潮到白名单，那条时间线的完整版本。</p></a>
+      <a class="link-card" href="../topics/rent-or-buy.html"><div class="t">工具</div><h4>租还是买：算一笔大账</h4><p>把 40 年期限和 60% 偿债比放进你自己的数字里。</p></a>
+      <a class="link-card" href="../topics/land-finance-30y.html"><div class="t">专题</div><h4>土地财政三十年</h4><p>市长那条线的长版本，从 1994 讲到 2026。</p></a>
+    </div>
+  </div>
+
+  <footer class="foot">
+    <div class="wrap">
+      <div class="disclaim">
+        <b>关于真实性的声明。</b>本作品中的「买房家庭」「市长」「房企 CFO」「银行行长」均为<strong>基于真实数据的合成案例</strong>，不对应任何真实个体、企业或地方政府；标注「合成案例」的家庭财务数字为示意，其余全部数字、条文与引语均取自公开统计、部委文件、学术文献与已刊报道，逐条注明出处。沙盘展示的是<strong>方向与量级</strong>，不是预测：它不做时间推演曲线，因为那种精确感与本研究的立场相矛盾。
+      </div>
+      《纸屋》· 828 新政的四本账 —— <a href="../index.html">《住房政策观察》</a>探索版 · 2026 年 8 月<br>
+      主要来源：住建部建房规〔2026〕3 号；央行 171 号文；金融监管总局《个人住房贷款管理办法（试行）》《商品住房开发贷款管理办法（试行）》；国家统计局；财政部；中国人民银行；NIFD；中指研究院；金杜、方达律师事务所；《财新周刊》；Chang, Wang &amp; Xiong (RFS 2026)；Li &amp; Kohl (2026)；Huang (2023)；Rogoff &amp; Yang (2020/2022/2024)；王劲松等（2024）。<br>
+      逐条出处见<a href="../index.html#sources">主报告·资料来源</a>。
+    </div>
+  </footer>
+</section>
+
+<script src="paper.js"></script>
+</body>
+</html>

@@ -1,0 +1,477 @@
+/* ============================================================
+   《纸屋》——828 新政的四本账 · 探索版
+   视觉世界观：账本宇宙（纸与墨的超现实）→ 沙盘一幕切至玻璃管道
+   零依赖，手写 CSS。配色令牌与主站互通（主题键 hpw-theme）。
+   ============================================================ */
+
+:root {
+  --paper: #fcfcf9; --paper-deep: #f2f2ea; --paper-panel: #f6f5ee;
+  --ink: #1d1f26; --ink-2: #494c58; --ink-3: #7b7e8c;
+  --hairline: #e2e1d7; --hairline-2: #c8c7ba;
+  --seal: #e8432d; --seal-soft: #e8432d1f;
+  --tag-blue: #2b5cd9; --tag-blue-2: #86a3e8; --tag-gold: #d9910c; --good: #159f68;
+  /* 探索版扩展令牌 */
+  --pulp: #ece9dd;              /* 纸浆阴影 */
+  --fold: rgba(29,31,38,.10);   /* 折痕 */
+  --glass: rgba(43,92,217,.10); /* 玻璃管壁 */
+  --glass-line: rgba(43,92,217,.34);
+  --fluid-money: #2b5cd9;       /* 购房款 */
+  --fluid-credit: #d9910c;      /* 信贷 */
+  --fluid-land: #e8432d;        /* 土地金 */
+  --stage: #f4f2e9;             /* 幕布底 */
+  --mono: 'JetBrains Mono', 'SF Mono', ui-monospace, monospace;
+  --serif: 'Noto Serif SC', 'Songti SC', serif;
+  --sans: 'Noto Sans SC', 'PingFang SC', system-ui, sans-serif;
+  --num: 'ZCOOL QingKe HuangYou', 'Spectral', 'Noto Serif SC', serif;
+}
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) {
+    --paper: #15171e; --paper-deep: #1b1e26; --paper-panel: #20232d;
+    --ink: #e9eae4; --ink-2: #b3b6bf; --ink-3: #82858f;
+    --hairline: #333640; --hairline-2: #464a56;
+    --seal: #ff6a4d; --seal-soft: #ff6a4d24;
+    --tag-blue: #82a5ff; --tag-blue-2: #4a68b3; --tag-gold: #f0b83d; --good: #43c98b;
+    --pulp: #11131a; --fold: rgba(233,234,228,.09);
+    --glass: rgba(130,165,255,.10); --glass-line: rgba(130,165,255,.36);
+    --fluid-money: #82a5ff; --fluid-credit: #f0b83d; --fluid-land: #ff6a4d;
+    --stage: #12141b;
+  }
+}
+:root[data-theme="dark"] {
+  --paper: #15171e; --paper-deep: #1b1e26; --paper-panel: #20232d;
+  --ink: #e9eae4; --ink-2: #b3b6bf; --ink-3: #82858f;
+  --hairline: #333640; --hairline-2: #464a56;
+  --seal: #ff6a4d; --seal-soft: #ff6a4d24;
+  --tag-blue: #82a5ff; --tag-blue-2: #4a68b3; --tag-gold: #f0b83d; --good: #43c98b;
+  --pulp: #11131a; --fold: rgba(233,234,228,.09);
+  --glass: rgba(130,165,255,.10); --glass-line: rgba(130,165,255,.36);
+  --fluid-money: #82a5ff; --fluid-credit: #f0b83d; --fluid-land: #ff6a4d;
+  --stage: #12141b;
+}
+
+* { margin: 0; padding: 0; box-sizing: border-box; }
+[hidden] { display: none !important; }
+html { scroll-behavior: smooth; }
+body {
+  font-family: var(--sans); background: var(--paper); color: var(--ink);
+  font-size: 16px; line-height: 1.85; -webkit-font-smoothing: antialiased;
+  overflow-x: hidden;
+}
+img { max-width: 100%; }
+a { color: inherit; }
+::selection { background: var(--seal-soft); }
+
+/* 纸纤维底纹：两层极淡径向噪点，不用图片 */
+.grain::before {
+  content: ''; position: fixed; inset: 0; pointer-events: none; z-index: 1; opacity: .5;
+  background-image:
+    radial-gradient(circle at 17% 23%, var(--fold) 0 .6px, transparent .7px),
+    radial-gradient(circle at 71% 62%, var(--fold) 0 .5px, transparent .6px);
+  background-size: 13px 13px, 19px 19px;
+  mix-blend-mode: multiply;
+}
+:root[data-theme="dark"] .grain::before { mix-blend-mode: screen; }
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) .grain::before { mix-blend-mode: screen; }
+}
+
+/* ---------- 通用外壳 ---------- */
+.wrap { max-width: 760px; margin: 0 auto; padding: 0 clamp(20px, 5.5vw, 36px); position: relative; z-index: 2; }
+.wrap-wide { max-width: 1040px; }
+.kicker { font-family: var(--mono); font-size: 11px; letter-spacing: 3.4px; color: var(--seal); text-transform: uppercase; }
+.mono { font-family: var(--mono); }
+
+/* 出处小签：贯穿全篇的严谨性标记 */
+.cite {
+  display: inline-block; font-family: var(--mono); font-size: 10.5px; line-height: 1.5;
+  color: var(--ink-3); border: 1px solid var(--hairline); border-radius: 4px;
+  padding: 2px 6px; margin: 4px 6px 0 0; background: var(--paper-panel);
+  letter-spacing: .2px; vertical-align: middle;
+}
+.cite b { color: var(--ink-2); font-weight: 500; }
+.synth {
+  display: inline-block; font-family: var(--mono); font-size: 10.5px;
+  color: var(--seal); border: 1px dashed var(--seal); border-radius: 4px;
+  padding: 2px 6px; margin: 4px 6px 0 0; background: var(--seal-soft);
+}
+
+/* ---------- 顶栏 ---------- */
+.hud {
+  position: fixed; top: 0; left: 0; right: 0; z-index: 60;
+  display: flex; align-items: center; gap: 12px;
+  padding: 10px clamp(14px, 4vw, 26px);
+  background: color-mix(in srgb, var(--paper) 82%, transparent);
+  backdrop-filter: blur(10px); border-bottom: 1px solid var(--hairline);
+  transform: translateY(-110%); transition: transform .5s cubic-bezier(.2,.8,.25,1);
+}
+.hud.on { transform: none; }
+.hud .brand { font-family: var(--serif); font-weight: 700; letter-spacing: 2px; font-size: 15px; }
+.hud .brand small { font-family: var(--sans); font-weight: 400; font-size: 11px; color: var(--ink-3); letter-spacing: 0; margin-left: 8px; }
+.hud .sp { flex: 1; }
+.hud button, .hud a.btn-mini {
+  background: none; border: 1px solid var(--hairline-2); color: var(--ink-2);
+  border-radius: 999px; padding: 5px 11px; font-size: 12px; cursor: pointer;
+  font-family: var(--sans); text-decoration: none; white-space: nowrap;
+}
+.hud button:hover, .hud a.btn-mini:hover { border-color: var(--seal); color: var(--seal); }
+.hud .icon { width: 32px; height: 32px; padding: 0; display: grid; place-items: center; border-radius: 50%; }
+.hud .icon svg { width: 16px; height: 16px; }
+.rail { position: fixed; top: 0; left: 0; height: 2px; background: var(--seal); z-index: 61; width: 0; transition: width .18s linear; }
+
+/* ============================================================
+   第〇幕 · 封面（文件雨）
+   ============================================================ */
+#act0 {
+  position: relative; min-height: 100svh; display: grid; place-items: center;
+  text-align: center; overflow: hidden; background: var(--paper-deep);
+}
+#rainCanvas { position: absolute; inset: 0; width: 100%; height: 100%; }
+.cover { position: relative; z-index: 3; padding: 40px clamp(20px, 6vw, 40px); }
+.cover-date { font-family: var(--mono); font-size: 11.5px; letter-spacing: 4px; color: var(--ink-3); margin-bottom: 26px; }
+.cover h1 {
+  font-family: var(--serif); font-weight: 900; line-height: 1;
+  font-size: clamp(72px, 22vw, 168px); letter-spacing: .12em; margin-left: .12em;
+  position: relative; display: inline-block;
+}
+.cover h1 .zi { display: inline-block; }
+.cover .sub {
+  font-family: var(--serif); font-size: clamp(15px, 4vw, 20px); font-weight: 600;
+  letter-spacing: .32em; margin: 14px 0 0 .32em; color: var(--ink-2);
+}
+.cover .lead {
+  max-width: 30em; margin: 34px auto 0; font-size: clamp(14.5px, 3.6vw, 16.5px);
+  color: var(--ink-2); line-height: 2.05; text-wrap: balance;
+}
+.cover .lead em { font-style: normal; color: var(--seal); font-weight: 600; }
+.enter {
+  margin-top: 40px; display: inline-flex; align-items: center; gap: 10px;
+  background: var(--ink); color: var(--paper); border: none; cursor: pointer;
+  font-family: var(--serif); font-weight: 700; font-size: 15.5px; letter-spacing: 4px;
+  padding: 15px 30px 15px 34px; border-radius: 2px;
+  box-shadow: 0 10px 30px rgba(20,22,30,.18); transition: transform .3s, box-shadow .3s;
+}
+.enter:hover { transform: translateY(-2px); box-shadow: 0 16px 40px rgba(20,22,30,.24); }
+.enter svg { width: 15px; height: 15px; }
+.cover-foot { margin-top: 30px; font-size: 11.5px; color: var(--ink-3); font-family: var(--mono); letter-spacing: 1px; }
+
+/* 封面上的红戳 */
+.seal-stamp {
+  position: absolute; z-index: 4; border: 2.5px solid var(--seal); color: var(--seal);
+  font-family: var(--serif); font-weight: 700; border-radius: 6px;
+  padding: 7px 12px; font-size: 12.5px; letter-spacing: 3px; line-height: 1.3;
+  opacity: 0; transform: rotate(-13deg) scale(1.7);
+  mix-blend-mode: multiply;
+}
+.seal-stamp.hit { animation: stamp .5s cubic-bezier(.2,1.4,.4,1) forwards; }
+@keyframes stamp { to { opacity: .82; transform: rotate(-13deg) scale(1); } }
+.seal-1 { top: 14%; right: 8%; }
+.seal-2 { bottom: 17%; left: 6%; transform: rotate(9deg) scale(1.7); }
+.seal-2.hit { animation: stamp2 .5s .35s cubic-bezier(.2,1.4,.4,1) forwards; }
+@keyframes stamp2 { to { opacity: .74; transform: rotate(9deg) scale(1); } }
+
+/* ============================================================
+   第一幕 · 90 秒主线快闪
+   ============================================================ */
+.act { padding: clamp(70px, 14vw, 130px) 0; position: relative; }
+.act-head { margin-bottom: clamp(38px, 8vw, 64px); }
+.act-head h2 {
+  font-family: var(--serif); font-weight: 900; font-size: clamp(26px, 6.4vw, 40px);
+  line-height: 1.32; margin: 12px 0 12px; text-wrap: balance;
+}
+.act-head p { color: var(--ink-2); font-size: 15px; max-width: 40em; }
+
+.beat {
+  position: relative; padding: 30px 0 30px 0; border-top: 1px solid var(--hairline);
+  display: grid; grid-template-columns: 108px 1fr; gap: clamp(16px, 4vw, 30px);
+  opacity: 0; transform: translateY(26px);
+  transition: opacity .75s cubic-bezier(.2,.8,.25,1), transform .75s cubic-bezier(.2,.8,.25,1);
+}
+.beat.in { opacity: 1; transform: none; }
+.beat-year {
+  font-family: var(--num); font-size: clamp(30px, 8vw, 46px); line-height: 1;
+  color: var(--seal); letter-spacing: -1px;
+}
+.beat-year span { display: block; font-family: var(--mono); font-size: 10.5px; color: var(--ink-3); letter-spacing: 2px; margin-top: 8px; }
+.beat h3 { font-family: var(--serif); font-size: clamp(19px, 4.8vw, 24px); font-weight: 700; margin-bottom: 10px; }
+.beat p { color: var(--ink-2); font-size: 15px; }
+.beat .big {
+  font-family: var(--num); font-size: clamp(24px, 6vw, 34px); color: var(--ink);
+  margin: 14px 0 4px; line-height: 1.2; letter-spacing: -.5px;
+}
+.beat .big i { font-style: normal; font-size: .52em; color: var(--ink-3); font-family: var(--sans); letter-spacing: 0; margin-left: 8px; }
+
+/* 折纸条：每个 beat 左侧的一道折痕 */
+.beat::before {
+  content: ''; position: absolute; left: 0; top: 0; width: 100%; height: 1px;
+  background: linear-gradient(90deg, var(--seal) 0 56px, transparent 56px);
+  transform: scaleX(0); transform-origin: left; transition: transform .8s .1s cubic-bezier(.2,.8,.25,1);
+}
+.beat.in::before { transform: scaleX(1); }
+
+/* 碎裂幕（第二处粒子） */
+.shatter { position: relative; margin: 34px 0 0; border-radius: 10px; overflow: hidden; background: var(--paper-panel); border: 1px solid var(--hairline); }
+#shatterCanvas { display: block; width: 100%; height: 240px; }
+.shatter-cap { position: absolute; left: 0; right: 0; bottom: 0; padding: 14px 16px; font-size: 12.5px; color: var(--ink-2); background: linear-gradient(transparent, var(--paper-panel) 42%); }
+
+/* ============================================================
+   第二幕 · 选身份（折纸卡）
+   ============================================================ */
+.roles { display: grid; grid-template-columns: repeat(auto-fit, minmax(215px, 1fr)); gap: 16px; margin-top: 8px; }
+.role-card {
+  position: relative; text-align: left; cursor: pointer; background: var(--paper-panel);
+  border: 1px solid var(--hairline); border-radius: 3px; padding: 22px 20px 20px;
+  font-family: var(--sans); color: var(--ink); overflow: hidden;
+  transition: transform .38s cubic-bezier(.2,.8,.25,1), box-shadow .38s, border-color .3s;
+  box-shadow: 0 1px 2px rgba(20,22,30,.05);
+}
+/* 折角 */
+.role-card::after {
+  content: ''; position: absolute; right: 0; top: 0; width: 30px; height: 30px;
+  background: linear-gradient(225deg, var(--paper) 50%, var(--hairline-2) 50%, var(--pulp) 52%);
+  transition: width .38s cubic-bezier(.2,.8,.25,1), height .38s cubic-bezier(.2,.8,.25,1);
+}
+.role-card:hover, .role-card:focus-visible {
+  transform: translateY(-5px); border-color: var(--hairline-2);
+  box-shadow: 0 14px 34px rgba(20,22,30,.12); outline: none;
+}
+.role-card:hover::after, .role-card:focus-visible::after { width: 48px; height: 48px; }
+.role-card .tag { font-family: var(--mono); font-size: 10.5px; letter-spacing: 2.4px; color: var(--seal); }
+.role-card h3 { font-family: var(--serif); font-size: 22px; font-weight: 800; margin: 8px 0 6px; }
+.role-card .meta { font-size: 12px; color: var(--ink-3); font-family: var(--mono); margin-bottom: 10px; }
+.role-card p { font-size: 13.5px; color: var(--ink-2); line-height: 1.75; }
+.role-card.main { border-left: 3px solid var(--seal); }
+.role-card.done { opacity: .62; }
+.role-card.done .tag::after { content: ' · 已走完'; color: var(--good); }
+
+/* ============================================================
+   第三幕 · 角色线
+   ============================================================ */
+#act3 { display: none; }
+#act3.on { display: block; }
+.line-head { border-bottom: 1px solid var(--hairline); padding-bottom: 22px; margin-bottom: 8px; }
+.line-head h2 { font-family: var(--serif); font-size: clamp(26px, 6.6vw, 38px); font-weight: 900; margin: 10px 0 8px; }
+.line-head .who { font-size: 14px; color: var(--ink-2); max-width: 40em; }
+.line-prog { display: flex; gap: 5px; margin-top: 18px; }
+.line-prog i { flex: 1; height: 3px; background: var(--hairline); border-radius: 2px; transition: background .4s; }
+.line-prog i.on { background: var(--seal); }
+
+.node {
+  position: relative; padding: 34px 0 34px 26px; border-left: 1px solid var(--hairline);
+  opacity: 0; transform: translateY(26px);
+  transition: opacity .7s cubic-bezier(.2,.8,.25,1), transform .7s cubic-bezier(.2,.8,.25,1);
+}
+.node.in { opacity: 1; transform: none; }
+.node::before {
+  content: ''; position: absolute; left: -4.5px; top: 42px; width: 8px; height: 8px;
+  background: var(--paper); border: 1.5px solid var(--hairline-2); border-radius: 50%;
+}
+.node.hot::before { background: var(--seal); border-color: var(--seal); box-shadow: 0 0 0 5px var(--seal-soft); }
+.node-when { font-family: var(--mono); font-size: 11.5px; letter-spacing: 2.2px; color: var(--seal); }
+.node h3 { font-family: var(--serif); font-size: clamp(19px, 4.9vw, 25px); font-weight: 800; margin: 9px 0 12px; text-wrap: balance; }
+.node p { color: var(--ink-2); font-size: 15px; margin-bottom: 10px; }
+.node p strong { color: var(--ink); font-weight: 600; }
+
+/* 票据 / 存折 / 分录：真实物件做成的卡片 */
+.slip {
+  background: var(--paper-panel); border: 1px solid var(--hairline); border-radius: 3px;
+  padding: 16px 18px; margin: 16px 0 12px; position: relative;
+  box-shadow: 0 1px 2px rgba(20,22,30,.05);
+}
+.slip::before {
+  content: ''; position: absolute; left: 0; right: 0; top: -1px; height: 3px;
+  background: repeating-linear-gradient(90deg, var(--hairline) 0 4px, transparent 4px 8px);
+}
+.slip-t { font-family: var(--mono); font-size: 10.5px; letter-spacing: 2.4px; color: var(--ink-3); margin-bottom: 12px; }
+.slip-row { display: flex; justify-content: space-between; gap: 14px; padding: 6px 0; border-bottom: 1px dashed var(--hairline); font-size: 13.5px; }
+.slip-row:last-child { border-bottom: none; }
+.slip-row span { color: var(--ink-3); }
+.slip-row b { font-family: var(--num); font-size: 17px; font-weight: 400; color: var(--ink); letter-spacing: .3px; }
+.slip-row b.red { color: var(--seal); }
+.slip-row b.blue { color: var(--tag-blue); }
+.slip-row b.good { color: var(--good); }
+
+/* 数字冲击块 */
+.hit-num {
+  font-family: var(--num); font-size: clamp(34px, 10vw, 60px); line-height: 1.05;
+  color: var(--seal); margin: 18px 0 6px; letter-spacing: -1px;
+}
+.hit-num i { font-style: normal; font-size: .34em; color: var(--ink-3); font-family: var(--sans); letter-spacing: 0; margin-left: 10px; }
+.hit-cap { font-size: 13.5px; color: var(--ink-2); }
+
+/* 引语：逐字，来源必注 */
+blockquote {
+  border-left: 2px solid var(--seal); padding: 4px 0 4px 18px; margin: 18px 0 12px;
+  font-family: var(--serif); font-size: 16px; line-height: 1.9; color: var(--ink);
+}
+blockquote cite { display: block; font-family: var(--mono); font-style: normal; font-size: 11.5px; color: var(--ink-3); margin-top: 10px; letter-spacing: .3px; }
+
+/* 废止红戳 */
+.abolish {
+  display: inline-block; border: 2px solid var(--seal); color: var(--seal);
+  font-family: var(--serif); font-weight: 700; letter-spacing: 4px; font-size: 13px;
+  padding: 5px 12px; border-radius: 4px; transform: rotate(-4deg); margin: 12px 0;
+  opacity: .85;
+}
+
+.line-end { padding: 40px 0 0; border-top: 1px solid var(--hairline); margin-top: 20px; text-align: center; }
+.line-end h3 { font-family: var(--serif); font-size: clamp(21px, 5.4vw, 27px); font-weight: 800; margin-bottom: 10px; }
+.line-end p { color: var(--ink-2); font-size: 14.5px; max-width: 34em; margin: 0 auto 24px; }
+.btn {
+  display: inline-flex; align-items: center; gap: 9px; cursor: pointer;
+  background: var(--ink); color: var(--paper); border: none; border-radius: 2px;
+  font-family: var(--serif); font-weight: 700; font-size: 15px; letter-spacing: 2.5px;
+  padding: 14px 26px; text-decoration: none;
+  transition: transform .28s, box-shadow .28s;
+  box-shadow: 0 8px 24px rgba(20,22,30,.14);
+}
+.btn:hover { transform: translateY(-2px); box-shadow: 0 14px 34px rgba(20,22,30,.2); }
+.btn.ghost { background: none; color: var(--ink); border: 1px solid var(--hairline-2); box-shadow: none; }
+.btn.ghost:hover { border-color: var(--seal); color: var(--seal); }
+.btn-row { display: flex; flex-wrap: wrap; gap: 12px; justify-content: center; }
+
+/* ============================================================
+   第四幕 · 资金流沙盘（材质切换：纸墨 → 玻璃管道）
+   ============================================================ */
+#act4 { display: none; }
+#act4.on { display: block; }
+.stage {
+  background: var(--stage); border-top: 1px solid var(--hairline); border-bottom: 1px solid var(--hairline);
+  padding: clamp(56px, 11vw, 96px) 0; position: relative; overflow: hidden;
+}
+/* 材质切换的一次闪白/闪暗 */
+.stage::before {
+  content: ''; position: absolute; inset: 0; background: var(--paper); z-index: 5;
+  opacity: 0; pointer-events: none;
+}
+.stage.flash::before { animation: flash 1.1s cubic-bezier(.3,0,.2,1) forwards; }
+@keyframes flash { 0% { opacity: 1; } 100% { opacity: 0; } }
+
+.stage-head h2 {
+  font-family: var(--serif); font-weight: 900; font-size: clamp(26px, 6.6vw, 40px);
+  margin: 12px 0 12px; line-height: 1.3;
+}
+.stage-head p { color: var(--ink-2); font-size: 15px; max-width: 42em; }
+
+/* 管道图 */
+.rig { margin: 34px 0 6px; border-radius: 12px; overflow-x: auto; overflow-y: hidden;
+  border: 1px solid var(--glass-line); -webkit-overflow-scrolling: touch; background:
+    linear-gradient(160deg, var(--glass), transparent 60%), var(--paper-panel); }
+.rig-inner { position: relative; min-width: 580px; max-width: 880px; margin: 0 auto; }
+.rig svg { display: block; width: 100%; height: auto; }
+.rig-hint { display: none; font-family: var(--mono); font-size: 11px; color: var(--ink-3); text-align: center; letter-spacing: 1px; margin-bottom: 14px; }
+@media (max-width: 660px) { .rig-hint { display: block; } }
+#fluidCanvas { position: absolute; inset: 0; width: 100%; height: 100%; pointer-events: none; }
+.pipe { fill: none; stroke-linecap: round; transition: stroke-width .7s cubic-bezier(.2,.8,.25,1), opacity .7s, stroke .7s; }
+.pipe-glass { stroke: var(--glass-line); opacity: .5; }
+.pipe-cut { stroke-dasharray: 5 9; opacity: .3 !important; }
+.node-box { transition: opacity .5s; }
+.node-box rect { fill: var(--paper); stroke: var(--glass-line); stroke-width: 1.2; }
+.node-box text.nm { font-family: var(--serif); font-weight: 700; font-size: 23px; fill: var(--ink); }
+.node-box text.sm { font-family: var(--mono); font-size: 13px; fill: var(--ink-3); letter-spacing: 1.4px; }
+.pipe-label { font-family: var(--sans); font-weight: 500; font-size: 17px; fill: var(--ink-2); letter-spacing: .5px; }
+.house-fold { transition: transform .9s cubic-bezier(.2,.8,.25,1); transform-origin: 400px 250px; }
+
+/* 开关 */
+.switches { display: grid; grid-template-columns: repeat(auto-fit, minmax(238px, 1fr)); gap: 12px; margin: 26px 0 0; }
+.sw {
+  text-align: left; cursor: pointer; background: var(--paper-panel);
+  border: 1px solid var(--hairline); border-radius: 6px; padding: 14px 15px;
+  font-family: var(--sans); color: var(--ink); transition: border-color .3s, background .3s, transform .2s;
+  display: block; width: 100%;
+}
+.sw:hover { border-color: var(--hairline-2); transform: translateY(-2px); }
+.sw.on { border-color: var(--seal); background: var(--seal-soft); }
+.sw-top { display: flex; align-items: center; gap: 10px; }
+.sw-knob {
+  flex: 0 0 auto; width: 34px; height: 19px; border-radius: 999px;
+  background: var(--hairline-2); position: relative; transition: background .3s;
+}
+.sw-knob::after {
+  content: ''; position: absolute; top: 2.5px; left: 2.5px; width: 14px; height: 14px;
+  border-radius: 50%; background: var(--paper); transition: transform .32s cubic-bezier(.2,.9,.3,1);
+  box-shadow: 0 1px 3px rgba(0,0,0,.25);
+}
+.sw.on .sw-knob { background: var(--seal); }
+.sw.on .sw-knob::after { transform: translateX(15px); }
+.sw-no { font-family: var(--num); font-size: 17px; color: var(--seal); }
+.sw-name { font-family: var(--serif); font-weight: 700; font-size: 15px; }
+.sw-src { font-family: var(--mono); font-size: 10.5px; color: var(--ink-3); line-height: 1.6; margin-top: 9px; letter-spacing: .2px; }
+
+/* 四本账 */
+.books { display: grid; grid-template-columns: repeat(auto-fit, minmax(214px, 1fr)); gap: 12px; margin-top: 26px; }
+.book {
+  background: var(--paper-panel); border: 1px solid var(--hairline); border-radius: 6px;
+  padding: 17px 17px 15px; position: relative; overflow: hidden;
+}
+.book::before { content: ''; position: absolute; left: 0; top: 0; bottom: 0; width: 3px; background: var(--c, var(--hairline-2)); }
+.book h4 { font-family: var(--serif); font-size: 17px; font-weight: 800; margin-bottom: 3px; }
+.book .sub { font-family: var(--mono); font-size: 10.5px; color: var(--ink-3); letter-spacing: 1.4px; margin-bottom: 13px; }
+.metric { display: flex; align-items: baseline; justify-content: space-between; gap: 10px; padding: 7px 0; border-bottom: 1px dashed var(--hairline); }
+.metric:last-of-type { border-bottom: none; }
+.metric .k { font-size: 12.5px; color: var(--ink-3); flex: 0 0 auto; }
+.metric .v { font-size: 13px; text-align: right; font-weight: 600; transition: color .45s; }
+.metric .v .arrow { font-family: var(--mono); margin-right: 5px; font-size: 12px; }
+.v.up { color: var(--seal); } .v.down { color: var(--tag-blue); }
+.v.good { color: var(--good); } .v.flat { color: var(--ink-3); }
+.book-note { font-size: 12px; color: var(--ink-2); line-height: 1.75; margin-top: 11px; padding-top: 11px; border-top: 1px solid var(--hairline); min-height: 3.4em; }
+
+/* 旁批 */
+.margin-note {
+  margin-top: 22px; border: 1px dashed var(--seal); border-radius: 6px;
+  padding: 15px 17px; background: var(--seal-soft); font-size: 13.5px; line-height: 1.8; color: var(--ink);
+}
+.margin-note b { font-family: var(--serif); display: block; margin-bottom: 5px; }
+.margin-note .src { font-family: var(--mono); font-size: 10.5px; color: var(--ink-3); margin-top: 8px; display: block; }
+.preset-row { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 18px; align-items: center; }
+.preset-row span { font-size: 12px; color: var(--ink-3); font-family: var(--mono); letter-spacing: 1px; }
+.preset {
+  background: none; border: 1px solid var(--hairline-2); color: var(--ink-2); cursor: pointer;
+  border-radius: 999px; padding: 5px 12px; font-size: 12px; font-family: var(--sans);
+}
+.preset:hover { border-color: var(--seal); color: var(--seal); }
+
+/* ============================================================
+   第五幕 · 结尾
+   ============================================================ */
+#act5 { display: none; }
+#act5.on { display: block; }
+.links { display: grid; grid-template-columns: repeat(auto-fit, minmax(230px, 1fr)); gap: 12px; margin-top: 22px; }
+.link-card {
+  display: block; text-decoration: none; background: var(--paper-panel);
+  border: 1px solid var(--hairline); border-radius: 4px; padding: 16px 17px;
+  transition: border-color .3s, transform .3s;
+}
+.link-card:hover { border-color: var(--seal); transform: translateY(-3px); }
+.link-card .t { font-family: var(--mono); font-size: 10.5px; color: var(--seal); letter-spacing: 2px; }
+.link-card h4 { font-family: var(--serif); font-size: 16px; font-weight: 700; margin: 7px 0 5px; }
+.link-card p { font-size: 12.5px; color: var(--ink-2); line-height: 1.7; }
+
+footer.foot {
+  border-top: 1px solid var(--hairline); background: var(--paper-deep);
+  padding: 40px 0 56px; font-size: 12.5px; color: var(--ink-3); line-height: 1.95;
+}
+footer.foot .disclaim {
+  border: 1px solid var(--hairline-2); border-radius: 6px; padding: 14px 16px;
+  color: var(--ink-2); margin-bottom: 18px; background: var(--paper-panel);
+}
+footer.foot .disclaim b { color: var(--ink); font-family: var(--serif); }
+footer.foot a { color: var(--ink-2); }
+
+/* ---------- 移动端 ---------- */
+@media (max-width: 640px) {
+  .beat { grid-template-columns: 1fr; gap: 6px; }
+  .beat-year span { display: inline; margin-left: 10px; }
+  .cover h1 { letter-spacing: .06em; margin-left: .06em; }
+  .node { padding-left: 20px; }
+  .hud .brand small { display: none; }
+  #shatterCanvas { height: 190px; }
+}
+
+/* ---------- 降级 ---------- */
+@media (prefers-reduced-motion: reduce) {
+  html { scroll-behavior: auto; }
+  *, *::before, *::after { animation-duration: .001ms !important; animation-iteration-count: 1 !important; transition-duration: .001ms !important; }
+  .beat, .node { opacity: 1 !important; transform: none !important; }
+  .seal-stamp { opacity: .8; transform: rotate(-13deg); }
+  .seal-2 { transform: rotate(9deg); }
+}
